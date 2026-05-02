@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🏢 独自試験対策ドリル｜就活の木</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green-dark:#2C5F2D;--green-mid:#4A8C4B;--green-pale:#E8F5E9;--green-ultra:#F0FDF0;
+  --amber:#F59E0B;
+  --gray-dark:#1F2937;--gray-mid:#6B7280;
+  --white:#FFFFFF;
+  --shadow-sm:0 2px 8px rgba(0,0,0,0.08);--shadow-md:0 6px 24px rgba(0,0,0,0.12);
+  --purple:#7C3AED;--purple-pale:#F5F3FF;
+  --orange:#C2410C;--orange-mid:#EA580C;--orange-pale:#FFF7ED;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--orange-pale);min-height:100vh;color:var(--gray-dark);}
+
+.hero{background:linear-gradient(150deg,#7c2d12 0%,var(--orange) 55%,var(--orange-mid) 100%);padding:36px 20px 0;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 25% 50%,rgba(254,215,170,0.15) 0%,transparent 55%);pointer-events:none;}
+.hero-tree{position:absolute;right:-10px;bottom:0;font-size:110px;opacity:0.09;line-height:1;pointer-events:none;}
+.brand-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);color:rgba(255,255,255,0.90);font-size:11px;font-weight:700;letter-spacing:0.12em;padding:5px 14px;border-radius:20px;margin-bottom:14px;}
+.hero-icon{font-size:48px;display:block;animation:floatIcon 3s ease-in-out infinite;margin-bottom:8px;}
+@keyframes floatIcon{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+.hero h1{font-size:clamp(20px,5vw,28px);font-weight:900;color:#fff;margin-bottom:6px;}
+.hero-sub{font-size:13px;color:rgba(255,255,255,0.80);line-height:1.6;padding-bottom:16px;}
+.hero-badge-row{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;padding-bottom:16px;}
+.hero-badge{background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.25);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;}
+
+.section-bar{background:rgba(0,0,0,0.20);padding:12px 12px 0;display:flex;gap:5px;flex-wrap:wrap;justify-content:center;}
+.section-tab{display:inline-flex;align-items:center;gap:4px;padding:7px 13px;border-radius:12px 12px 0 0;font-size:11px;font-weight:700;cursor:pointer;border:none;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.80);transition:all 0.18s;white-space:nowrap;}
+.section-tab:hover{background:rgba(255,255,255,0.22);}
+.section-tab.active{background:var(--white);color:var(--orange);}
+
+.content{max-width:700px;margin:0 auto;padding:24px 16px 60px;}
+
+.score-bar{background:var(--white);border-radius:14px;box-shadow:var(--shadow-sm);padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.score-label{font-size:11px;font-weight:700;color:var(--gray-mid);margin-bottom:2px;}
+.score-nums{font-size:22px;font-weight:900;color:var(--orange-mid);}
+.score-nums span{font-size:13px;font-weight:400;color:var(--gray-mid);}
+.progress-wrap{flex:1;min-width:120px;}
+.progress-bar{height:8px;background:#E5E7EB;border-radius:4px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--orange),#fb923c);border-radius:4px;transition:width 0.4s ease;}
+.progress-text{font-size:10px;color:var(--gray-mid);margin-top:4px;}
+.btn-reset{padding:7px 14px;background:var(--orange-pale);border:1px solid #FED7AA;color:var(--orange);border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;}
+
+.section-header{background:var(--white);border-radius:14px;box-shadow:var(--shadow-sm);padding:16px 20px;margin-bottom:16px;border-left:5px solid var(--orange-mid);}
+.section-header h2{font-size:17px;font-weight:900;color:var(--orange);margin-bottom:4px;}
+.section-header p{font-size:12px;color:var(--gray-mid);line-height:1.6;}
+.doku-note{background:linear-gradient(135deg,var(--orange-pale),#FFEDD5);border:1px solid #FED7AA;border-radius:10px;padding:10px 14px;margin-top:10px;font-size:12px;color:var(--orange);line-height:1.7;}
+
+/* 業界バッジ */
+.industry-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;}
+.industry-tag{background:#FFF7ED;border:1px solid #FED7AA;color:var(--orange);font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;}
+
+.subsection-label{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:var(--gray-mid);letter-spacing:0.08em;margin:20px 0 10px;}
+.subsection-label::after{content:'';flex:1;height:1px;background:#FED7AA;}
+
+.q-card{background:var(--white);border-radius:14px;box-shadow:var(--shadow-sm);margin-bottom:12px;overflow:hidden;animation:fadeUp 0.3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.q-head{padding:13px 16px 10px;border-bottom:1px solid #F0F0F0;display:flex;align-items:flex-start;gap:10px;}
+.q-num{background:var(--orange-mid);color:#fff;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:2px;}
+.q-num.ai-num{background:var(--purple);}
+.q-text{font-size:13px;font-weight:700;line-height:1.65;color:var(--gray-dark);}
+.q-body{padding:10px 16px 14px;}
+.q-passage{background:#FFF7ED;border:1px solid #FED7AA;border-radius:8px;padding:11px 14px;margin:8px 0;font-size:12px;line-height:1.9;color:#7c2d12;}
+
+/* 作文・論述問題専用 */
+.essay-area{margin-top:10px;}
+.essay-prompt{background:linear-gradient(135deg,#FFF7ED,#FFEDD5);border:1px solid #FED7AA;border-radius:10px;padding:14px 16px;margin-bottom:12px;}
+.essay-prompt-label{font-size:10px;font-weight:700;color:var(--orange);margin-bottom:6px;display:block;letter-spacing:0.08em;}
+.essay-prompt p{font-size:13px;color:#7c2d12;line-height:1.75;}
+.essay-points{background:#F9FAFB;border:1px solid #E5E7EB;border-radius:10px;padding:12px 16px;}
+.essay-points-label{font-size:10px;font-weight:700;color:var(--gray-mid);margin-bottom:8px;display:block;letter-spacing:0.08em;}
+.essay-point{display:flex;align-items:flex-start;gap:8px;padding:5px 0;border-bottom:1px solid #F3F4F6;font-size:12px;line-height:1.7;color:var(--gray-dark);}
+.essay-point:last-child{border-bottom:none;}
+.essay-point-num{background:var(--orange-mid);color:#fff;font-size:9px;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+
+.choices{display:flex;flex-direction:column;gap:7px;}
+.choice-btn{display:flex;align-items:center;gap:10px;padding:10px 13px;border-radius:9px;border:1.5px solid #E5E7EB;background:#FAFAFA;cursor:pointer;text-align:left;font-size:13px;font-weight:500;color:var(--gray-dark);transition:all 0.15s;width:100%;}
+.choice-btn:hover:not(:disabled){border-color:var(--orange-mid);background:var(--orange-pale);color:var(--orange);}
+.choice-label{width:22px;height:22px;border-radius:50%;background:#E5E7EB;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;transition:all 0.15s;}
+.choice-btn:hover:not(:disabled) .choice-label{background:var(--orange-mid);color:#fff;}
+.choice-btn.correct{border-color:#22c55e;background:#F0FDF4;color:#15803d;}
+.choice-btn.correct .choice-label{background:#22c55e;color:#fff;}
+.choice-btn.wrong{border-color:#ef4444;background:#FEF2F2;color:#991b1b;}
+.choice-btn.wrong .choice-label{background:#ef4444;color:#fff;}
+.choice-btn.show-correct{border-color:#22c55e;background:#F0FDF4;color:#15803d;}
+.choice-btn.show-correct .choice-label{background:#22c55e;color:#fff;}
+.choice-btn:disabled{cursor:default;}
+.explanation{margin-top:10px;padding:11px 13px;border-radius:9px;font-size:12px;line-height:1.75;}
+.explanation.correct-exp{background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border:1px solid #BBF7D0;color:#14532d;}
+.explanation.wrong-exp{background:linear-gradient(135deg,#FFF7ED,#FEF3C7);border:1px solid #FDE68A;color:#78350f;}
+.exp-head{font-size:11px;font-weight:700;margin-bottom:4px;}
+
+.section-result{background:var(--white);border-radius:14px;box-shadow:var(--shadow-md);padding:24px;text-align:center;margin-bottom:16px;}
+.result-emoji{font-size:44px;margin-bottom:8px;}
+.result-score{font-size:40px;font-weight:900;color:var(--orange-mid);}
+.result-score span{font-size:16px;color:var(--gray-mid);font-weight:400;}
+.result-pct{font-size:24px;font-weight:900;margin:4px 0 12px;}
+.doshi-box{background:linear-gradient(135deg,#FFF7ED,#FEF3C7);border-left:4px solid var(--amber);border-radius:0 10px 10px 0;padding:12px 14px;text-align:left;margin:12px 0;}
+.doshi-label{font-size:10px;font-weight:700;color:#92400E;margin-bottom:4px;display:block;}
+.doshi-box p{font-size:12px;color:#78350F;font-style:italic;line-height:1.75;}
+.btn-retry{padding:10px 24px;background:linear-gradient(135deg,var(--orange),var(--orange-mid));color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;margin-top:4px;}
+
+.ai-section{background:var(--white);border-radius:16px;box-shadow:var(--shadow-md);margin-bottom:16px;overflow:hidden;}
+.ai-section-head{background:linear-gradient(135deg,#4c1d95,#7c3aed);padding:16px 20px;display:flex;align-items:center;gap:12px;}
+.ai-section-icon{font-size:28px;}
+.ai-section-title{color:#fff;font-size:15px;font-weight:900;}
+.ai-section-sub{color:rgba(255,255,255,0.80);font-size:11px;margin-top:2px;}
+.ai-section-body{padding:18px 20px;}
+.ai-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px;}
+.ai-controls-label{font-size:12px;font-weight:700;color:var(--gray-dark);}
+.difficulty-btn{padding:8px 18px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;border:2px solid transparent;transition:all 0.15s;}
+.difficulty-btn.normal{background:var(--green-pale);border-color:#C8E6C9;color:var(--green-dark);}
+.difficulty-btn.normal.selected{background:var(--green-dark);color:#fff;border-color:var(--green-dark);}
+.difficulty-btn.hard{background:var(--purple-pale);border-color:#C4B5FD;color:var(--purple);}
+.difficulty-btn.hard.selected{background:var(--purple);color:#fff;border-color:var(--purple);}
+.btn-ai-generate{padding:10px 24px;background:linear-gradient(135deg,#4c1d95,#7c3aed);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;transition:all 0.15s;}
+.btn-ai-generate:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(124,58,237,0.30);}
+.btn-ai-generate:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+.ai-loading{text-align:center;padding:20px;color:var(--purple);font-size:13px;font-weight:600;}
+.ai-loading-dots::after{content:'...';animation:dots 1.2s infinite;}
+@keyframes dots{0%{content:'.';}33%{content:'..';}66%{content:'...';}100%{content:'.';}}
+.ai-note{font-size:11px;color:var(--gray-mid);background:#F9FAFB;border:1px solid #E5E7EB;border-radius:8px;padding:8px 12px;margin-bottom:12px;}
+
+.footer{text-align:center;padding:0 16px 40px;font-size:11px;color:var(--gray-mid);}
+.footer-brand{font-weight:700;color:var(--green-mid);}
+@media(max-width:480px){.hero{padding:28px 14px 0;}.content{padding:18px 12px 50px;}.q-text{font-size:12px;}.choice-btn{font-size:12px;padding:9px 11px;}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-tree">🏢</div>
+  <div class="brand-badge">🌱 就活の木｜キャリア支援課</div>
+  <span class="hero-icon">🏢</span>
+  <h1>独自試験 対策ドリル</h1>
+  <p class="hero-sub">時事論述・業界知識・論理思考・金融・作文 5ジャンル ＋ AI自動出題<br>新聞社・放送局・金融・メーカー・コンサルの独自試験に対応</p>
+  <div class="hero-badge-row">
+    <span class="hero-badge">📰 時事・論述</span>
+    <span class="hero-badge">🏦 金融・経済</span>
+    <span class="hero-badge">📡 マスコミ・業界</span>
+    <span class="hero-badge">🧩 論理・推論</span>
+    <span class="hero-badge">✍️ 作文・小論文</span>
+  </div>
+  <div class="section-bar" id="sectionBar"></div>
+</div>
+
+<div class="content">
+  <div class="score-bar">
+    <div>
+      <div class="score-label">総合スコア</div>
+      <div class="score-nums" id="totalScore">0<span> / 0問</span></div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+      <div class="progress-text" id="progressText">0% 正答率</div>
+    </div>
+    <button class="btn-reset" onclick="resetAll()">🔄 リセット</button>
+  </div>
+  <div id="mainArea"></div>
+</div>
+
+<div class="footer"><span class="footer-brand">🌱 就活の木</span>｜多摩大学キャリア支援課<br>キャリ爺（北山 四郎）作成</div>
+
+<script>
+
+// ====== Gemini APIキー読み込み ======
+const GEMINI_KEY_NAME = 'shukatsu_gemini_key';
+
+function getGeminiKey() {
+  return localStorage.getItem(GEMINI_KEY_NAME) || '';
+}
+
+async function callGemini(systemPrompt, userPrompt) {
+  const key = getGeminiKey();
+  if (!key) {
+    throw new Error('NO_KEY');
+  }
+  const res = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{
+          parts: [{ text: systemPrompt + '\n\n' + userPrompt }]
+        }],
+        generationConfig: { temperature: 0.7, maxOutputTokens: 1500 }
+      })
+    }
+  );
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.error?.message || 'API Error');
+  }
+  const data = await res.json();
+  return data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+}
+
+const SECTIONS=[
+  {id:'jiji',   icon:'📰', name:'時事・論述',   desc:'新聞社・放送局・官公庁等で頻出｜時事問題・社会課題の知識と論述力'},
+  {id:'kinyu',  icon:'🏦', name:'金融・経済',   desc:'銀行・証券・保険・シンクタンクで頻出｜金融用語・経済の仕組み'},
+  {id:'mascom', icon:'📡', name:'マスコミ・業界',desc:'テレビ・新聞・出版・広告等で頻出｜業界知識・メディアリテラシー'},
+  {id:'ronri',  icon:'🧩', name:'論理・推論',   desc:'コンサル・IT・総合商社で頻出｜論理的思考・批判的分析・推論問題'},
+  {id:'sakumon',icon:'✍️', name:'作文・小論文', desc:'多くの独自試験で出題｜テーマ型・資料読解型・意見論述の対策'},
+];
+
+const QUESTIONS={
+jiji:[
+  {q:'「少子高齢化」が日本経済に与える影響として最も深刻なものはどれか。',c:['観光客の減少','労働力不足と社会保障費の増大','輸出量の低下','農業生産の減少'],a:1,exp:'少子高齢化は生産年齢人口の減少による労働力不足と、年金・医療・介護費用の増大という二重の問題を引き起こす。'},
+  {q:'「デジタル田園都市国家構想」とは何か。',c:['都市部にデジタル特区を設ける計画','デジタル技術で地方の課題解決・魅力向上を図る政府構想','農業のデジタル化のみを推進する政策','首都機能をデジタル化する計画'],a:1,exp:'デジタル田園都市国家構想はデジタル技術を活用して地方の社会課題解決や活性化を図り、地方と都市の差をなくす政府構想。'},
+  {q:'「物価高騰（インフレ）」への対応として中央銀行がとる主な政策はどれか。',c:['政府が補助金を配る','利上げ（政策金利を上げる）','減税を行う','公共事業を増やす'],a:1,exp:'インフレ対策として中央銀行は利上げを行い、お金の借りやすさを抑制して消費・投資を冷やし、物価上昇を抑える。'},
+  {q:'「2050年カーボンニュートラル」達成に向けた日本の主な取り組みとして正しいものはどれか。',c:['石炭火力発電の拡大','再生可能エネルギーの拡大・省エネの推進・水素エネルギーの活用','原子力発電の全廃','電力使用の禁止'],a:1,exp:'カーボンニュートラルには再エネ拡大・省エネ・水素・蓄電技術・CCS（炭素回収）など複合的な取り組みが必要。'},
+  {q:'「防衛費増額」に関する日本政府の方針（2022年〜）として正しいものはどれか。',c:['防衛費を削減する','GDP比1%から2%程度への増額を目指す','防衛省を廃止する','日米安保条約を破棄する'],a:1,exp:'2022年の国家安全保障戦略改定でGDP比1%の慣例を見直し、2027年度までにGDP比2%程度への増額が示された。'},
+  {q:'「インターネット選挙」（ネット選挙）について正しいものはどれか。',c:['現在の日本では全面禁止','2013年から選挙運動でのインターネット活用が解禁された','投票もインターネットでできる','候補者のみがSNSを使える'],a:1,exp:'2013年公職選挙法改正でネット選挙運動が解禁。ただしネット投票は未実現。SNSでの選挙活動は候補者・有権者ともに可能。'},
+  {q:'「ウクライナ問題」が世界経済に与えた主な影響として正しいものはどれか。',c:['世界的な食料・エネルギー価格の上昇','インターネット通信の遮断','自動車産業のみへの影響','日本の食料自給率の向上'],a:1,exp:'ウクライナはトウモロコシ・小麦の主要産地、ロシアはエネルギー主要輸出国。紛争により食料・エネルギー価格が世界的に高騰した。'},
+  {q:'「こども家庭庁」が設置された目的として正しいものはどれか。',c:['高齢者支援を強化するため','少子化対策・子どもの権利擁護を一元的に担う行政機関として','子どもの教育を管轄するため','家庭問題の法的解決を行うため'],a:1,exp:'こども家庭庁は2023年4月設置。少子化対策・子育て支援・子どもの権利擁護などを内閣府・厚労省等から一元化した新機関。'},
+  {q:'「ALPS処理水」の海洋放出問題について正しいものはどれか。',c:['すべての放射性物質が除去された水を放出した','多核種除去設備で処理後、基準以下に希釈したトリチウム含有水を放出した','未処理の汚染水をそのまま放出した','政府が独断で決定した'],a:1,exp:'ALPS処理水はトリチウム以外の放射性物質を除去し、基準の1/40以下に希釈して放出。国際原子力機関（IAEA）も監視している。'},
+  {q:'「マイナンバーカード」の普及推進に関して、政府が行った主な施策はどれか。',c:['強制的に全国民に配布した','マイナポイント付与など普及インセンティブを設けた','企業に義務化した','保険証を完全廃止してカードに統一した'],a:1,exp:'政府はマイナポイント（買い物・健康保険証連携・公金受取口座登録）の付与などで普及を推進した。'},
+  {q:'「人口ボーナス」とはどのような状態か。',c:['人口が急激に増加する状態','生産年齢人口の割合が高く経済成長を後押しする状態','外国人労働者が増加する状態','出生率が高い状態'],a:1,exp:'人口ボーナスは生産年齢人口（15〜64歳）の割合が高く、扶養人口が少ないため経済成長が促進される時期。日本は終了し、現在はオーナス期。'},
+  {q:'「GX（グリーントランスフォーメーション）」とはどのような取り組みか。',c:['緑の植物を増やす環境運動','化石燃料からクリーンエネルギーへの移行・経済社会の変革','緑色をテーマにしたデザイン改革','農業のデジタル化'],a:1,exp:'GXは化石燃料中心の社会構造をクリーンエネルギー中心に転換し、経済成長と環境対策を同時に実現しようとする取り組み。'},
+  {q:'「訪日外国人数（インバウンド）」が日本経済に与える効果として正しいものはどれか。',c:['国内産業の競争力低下','観光消費による経済活性化・地域振興','人口の急増','円高の促進'],a:1,exp:'インバウンドは宿泊・飲食・交通・小売などへの消費支出をもたらし、地域経済の活性化につながる。2023年に2500万人超が訪日。'},
+  {q:'「フードテック」とはどのような分野か。',c:['食料の輸送技術','テクノロジーを活用した食品・農業分野の革新','飲食店向けITシステム','食料廃棄物の処理技術'],a:1,exp:'フードテックはAI・バイオ・ロボットなどを活用して食の生産・加工・流通・消費を革新する分野。代替肉・培養肉・農業IoTなどが注目。'},
+  {q:'「Society 5.0」とはどのような社会像か。',c:['農業社会への回帰','サイバー空間と現実空間を融合し人間中心の社会を実現する日本の目標','デジタル技術が全てを管理する社会','産業が発達した工業社会'],a:1,exp:'Society 5.0は狩猟→農耕→工業→情報社会に続く第5段階。AI・IoT・ロボット等でサイバーと現実を融合し社会課題を解決する社会像。'},
+],
+kinyu:[
+  {q:'「日本銀行の政策金利」を引き上げる（利上げ）と一般的にどのような影響があるか。',c:['企業の借入コストが下がり投資が活発になる','借入コストが上がり消費・投資が抑制されインフレが落ち着く','株価が必ず上昇する','円安が進む'],a:1,exp:'利上げは借入コストを上げ消費・投資を抑制する。インフレ対策として使われるが景気冷却のリスクもある。為替は円高要因。'},
+  {q:'「PER（株価収益率）」の計算式として正しいものはどれか。',c:['株価÷1株当たり純資産','株価÷1株当たり純利益','株価×発行株式数','配当金÷株価'],a:1,exp:'PER=Price Earnings Ratio=株価÷EPS（1株当たり純利益）。株価が利益の何倍かを示す株式の割高・割安の指標。'},
+  {q:'「信用創造」とはどのような機能か。',c:['政府が通貨を印刷すること','銀行の預金・貸出のサイクルにより通貨供給量が増加する仕組み','個人が借金をすること','株式を発行すること'],a:1,exp:'信用創造は銀行が預金を受け入れ貸出を行い、その貸出金がまた預金される循環で、当初の預金を上回る通貨が供給される仕組み。'},
+  {q:'「MMF（マネー・マーケット・ファンド）」とはどのような金融商品か。',c:['株式のみに投資するファンド','短期の国債・社債等に投資する元本比較的安定した投資信託','不動産に投資するファンド','外国為替のみを扱うファンド'],a:1,exp:'MMFは安全性の高い短期金融商品（国債・社債等）に投資する低リスクの投資信託。普通預金より高い利回りが期待できる。'},
+  {q:'「保険料」と「保険金」の違いとして正しいものはどれか。',c:['同じ意味で使われる','保険料は契約者が支払う金額・保険金は保険会社が事故等の際に支払う金額','保険料は保険会社が支払う・保険金は契約者が払う','どちらも保険会社が支払う'],a:1,exp:'保険料（premium）は契約者が毎月払う金額。保険金（benefit/claim）は事故・死亡・満期等に保険会社が支払う金額。'},
+  {q:'「ROE（自己資本利益率）」の意味として正しいものはどれか。',c:['資産全体に対する利益率','株主が出資した自己資本に対してどれだけ利益を稼いだかを示す指標','売上高に対する利益率','従業員一人当たりの利益'],a:1,exp:'ROE=Return On Equity=当期純利益÷自己資本×100。株主視点で企業の収益効率を評価する指標。日本企業はROE向上が課題。'},
+  {q:'「ポートフォリオ」の意味として最も適切なものはどれか。',c:['企業の事業計画書','複数の資産（株・債券・不動産等）を組み合わせた資産構成','経営者の略歴','財務諸表'],a:1,exp:'投資におけるポートフォリオは資産を複数の種類に分散した構成全体を指す。リスク分散（卵を一つのカゴに盛らない）が原則。'},
+  {q:'「フィンテック（FinTech）」とはどのような分野か。',c:['金融機関のシステム障害対策','金融（Finance）と技術（Technology）を組み合わせた革新的な金融サービス','銀行員の研修制度','金融規制の強化'],a:1,exp:'フィンテックはスマホ決済・仮想通貨・ロボアドバイザー・クラウドファンディングなど技術を活用した新しい金融サービス。'},
+  {q:'「損益分岐点」とはどのような点か。',c:['利益が最大になる点','売上高と費用（固定費＋変動費）が等しくなり利益がゼロになる売上高','固定費と変動費が等しくなる点','売上が最大になる点'],a:1,exp:'損益分岐点は売上高=総費用（固定費+変動費）となる売上高。この点を超えると黒字、下回ると赤字になる。'},
+  {q:'「社債」と「株式」の違いとして正しいものはどれか。',c:['社債は株主になる権利、株式は債権者になる権利','社債は返済義務のある借金、株式は返済不要の出資（所有権）','どちらも同じリスクを持つ','株式は元本保証がある'],a:1,exp:'社債は企業が資金調達のために発行する債券（借金）で返済義務がある。株式は出資で返済不要だが配当・株価は変動リスクがある。'},
+  {q:'「為替ヘッジ」とはどのような取引か。',c:['外国為替で利益を狙う投機的取引','将来の為替変動リスクを回避するための先物・オプション取引','外貨を大量に購入すること','政府が為替市場に介入すること'],a:1,exp:'ヘッジは為替リスクを回避する取引。輸出企業は円高リスクを回避するため先物予約等でヘッジする。投機（利益狙い）とは逆の概念。'},
+  {q:'「キャッシュフロー計算書」が示す主な内容はどれか。',c:['資産と負債のバランス','一定期間の現金の流入・流出（お金の動き）','利益と費用の関係','純資産の変動'],a:1,exp:'CF計算書は営業・投資・財務の3区分で現金の増減を示す。利益が出ていても現金が不足すれば黒字倒産のリスクがある。'},
+  {q:'「インサイダー取引」とはどのような行為か。',c:['外国企業の株を購入すること','未公開の重要情報を利用した不公正な証券取引','オンラインで株取引すること','信用取引で株を売ること'],a:1,exp:'インサイダー取引は会社の内部者（役員・従業員等）が未公開の重要情報を使って株取引すること。金融商品取引法で禁止・刑事罰対象。'},
+  {q:'「NISA（少額投資非課税制度）」の説明として正しいものはどれか。',c:['銀行預金の利子を非課税にする制度','一定額の投資から得た配当・値上がり益を非課税にする制度','住宅購入を支援する税制','企業の法人税を減税する制度'],a:1,exp:'NISAは年間一定額（2024年〜年360万円）の投資から得た利益・配当を非課税にする制度。長期資産形成を促進する目的。'},
+  {q:'「ダウ平均株価」とはどのような指標か。',c:['日本の代表的な株価指数','アメリカのニューヨーク証券取引所の代表的な30銘柄の株価指数','世界全体の株式市場の平均','中国の株価指数'],a:1,exp:'ダウ平均（NYダウ）はアメリカを代表する30社の株価から算出される株価指数。世界経済の動向を反映する重要指標。'},
+],
+mascom:[
+  {q:'「プレスリリース」とはどのような文書か。',c:['記者が書いた取材記事','企業・団体がメディアに向けて発信する公式な広報文書','新聞の社説','番組の台本'],a:1,exp:'プレスリリースは企業・団体が新商品・イベント・人事等の情報をメディアに向けて発信する公式告知文書。広報の基本ツール。'},
+  {q:'「視聴率」の説明として正しいものはどれか。',c:['番組への投書数','一定時間にどれくらいの世帯がその番組を視聴したかの割合','広告料の金額','番組のSNS拡散数'],a:1,exp:'視聴率は調査対象世帯のうち何%がその番組を見ていたかを示す数値。広告料と直結するためテレビ局にとって重要な指標。'},
+  {q:'「アドテク（広告テクノロジー）」で「プログラマティック広告」とはどれか。',c:['人が手作業で広告枠を売買すること','AIやデータを活用して広告の売買・配信を自動化する手法','テレビCMを制作すること','屋外広告を設置すること'],a:1,exp:'プログラマティック広告はAI・データを使ってリアルタイムに広告枠の入札・配信を自動化する手法。DSP・SSP・DMPが主要ツール。'},
+  {q:'「フェイクニュース」への対策として適切でないものはどれか。',c:['複数の信頼できる情報源で裏付けを取る','発信者の出典・根拠を確認する','拡散数の多い情報は信頼できると判断する','ファクトチェックサイトを活用する'],a:2,exp:'拡散数の多さは信頼性の証明ではない。フェイクニュースは感情的・刺激的な内容ほど拡散されやすい。多角的な情報検証が重要。'},
+  {q:'「メディアリテラシー」とはどのような能力か。',c:['テレビを快適に視聴する能力','メディアの情報を批判的に読み解き・活用し・発信する能力','インターネットを素早く操作する能力','動画編集ができる能力'],a:1,exp:'メディアリテラシーは情報を批判的に分析・評価し、主体的に活用・発信する能力。デジタル社会で全ての人に必要なスキル。'},
+  {q:'「スクープ」とはどのような報道か。',c:['批評的な論評記事','他のメディアに先駆けて独自に入手・報道した特ダネ','番組のハイライト映像','読者投稿コーナー'],a:1,exp:'スクープは他社に先駆けて独自取材で入手した重大ニュースの報道。特ダネとも呼ばれ、記者の取材力の象徴。'},
+  {q:'「SNSマーケティング」において「エンゲージメント率」とはどのような指標か。',c:['広告費用の回収率','投稿に対するいいね・コメント・シェアなどの反応率','フォロワーの総数','動画の再生回数'],a:1,exp:'エンゲージメント率はフォロワー数に対するいいね・コメント・シェアなどのインタラクション率。単純なリーチより質を示す指標。'},
+  {q:'「出版不況」の主な原因として最も適切なものはどれか。',c:['紙の価格が安くなったから','インターネット・スマートフォンの普及による活字離れ・デジタル化','本を読む人が増えたから','出版社の数が増えすぎたから'],a:1,exp:'出版不況はスマートフォン・SNS・動画配信の普及による活字離れ、電子書籍の台頭、書店数の減少などが主な原因。'},
+  {q:'テレビ局の収益の主な源泉はどれか。',c:['視聴者の受信料','スポンサー企業からの広告収入','政府からの補助金','番組の有料販売'],a:1,exp:'民放テレビ局の主な収益は企業がCM枠を購入する広告収入。NHKは受信料が主な収入源で民放とは異なる。'},
+  {q:'「コンテンツ」と「メディア」の関係として正しいものはどれか。',c:['同じ意味で使われる','コンテンツは内容（情報・作品）、メディアはそれを伝える媒体（テレビ・新聞等）','メディアが内容でコンテンツが媒体','どちらも情報の受け手を指す'],a:1,exp:'コンテンツ（Content）は情報・映像・音楽などの内容。メディア（Media）はテレビ・新聞・SNS等の伝達媒体。両者は表裏一体の関係。'},
+  {q:'「炎上」とはSNSにおいてどのような状態か。',c:['SNSサーバーが過負荷になること','投稿や発言に批判・非難が殺到し大量の否定的な反応が集まる状態','ハッキング被害を受けること','フォロワーが急増すること'],a:1,exp:'炎上はネット上での発言・投稿に批判が集中し急拡散する状態。企業・個人の信頼・イメージへの深刻なダメージになりうる。'},
+  {q:'「ステルスマーケティング（ステマ）」とはどのような行為か。',c:['夜間に広告を掲示すること','広告であることを隠して宣伝する行為（2023年から規制強化）','競合他社を批判する広告','有名人を使った広告'],a:1,exp:'ステマは広告・PRであることを隠した宣伝。2023年10月から景品表示法で規制強化され、不当表示として行政処分の対象に。'},
+  {q:'「アーカイブ」の意味として最も適切なものはどれか。',c:['最新のニュース速報','過去の記事・番組・データを保存・保管したもの','取材のための準備資料','編集部内のメモ'],a:1,exp:'アーカイブは過去の記事・映像・文書などを系統立てて保存・管理したもの。新聞社・放送局の歴史的資産として重要。'},
+  {q:'「クロスメディア」戦略とはどのような戦略か。',c:['海外向けメディア展開','複数のメディア（TV・新聞・WEB・SNS等）を連携させて相乗効果を生む戦略','テレビと新聞を合併すること','一つのメディアに特化して深く展開すること'],a:1,exp:'クロスメディアはTV・新聞・Webなど複数媒体を連携させることで、単一媒体以上のリーチや効果を生む広告・マーケティング戦略。'},
+  {q:'「インプレッション」とはデジタル広告においてどのような指標か。',c:['広告をクリックした回数','広告が表示（露出）された回数','購入に至った件数','動画を最後まで視聴した回数'],a:1,exp:'インプレッションは広告がユーザーの画面に表示された回数。CTR（クリック率）=クリック数÷インプレッション数で効果を測定する。'},
+],
+ronri:[
+  {q:'次の論理推論で正しい結論はどれか。\n\n前提1：全てのコンサルタントは論理的思考力が高い。\n前提2：山田さんはコンサルタントだ。\n結論：（　）',c:['山田さんは数学が得意だ','山田さんは論理的思考力が高い','山田さんは外国語が話せる','山田さんは有名大学出身だ'],a:1,exp:'三段論法：「全コンサルタント→論理的」「山田→コンサルタント」∴「山田→論理的思考力が高い」。'},
+  {q:'「A→B」かつ「B→C」が真のとき、必ず真といえる命題はどれか。',c:['C→A','A→C','B→A','C→B'],a:1,exp:'A→BかつB→Cが真ならば、A→Cも真（三段論法）。対偶「¬C→¬A」も真。'},
+  {q:'次のうちアナロジー（類推）の例として正しいものはどれか。',c:['A社の売上が増加した。なぜならB社の売上も増加したから。','心臓が体にとってポンプであるように、CPUはコンピュータにとって頭脳である。','雨が降ったから、傘を持っていく。','3+5=8だから、100+200=300だ。'],a:1,exp:'アナロジーは異なる領域の類似構造を使った推論。「心臓：体＝CPU：コンピュータ」という構造的類似が典型例。'},
+  {q:'次の問題を解け。\n\n5人（A〜E）が試験を受けた。\n①AはBより点数が高い\n②DはCより点数が低い\n③BとCは同じ点数\n④EはAより点数が高い\n\n最も点数が高いのは誰か？',c:['A','B','D','E'],a:3,exp:'④E>A、①A>B、③B=C、②C>D。順序：E>A>B=C>D。最も高いのはE。'},
+  {q:'「演繹推論」と「帰納推論」の違いとして正しいものはどれか。',c:['演繹は具体例から一般法則を導き、帰納は一般法則から結論を導く','演繹は一般法則から特定の結論を導き、帰納は具体例から一般法則を導く','どちらも同じ推論方法','演繹は感情的、帰納は論理的な推論'],a:1,exp:'演繹：一般→特殊（前提が真なら結論も必然的に真）。帰納：特殊→一般（複数の事例から一般則を推論するが確実ではない）。'},
+  {q:'次の数列で（　）に入る数はどれか。\n3, 9, 27, 81, （　）',c:['162','243','324','405'],a:1,exp:'公比3の等比数列。81×3=243。'},
+  {q:'「MECE」（ミーシー）とはどのような概念か。',c:['モレなく・ダブりなく物事を分類・整理する考え方','全ての選択肢を均等に評価する手法','最も重要な要因を一つに絞る分析手法','反対意見を積極的に取り入れる議論法'],a:0,exp:'MECE（Mutually Exclusive, Collectively Exhaustive）はモレなく・ダブりなく。ロジカルシンキングの基本。マッキンゼーが広めた概念。'},
+  {q:'「クリティカルシンキング」において重要な姿勢はどれか。',c:['権威ある人の意見を無条件に信頼する','前提・根拠・論理の飛躍を客観的に検証・評価する姿勢','一つの情報源のみを深く調べる','感情に基づいて判断する'],a:1,exp:'クリティカルシンキングは前提・証拠・論理の妥当性を客観的・批判的に評価する思考法。バイアスや権威への盲目的従属を排除する。'},
+  {q:'次の論理パズルで正しいものを選べ。\n\n「全ての猫は動物だ。一部の動物は犬だ。」\n\nこの2文から確実に言えることはどれか？',c:['一部の猫は犬だ','全ての犬は猫だ','猫と犬は全く別の生き物だ','「一部の猫は動物だ」は確実に言える'],a:3,exp:'「全ての猫→動物」なので「全ての猫は動物（よって一部の猫も動物）」は言える。猫と犬の関係は前提からは分からない。'},
+  {q:'「バイアス（認知の偏り）」の一つ「確証バイアス」とはどのような心理現象か。',c:['自分に都合の悪い情報を意図的に消す行為','自分の既存の信念を支持する情報ばかりを集め、反証情報を無視する傾向','他人の意見に流されやすい心理','新しい情報を拒絶する傾向'],a:1,exp:'確証バイアスは自分の仮説・信念を支持する情報を優先的に集め、反証情報を軽視する認知の歪み。科学的思考の大敵。'},
+  {q:'「ロジックツリー」とはどのような思考ツールか。',c:['会議の進行を管理するツール','問題・課題を樹状に分解して原因・解決策を整理するMECEな分析ツール','数値データを視覚化するグラフ','チームの役割分担を整理するツール'],a:1,exp:'ロジックツリーは問題をMECEに分解しながら樹状に整理するフレームワーク。Whyツリー（原因分析）・Howツリー（解決策）が主な使い方。'},
+  {q:'次の文章の論理的誤りを指摘せよ。\n\n「A君はスポーツが得意だから、勉強もできるはずだ。」',c:['論理的に正しい','スポーツ能力と学習能力の関連を前提なく仮定する「早まった類推」の誤り','A君への偏見だ','スポーツと勉強は無関係である（これが正しい論理）'],a:1,exp:'スポーツが得意→勉強も得意という関係性は論理的前提がなく、「早まった類推」の誤り。能力の種類は独立していることが多い。'},
+  {q:'「仮説思考」とはどのような思考プロセスか。',c:['全てのデータを集めてから結論を出す','最初に仮説を立て、それを検証する効率的な問題解決アプローチ','直感に従って素早く決断する','権威者の意見を前提として分析する'],a:1,exp:'仮説思考は全データ収集前に仮説を立てて検証・修正を繰り返す手法。限られた情報・時間での意思決定に有効。コンサルの基本。'},
+  {q:'「ゼロサムゲーム」とはどのような状況か。',c:['全員が利益を得られる状況','一方が得をすれば他方が同額の損をする状況（総和がゼロ）','利益も損失もない均衡状態','協力することで全員が利益を得られる状況'],a:1,exp:'ゼロサムゲームは利得の総和が常にゼロになる状況。一方の得=他方の損。対義語は「正サムゲーム（協力で全員が得する）」。'},
+  {q:'「アブダクション（仮説形成）」とはどのような推論か。',c:['確実な証拠から結論を導く推論','観察された事実を最もうまく説明できる仮説を推論する手法','複数の事例から一般法則を導く推論','一般法則から個別の結論を導く推論'],a:1,exp:'アブダクションは観察事実から最もありそうな説明・仮説を形成する推論。科学的発見・医師の診断・探偵の推理に使われる。'},
+],
+sakumon:[
+  // 作文・小論文は4択で「最も適切な構成・ポイント」を問う形式
+  {q:'「AI社会における人間の役割」というテーマで小論文を書く。最も優れた論述の構成はどれか。',
+   c:['AIの危険性だけを論じる','AIと人間の違いを整理した上で、人間固有の能力（創造性・共感・倫理的判断）を活かした役割を具体的に示す','AIの歴史を詳細に述べる','AIを全面禁止すべきと主張する'],a:1,
+   exp:'小論文は「問題提起→分析→自分の立場・主張→具体的根拠→結論」の流れが基本。テーマの多面的理解と具体性が評価される。'},
+  {q:'作文で「自分の強み」を効果的に伝えるためのポイントとして最も適切なものはどれか。',
+   c:['「明るい」「元気」などの抽象的な表現を繰り返す','具体的なエピソード＋その強みが発揮された場面＋仕事への活かし方をセットで述べる','強みを10個以上列挙する','他人と比べて優れていることだけを書く'],a:1,
+   exp:'自己PR作文は「強み（結論）＋具体的エピソード（根拠）＋仕事への活かし方（展望）」のSTAR構造が効果的。抽象語羅列はNG。'},
+  {q:'「志望動機」の作文で最も評価される内容はどれか。',
+   c:['給与や福利厚生への期待を率直に書く','企業研究に基づく具体的な志望理由＋自分の経験・強みとの接続＋入社後にやりたいことを論理的に述べる','「御社が好き」という感情を繰り返す','競合他社との比較で御社を選んだ理由だけを書く'],a:1,
+   exp:'志望動機は①なぜその業界か②なぜその企業か③自分の何が活かせるか④入社後何をしたいか、の4点を具体的に繋げることが重要。'},
+  {q:'「少子化対策」をテーマにした小論文の論述として最も優れているものはどれか。',
+   c:['少子化は解決不可能と結論付ける','少子化の現状・原因を多角的に分析し、経済・教育・価値観・制度など複数の視点から具体的な対策と課題を論じる','外国人を増やすことだけを提案する','出生率の数字だけを羅列する'],a:1,
+   exp:'社会問題の小論文は「現状把握→原因分析→多角的な対策提案→課題・反論への対応→結論」の構成が高評価。自分の意見を根拠とともに示すこと。'},
+  {q:'「グローバル化時代に必要なスキル」についての作文で、論述の焦点として最も適切なものはどれか。',
+   c:['英語力だけが必要と断言する','語学力・異文化理解・自己発信力・変化への適応力など複数のスキルを挙げ、自分の経験と結び付けて具体的に論じる','日本語さえできれば十分と主張する','グローバル化を批判する'],a:1,
+   exp:'グローバル化論文はスキルを多面的に示した上で、自分の経験から「自分にとってのグローバルスキル」を具体的に論じると説得力が増す。'},
+  {q:'「環境問題と経済成長は両立できるか」というテーマの小論文で最も論理的な論述はどれか。',
+   c:['「できない」と結論付けて終わる','「できる」「できない」それぞれの立場を検討した上で、持続可能な開発・グリーンイノベーションを根拠に自分の立場を明示する','環境問題の歴史だけを述べる','経済成長だけを優先すべきと主張する'],a:1,
+   exp:'賛否両論を検討した上で自分の立場を示す「批判的思考型」論文が高評価。単純な断定より根拠を持つ主張の方が説得力がある。'},
+  {q:'作文・小論文で「起承転結」の「転」の役割として最も適切なものはどれか。',
+   c:['結論を述べる段落','問題提起をする段落','主張に対する反論・異なる視点を示し論の深みを出す段落','具体例を羅列する段落'],a:2,
+   exp:'「転」は逆説・反論・別の視点を導入し議論に深みを与える。「確かに〜だが、しかし〜」という接続が典型。単純な賛同より論が豊かになる。'},
+  {q:'「課題作文」で制限字数が600字のとき、最も適切な配分はどれか。',
+   c:['序論500字・本論100字','序論（問題提起）100字・本論（分析・根拠）350字・結論（まとめ・主張）150字','序論0字・本論600字','序論200字・本論200字・結論200字（均等割り）'],a:1,
+   exp:'作文の字数配分は本論（分析・根拠）に最も多くを割く。一般的に序論1/6・本論4/6・結論1/6が理想的なバランス。'},
+  {q:'「SDGsと企業の役割」についての小論文で高評価を得るために必要なポイントとして正しいものはどれか。',
+   c:['SDGsの17目標を全て列挙する','SDGsの意義を踏まえた上で、企業が取り組むべき具体的な実践例と、ESG経営・社会的責任の観点から自分の考えを論じる','「SDGsは重要」と繰り返す','企業利益を優先すべきと主張する'],a:1,
+   exp:'SDGs論文は定義の確認（知識）＋企業事例（具体性）＋自分の考え（主体性）の三層構造が高評価。単なる知識の列挙は低評価。'},
+  {q:'「論述式試験」で「結論→根拠→反論への対応→結論の再確認」という構成を使う理由として正しいものはどれか。',
+   c:['字数を稼ぐため','読み手が主張を早く理解でき、根拠・反論対応で説得力が増し、最後に印象を強化できるから','長い文章を書くのが得意だから','伝統的な書き方だから'],a:1,
+   exp:'この構成（結論先出し＝PREP法）は①主張が早く伝わる②根拠が明確③反論への対応で論の深みが出る④印象に残る、という4つの効果がある。'},
+  {q:'「自分が考える理想のリーダー像」という作文テーマで、最も深い考察を示す答え方はどれか。',
+   c:['「優しいリーダーが理想です」と一言で終わらせる','理想のリーダー像を具体的な特性で示し、自分の経験から「なぜそれが重要か」を論じ、入社後どうリーダーシップを発揮するかを述べる','有名な経営者の名前を並べる','「厳しいリーダーが良い」と断言する'],a:1,
+   exp:'抽象的な理想より「なぜそのリーダー像か（経験・根拠）」と「入社後の具体的実践」を繋げることで、思考の深さと実行力の両方を示せる。'},
+  {q:'「文章の読みやすさ」を高めるために最も重要なポイントはどれか。',
+   c:['できるだけ長い文を書く','一文を短く保ち・段落を明確にし・接続詞を効果的に使って論理の流れを示す','難しい言葉を多く使う','段落を作らず一続きで書く'],a:1,
+   exp:'読みやすい文章の条件：①一文40〜60字以内②段落ごとに1つの主張③「しかし・そのため・したがって」等の接続詞で論理を可視化④主語を明確にする。'},
+  {q:'新聞社の入社試験で「時事問題を踏まえた小論文」を書く際に特に重要なことはどれか。',
+   c:['文字数を制限いっぱい書くこと','社会的事実の正確な理解＋複数の視点からの分析＋記者として伝える意義・自分の視点を論理的に示すこと','有名人の引用を多く使うこと','テーマを批判せず中立に書くこと'],a:1,
+   exp:'新聞社の論文は①時事の正確な把握②多角的分析③記者視点（何を誰にどう伝えるか）④自分の立場の明示が評価のポイント。'},
+  {q:'作文・小論文で「具体例」を使う目的として最も適切なものはどれか。',
+   c:['字数を増やすため','抽象的な主張を具体的・説得力ある根拠で支え、読み手の理解と納得を助けるため','文章を複雑に見せるため','知識の広さをアピールするため'],a:1,
+   exp:'具体例は「主張→抽象→なぜなら→具体例→だから→結論」の流れで主張を支える。具体例のない主張は説得力に欠け、試験では低評価。'},
+  {q:'「作文の推敲（すいこう）」において最も重要な確認事項はどれか。',
+   c:['文字数を減らすこと','論理の一貫性・根拠の妥当性・誤字脱字・読みやすさ・制限字数の確認を行うこと','できるだけ多くの修正を加えること','書き直しは行わないこと'],a:1,
+   exp:'推敲は①論旨の一貫性（主張とずれていないか）②根拠の妥当性③誤字脱字④文体の統一⑤字数確認の5点が基本チェックリスト。'},
+],
+};
+
+// ==================== STATE ====================
+const ALL_SIDS=['jiji','kinyu','mascom','ronri','sakumon'];
+let currentSection='jiji';
+let answered=Object.fromEntries(ALL_SIDS.map(s=>[s,{}]));
+let aiAnswered=Object.fromEntries(ALL_SIDS.map(s=>[s,{}]));
+let aiQuestions=Object.fromEntries(ALL_SIDS.map(s=>[s,[]]));
+let selectedDifficulty=Object.fromEntries(ALL_SIDS.map(s=>[s,'normal']));
+let aiLoading=Object.fromEntries(ALL_SIDS.map(s=>[s,false]));
+const TOTAL_FIXED=Object.values(QUESTIONS).reduce((s,q)=>s+q.length,0);
+
+function buildTabs(){
+  document.getElementById('sectionBar').innerHTML=SECTIONS.map(s=>`
+    <button class="section-tab${s.id===currentSection?' active':''}" onclick="switchSection('${s.id}')">
+      ${s.icon} ${s.name}
+    </button>`).join('');
+}
+function switchSection(id){currentSection=id;buildTabs();renderMain();updateScore();}
+
+function updateScore(){
+  let correct=0,done=0;
+  ALL_SIDS.forEach(sid=>{
+    Object.values(answered[sid]).forEach(a=>{if(a.correct)correct++;done++;});
+    Object.values(aiAnswered[sid]).forEach(a=>{if(a.correct)correct++;done++;});
+  });
+  document.getElementById('totalScore').innerHTML=`${correct}<span> / ${done}問</span>`;
+  const pct=done>0?Math.round(correct/done*100):0;
+  document.getElementById('progressFill').style.width=Math.min(done/TOTAL_FIXED*100,100)+'%';
+  document.getElementById('progressText').textContent=`${pct}% 正答率（${done}/${TOTAL_FIXED}問以上回答済み）`;
+}
+
+const NOTES={
+  jiji:'時事問題は「新聞を毎日読む習慣」が最強対策。特にビジネス・政策・国際関係のニュースを背景まで理解しよう。',
+  kinyu:'金融用語は「仕組み」を理解してから覚えるとセットで頭に入りやすい。証券・銀行・保険の基本概念を整理しよう。',
+  mascom:'メディア業界は変革期にある。デジタル化・広告モデルの変化・SNSの影響を自分なりの言葉で説明できるようにしよう。',
+  ronri:'論理問題は「前提から何が言えるか」を丁寧に追うこと。感情・常識でなく、与えられた情報だけで推論する練習が重要。',
+  sakumon:'作文・小論文は「主張の明確さ・根拠の具体性・論理の一貫性」が3大評価基準。書いたら必ず声に出して読んでみよう。',
+};
+
+const INDUSTRY={
+  jiji:['新聞社','放送局','官公庁','シンクタンク','コンサル'],
+  kinyu:['銀行','証券','保険','信託','フィンテック'],
+  mascom:['テレビ局','新聞社','出版社','広告代理店','PR会社'],
+  ronri:['コンサル','IT','商社','外資系','投資銀行'],
+  sakumon:['新聞社','放送局','出版社','官公庁','メーカー全般'],
+};
+
+function renderMain(){
+  const s=SECTIONS.find(x=>x.id===currentSection);
+  const qs=QUESTIONS[currentSection];
+  const ans=answered[currentSection];
+  const allDone=Object.keys(ans).length===qs.length;
+  const tags=INDUSTRY[currentSection].map(t=>`<span class="industry-tag">${t}</span>`).join('');
+  let html=`<div class="section-header">
+    <h2>${s.icon} ${s.name}（固定問題：全${qs.length}問）</h2>
+    <p>${s.desc}</p>
+    <div class="industry-tags">${tags}</div>
+    <div class="doku-note">💡 攻略ポイント：${NOTES[currentSection]}</div>
+  </div>`;
+  if(allDone){html+=renderSectionResult(currentSection);}
+  else{
+    html+=`<div class="subsection-label">📝 問題を解いてみよう</div>`;
+    html+=qs.map((q,i)=>renderQCard(currentSection,i,q,ans[i],false)).join('');
+  }
+  html+=renderAISection(currentSection);
+  document.getElementById('mainArea').innerHTML=html;
+}
+
+function renderQCard(sid,i,q,a,isAI){
+  const isDone=a!==undefined;
+  const labels=['A','B','C','D'];
+  const numClass=isAI?'q-num ai-num':'q-num';
+  const numLabel=isAI?`AI-${i+1}`:`Q${i+1}`;
+  const choices=q.c.map((c,ci)=>{
+    let cls='choice-btn';
+    if(isDone){
+      if(ci===q.a) cls+=' show-correct';
+      else if(ci===a.chosen&&!a.correct) cls+=' wrong';
+    }
+    const onclick=isAI?`answerAI('${sid}',${i},${ci})`:`answer('${sid}',${i},${ci})`;
+    return `<button class="${cls}" ${isDone?'disabled':''} onclick="${onclick}">
+      <span class="choice-label">${labels[ci]}</span><span>${c}</span>
+    </button>`;
+  }).join('');
+  let expHtml='';
+  if(isDone){
+    const ok=a.correct;
+    expHtml=`<div class="explanation ${ok?'correct-exp':'wrong-exp'}">
+      <div class="exp-head">${ok?'✅ 正解！':`❌ 不正解。正解：「${q.c[q.a]}」`}</div>
+      <div>${q.exp}</div>
+    </div>`;
+  }
+  return `<div class="q-card">
+    <div class="q-head"><span class="${numClass}">${numLabel}</span><div class="q-text">${q.q.replace(/\n/g,'<br>')}</div></div>
+    <div class="q-body"><div class="choices">${choices}</div>${expHtml}</div>
+  </div>`;
+}
+
+function answer(sid,qi,chosen){
+  answered[sid][qi]={chosen,correct:chosen===QUESTIONS[sid][qi].a};
+  renderMain();updateScore();
+}
+function answerAI(sid,qi,chosen){
+  aiAnswered[sid][qi]={chosen,correct:chosen===aiQuestions[sid][qi].a};
+  renderMain();updateScore();
+}
+
+function renderSectionResult(sid){
+  const correct=Object.values(answered[sid]).filter(a=>a.correct).length;
+  const total=QUESTIONS[sid].length;
+  const pct=Math.round(correct/total*100);
+  let emoji='😢',doshi='「独自試験は業界研究と連動して対策するとより効果的。解説を読んで知識を深めよう。」';
+  if(pct>=80){emoji='🏆';doshi='「独自試験対策は万全！AI出題でさらに実力を磨こう！」';}
+  else if(pct>=60){emoji='😊';doshi='「あと一歩！間違えた問題を業界研究と結びつけて復習しよう。」';}
+  else if(pct>=40){emoji='😅';doshi='「基礎から固め直そう。業界のニュースを毎日チェックする習慣をつけよう。」';}
+  return `<div class="section-result">
+    <div class="result-emoji">${emoji}</div>
+    <div class="result-score">${correct}<span> / ${total}問</span></div>
+    <div class="result-pct" style="color:${pct>=60?'var(--orange-mid)':'#ef4444'}">${pct}%</div>
+    <div class="doshi-box"><span class="doshi-label">🔥 キャリ爺より</span><p>${doshi}</p></div>
+    <button class="btn-retry" onclick="retrySection('${sid}')">🔄 もう一度解く</button>
+  </div>`;
+}
+function retrySection(sid){answered[sid]={};renderMain();updateScore();}
+
+function renderAISection(sid){
+  const s=SECTIONS.find(x=>x.id===sid);
+  const diff=selectedDifficulty[sid];
+  const loading=aiLoading[sid];
+  const aiQs=aiQuestions[sid];
+  const aiAns=aiAnswered[sid];
+  let aiQsHtml='';
+  if(aiQs.length>0){
+    aiQsHtml='<div style="display:flex;flex-direction:column;gap:10px;">'
+      +aiQs.map((q,i)=>renderQCard(sid,i,q,aiAns[i],true)).join('')+'</div>';
+  }
+  const loadingHtml=loading?`<div class="ai-loading">🤖 AIが問題を生成中<span class="ai-loading-dots"></span></div>`:'';
+  return `<div class="ai-section">
+    <div class="ai-section-head">
+      <span class="ai-section-icon">🤖</span>
+      <div>
+        <div class="ai-section-title">AI自動出題コーナー｜${s.name}</div>
+        <div class="ai-section-sub">難易度を選んでAIが新問題を5問生成（何度でも挑戦可）</div>
+      </div>
+    </div>
+    <div class="ai-section-body">
+      <div class="ai-note">⚠️ AIが生成した問題です。まれに不正確な場合があります。参考程度にご活用ください。</div>
+      <div class="ai-controls">
+        <span class="ai-controls-label">難易度：</span>
+        <button class="difficulty-btn normal${diff==='normal'?' selected':''}" onclick="setDifficulty('${sid}','normal')">📗 普通</button>
+        <button class="difficulty-btn hard${diff==='hard'?' selected':''}" onclick="setDifficulty('${sid}','hard')">📕 難関</button>
+        <button class="btn-ai-generate" onclick="generateAI('${sid}')" ${loading?'disabled':''}>
+          ${loading?'⏳ 生成中...':'✨ AI問題を生成（5問）'}
+        </button>
+      </div>
+      ${loadingHtml}${aiQsHtml}
+    </div>
+  </div>`;
+}
+function setDifficulty(sid,diff){selectedDifficulty[sid]=diff;renderMain();}
+
+async function generateAI(sid){
+  const s=SECTIONS.find(x=>x.id===sid);
+  const diff=selectedDifficulty[sid];
+  const diffLabel=diff==='hard'?'難関（応用・高難度・深い知識）':'普通（標準レベル）';
+  const prompts={
+    jiji:'就活独自試験の時事・論述問題（社会問題・政策・国際情勢・ビジネストレンドの知識と論述力）',
+    kinyu:'就活独自試験の金融・経済問題（金融用語・経済の仕組み・市場・投資・会計の基礎）',
+    mascom:'就活独自試験のマスコミ・メディア業界問題（報道・広告・デジタルメディア・メディアリテラシー）',
+    ronri:'就活独自試験の論理・推論問題（論理的思考・批判的分析・三段論法・バイアス・フレームワーク）',
+    sakumon:'就活独自試験の作文・小論文対策問題（論述構成・評価ポイント・テーマ別の考え方）',
+  };
+  const systemPrompt=`あなたは就職活動の独自試験（新聞社・放送局・金融・コンサル等）の問題作成専門家です。${prompts[sid]}を${diffLabel}レベルで5問作成してください。
+必ずJSON形式のみで返答。{"questions":[{"q":"問題文","c":["A","B","C","D"],"a":正解インデックス(0-3),"exp":"解説（100字以内・根拠を含む）"}]}
+条件：4択・正解1つ・解説簡潔・${diff==='hard'?'業界の深い知識・応用的な思考を問う高難度問題':'基本的な知識・理解を確認する標準問題'}・日本語`;
+  const userContent=`${prompts[sid]}を${diffLabel}で5問。JSON形式のみ。`;
+  aiLoading[sid]=true;renderMain();
+  try{
+    const key=getGeminiKey();
+    if(!key) throw new Error('NO_KEY');
+    const text=await callGemini(systemPrompt, userContent);
+    const clean=text.replace(/```json|```/g,'').trim();
+    const parsed=JSON.parse(clean);
+    aiQuestions[sid]=parsed.questions||[];
+    aiAnswered[sid]={};
+  }catch(e){
+    if(e.message==='NO_KEY'){
+      aiQuestions[sid]=[{q:'⚠️ Gemini APIキーが設定されていません。トップページ（drill-index.html）でAPIキーを設定してください。',c:['トップページへ戻る','—','—','—'],a:0,exp:'drill-index.htmlのAPIキー設定欄にGemini APIキーを入力・保存してください。'}];
+    } else {
+      aiQuestions[sid]=[{q:'AI問題の生成中にエラーが発生しました。APIキーを確認してもう一度お試しください。',c:['再試行する','—','—','—'],a:0,exp:'ネットワークエラーまたはAPI応答の解析に失敗しました。エラー：'+e.message}];
+    }
+    aiAnswered[sid]={};
+  }
+  aiLoading[sid]=false;renderMain();
+}
+
+function resetAll(){
+  answered=Object.fromEntries(ALL_SIDS.map(s=>[s,{}]));
+  aiAnswered=Object.fromEntries(ALL_SIDS.map(s=>[s,{}]));
+  aiQuestions=Object.fromEntries(ALL_SIDS.map(s=>[s,[]]));
+  renderMain();updateScore();
+}
+
+buildTabs();renderMain();updateScore();
+</script>
+</body>
+</html>

@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🗞️ 一般常識対策ドリル｜就活の木</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green-dark:#2C5F2D;--green-mid:#4A8C4B;--green-pale:#E8F5E9;--green-ultra:#F0FDF0;
+  --amber:#F59E0B;
+  --gray-dark:#1F2937;--gray-mid:#6B7280;
+  --white:#FFFFFF;
+  --shadow-sm:0 2px 8px rgba(0,0,0,0.08);--shadow-md:0 6px 24px rgba(0,0,0,0.12);
+  --purple:#7C3AED;--purple-pale:#F5F3FF;
+  --rose:#9F1239;--rose-mid:#E11D48;--rose-pale:#FFF1F2;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--rose-pale);min-height:100vh;color:var(--gray-dark);}
+
+.hero{background:linear-gradient(150deg,var(--rose) 0%,#be123c 55%,var(--rose-mid) 100%);padding:36px 20px 0;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 25% 50%,rgba(254,205,211,0.15) 0%,transparent 55%);pointer-events:none;}
+.hero-tree{position:absolute;right:-10px;bottom:0;font-size:110px;opacity:0.09;line-height:1;pointer-events:none;}
+.brand-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);color:rgba(255,255,255,0.90);font-size:11px;font-weight:700;letter-spacing:0.12em;padding:5px 14px;border-radius:20px;margin-bottom:14px;}
+.hero-icon{font-size:48px;display:block;animation:floatIcon 3s ease-in-out infinite;margin-bottom:8px;}
+@keyframes floatIcon{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+.hero h1{font-size:clamp(20px,5vw,28px);font-weight:900;color:#fff;margin-bottom:6px;}
+.hero-sub{font-size:13px;color:rgba(255,255,255,0.80);line-height:1.6;padding-bottom:16px;}
+.hero-badge-row{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;padding-bottom:16px;}
+.hero-badge{background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.25);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;}
+
+.section-bar{background:rgba(0,0,0,0.20);padding:12px 12px 0;display:flex;gap:5px;flex-wrap:wrap;justify-content:center;}
+.section-tab{display:inline-flex;align-items:center;gap:4px;padding:6px 11px;border-radius:12px 12px 0 0;font-size:11px;font-weight:700;cursor:pointer;border:none;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.80);transition:all 0.18s;white-space:nowrap;}
+.section-tab:hover{background:rgba(255,255,255,0.22);}
+.section-tab.active{background:var(--white);color:var(--rose);}
+
+.content{max-width:700px;margin:0 auto;padding:24px 16px 60px;}
+
+.score-bar{background:var(--white);border-radius:14px;box-shadow:var(--shadow-sm);padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.score-label{font-size:11px;font-weight:700;color:var(--gray-mid);margin-bottom:2px;}
+.score-nums{font-size:22px;font-weight:900;color:var(--rose-mid);}
+.score-nums span{font-size:13px;font-weight:400;color:var(--gray-mid);}
+.progress-wrap{flex:1;min-width:120px;}
+.progress-bar{height:8px;background:#E5E7EB;border-radius:4px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--rose-mid),#fb7185);border-radius:4px;transition:width 0.4s ease;}
+.progress-text{font-size:10px;color:var(--gray-mid);margin-top:4px;}
+.btn-reset{padding:7px 14px;background:var(--rose-pale);border:1px solid #FECDD3;color:var(--rose);border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;}
+
+.section-header{background:var(--white);border-radius:14px;box-shadow:var(--shadow-sm);padding:16px 20px;margin-bottom:16px;border-left:5px solid var(--rose-mid);}
+.section-header h2{font-size:17px;font-weight:900;color:var(--rose);margin-bottom:4px;}
+.section-header p{font-size:12px;color:var(--gray-mid);line-height:1.6;}
+.gen-note{background:linear-gradient(135deg,var(--rose-pale),#FFE4E6);border:1px solid #FECDD3;border-radius:10px;padding:10px 14px;margin-top:10px;font-size:12px;color:var(--rose);line-height:1.7;}
+
+.subsection-label{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:var(--gray-mid);letter-spacing:0.08em;margin:20px 0 10px;}
+.subsection-label::after{content:'';flex:1;height:1px;background:#FECDD3;}
+
+.q-card{background:var(--white);border-radius:14px;box-shadow:var(--shadow-sm);margin-bottom:12px;overflow:hidden;animation:fadeUp 0.3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.q-head{padding:13px 16px 10px;border-bottom:1px solid #F0F0F0;display:flex;align-items:flex-start;gap:10px;}
+.q-num{background:var(--rose-mid);color:#fff;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:2px;}
+.q-num.ai-num{background:var(--purple);}
+.q-text{font-size:13px;font-weight:700;line-height:1.65;color:var(--gray-dark);}
+.q-body{padding:10px 16px 14px;}
+.choices{display:flex;flex-direction:column;gap:7px;}
+.choice-btn{display:flex;align-items:center;gap:10px;padding:10px 13px;border-radius:9px;border:1.5px solid #E5E7EB;background:#FAFAFA;cursor:pointer;text-align:left;font-size:13px;font-weight:500;color:var(--gray-dark);transition:all 0.15s;width:100%;}
+.choice-btn:hover:not(:disabled){border-color:var(--rose-mid);background:var(--rose-pale);color:var(--rose);}
+.choice-label{width:22px;height:22px;border-radius:50%;background:#E5E7EB;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;transition:all 0.15s;}
+.choice-btn:hover:not(:disabled) .choice-label{background:var(--rose-mid);color:#fff;}
+.choice-btn.correct{border-color:#22c55e;background:#F0FDF4;color:#15803d;}
+.choice-btn.correct .choice-label{background:#22c55e;color:#fff;}
+.choice-btn.wrong{border-color:#ef4444;background:#FEF2F2;color:#991b1b;}
+.choice-btn.wrong .choice-label{background:#ef4444;color:#fff;}
+.choice-btn.show-correct{border-color:#22c55e;background:#F0FDF4;color:#15803d;}
+.choice-btn.show-correct .choice-label{background:#22c55e;color:#fff;}
+.choice-btn:disabled{cursor:default;}
+.explanation{margin-top:10px;padding:11px 13px;border-radius:9px;font-size:12px;line-height:1.75;}
+.explanation.correct-exp{background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border:1px solid #BBF7D0;color:#14532d;}
+.explanation.wrong-exp{background:linear-gradient(135deg,#FFF7ED,#FEF3C7);border:1px solid #FDE68A;color:#78350f;}
+.exp-head{font-size:11px;font-weight:700;margin-bottom:4px;}
+
+.section-result{background:var(--white);border-radius:14px;box-shadow:var(--shadow-md);padding:24px;text-align:center;margin-bottom:16px;}
+.result-emoji{font-size:44px;margin-bottom:8px;}
+.result-score{font-size:40px;font-weight:900;color:var(--rose-mid);}
+.result-score span{font-size:16px;color:var(--gray-mid);font-weight:400;}
+.result-pct{font-size:24px;font-weight:900;margin:4px 0 12px;}
+.doshi-box{background:linear-gradient(135deg,#FFF7ED,#FEF3C7);border-left:4px solid var(--amber);border-radius:0 10px 10px 0;padding:12px 14px;text-align:left;margin:12px 0;}
+.doshi-label{font-size:10px;font-weight:700;color:#92400E;margin-bottom:4px;display:block;}
+.doshi-box p{font-size:12px;color:#78350F;font-style:italic;line-height:1.75;}
+.btn-retry{padding:10px 24px;background:linear-gradient(135deg,var(--rose),var(--rose-mid));color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;margin-top:4px;}
+
+.ai-section{background:var(--white);border-radius:16px;box-shadow:var(--shadow-md);margin-bottom:16px;overflow:hidden;}
+.ai-section-head{background:linear-gradient(135deg,#4c1d95,#7c3aed);padding:16px 20px;display:flex;align-items:center;gap:12px;}
+.ai-section-icon{font-size:28px;}
+.ai-section-title{color:#fff;font-size:15px;font-weight:900;}
+.ai-section-sub{color:rgba(255,255,255,0.80);font-size:11px;margin-top:2px;}
+.ai-section-body{padding:18px 20px;}
+.ai-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px;}
+.ai-controls-label{font-size:12px;font-weight:700;color:var(--gray-dark);}
+.difficulty-btn{padding:8px 18px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;border:2px solid transparent;transition:all 0.15s;}
+.difficulty-btn.normal{background:var(--green-pale);border-color:#C8E6C9;color:var(--green-dark);}
+.difficulty-btn.normal.selected{background:var(--green-dark);color:#fff;border-color:var(--green-dark);}
+.difficulty-btn.hard{background:var(--purple-pale);border-color:#C4B5FD;color:var(--purple);}
+.difficulty-btn.hard.selected{background:var(--purple);color:#fff;border-color:var(--purple);}
+.btn-ai-generate{padding:10px 24px;background:linear-gradient(135deg,#4c1d95,#7c3aed);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;transition:all 0.15s;}
+.btn-ai-generate:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(124,58,237,0.30);}
+.btn-ai-generate:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+.ai-loading{text-align:center;padding:20px;color:var(--purple);font-size:13px;font-weight:600;}
+.ai-loading-dots::after{content:'...';animation:dots 1.2s infinite;}
+@keyframes dots{0%{content:'.';}33%{content:'..';}66%{content:'...';}100%{content:'.';}}
+.ai-note{font-size:11px;color:var(--gray-mid);background:#F9FAFB;border:1px solid #E5E7EB;border-radius:8px;padding:8px 12px;margin-bottom:12px;}
+
+.footer{text-align:center;padding:0 16px 40px;font-size:11px;color:var(--gray-mid);}
+.footer-brand{font-weight:700;color:var(--green-mid);}
+@media(max-width:480px){.hero{padding:28px 14px 0;}.content{padding:18px 12px 50px;}.q-text{font-size:12px;}.choice-btn{font-size:12px;padding:9px 11px;}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-tree">🗞️</div>
+  <div class="brand-badge">🌱 就活の木｜キャリア支援課</div>
+  <span class="hero-icon">🗞️</span>
+  <h1>一般常識 対策ドリル</h1>
+  <p class="hero-sub">時事・社会・歴史・国語・数学・英語・理科 7ジャンル全105問 ＋ AI自動出題<br>中小企業・マスコミ・金融・公務員寄り試験に対応</p>
+  <div class="hero-badge-row">
+    <span class="hero-badge">🗞️ 時事・社会</span>
+    <span class="hero-badge">🏛️ 政治・経済</span>
+    <span class="hero-badge">🗺️ 歴史・地理</span>
+    <span class="hero-badge">📚 国語</span>
+    <span class="hero-badge">📐 数学</span>
+    <span class="hero-badge">🇬🇧 英語</span>
+    <span class="hero-badge">🔬 理科</span>
+  </div>
+  <div class="section-bar" id="sectionBar"></div>
+</div>
+
+<div class="content">
+  <div class="score-bar">
+    <div>
+      <div class="score-label">総合スコア</div>
+      <div class="score-nums" id="totalScore">0<span> / 0問</span></div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+      <div class="progress-text" id="progressText">0% 正答率</div>
+    </div>
+    <button class="btn-reset" onclick="resetAll()">🔄 リセット</button>
+  </div>
+  <div id="mainArea"></div>
+</div>
+
+<div class="footer"><span class="footer-brand">🌱 就活の木</span>｜多摩大学キャリア支援課<br>キャリ爺（北山 四郎）作成</div>
+
+<script>
+
+// ====== Gemini APIキー読み込み ======
+const GEMINI_KEY_NAME = 'shukatsu_gemini_key';
+
+function getGeminiKey() {
+  return localStorage.getItem(GEMINI_KEY_NAME) || '';
+}
+
+async function callGemini(systemPrompt, userPrompt) {
+  const key = getGeminiKey();
+  if (!key) {
+    throw new Error('NO_KEY');
+  }
+  const res = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{
+          parts: [{ text: systemPrompt + '\n\n' + userPrompt }]
+        }],
+        generationConfig: { temperature: 0.7, maxOutputTokens: 1500 }
+      })
+    }
+  );
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.error?.message || 'API Error');
+  }
+  const data = await res.json();
+  return data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+}
+
+const SECTIONS=[
+  {id:'jiji',   icon:'🗞️', name:'時事・社会',   desc:'最新の時事問題・社会動向・ビジネス用語'},
+  {id:'seikei', icon:'🏛️', name:'政治・経済',   desc:'日本の政治・経済の基礎知識・国際関係'},
+  {id:'rekishi',icon:'🗺️', name:'歴史・地理',   desc:'日本史・世界史・地理・文化'},
+  {id:'kokugo', icon:'📚', name:'国語',         desc:'語彙・慣用句・ことわざ・文法・敬語'},
+  {id:'sugaku', icon:'📐', name:'数学',         desc:'計算・方程式・確率・図形・統計'},
+  {id:'eigo',   icon:'🇬🇧', name:'英語',         desc:'語彙・文法・熟語・ビジネス英語'},
+  {id:'rika',   icon:'🔬', name:'理科',         desc:'生物・化学・物理・地学の基礎知識'},
+];
+
+const QUESTIONS={
+jiji:[
+  {q:'「カーボンニュートラル」とはどのような状態を指すか。',c:['二酸化炭素を全く排出しない状態','排出する温室効果ガスと吸収量が等しくなる状態','再生可能エネルギーのみを使用する状態','石炭の使用をゼロにする状態'],a:1,exp:'カーボンニュートラルは温室効果ガスの排出量と吸収量を均衡させ、実質ゼロにすること。日本は2050年達成を目標とする。'},
+  {q:'「DX（デジタルトランスフォーメーション）」の説明として最も適切なものはどれか。',c:['デジタル機器を購入すること','デジタル技術を活用してビジネス・社会を変革すること','インターネットを使って買い物をすること','AIを研究開発すること'],a:1,exp:'DXはデジタル技術を活用してビジネスモデルや組織、プロセスを根本から変革すること。単なる電子化とは異なる。'},
+  {q:'「インフルエンサー」とはどのような人を指すか。',c:['企業の最高経営責任者','SNSなどで多くの人に影響を与える人物','政府の政策立案者','投資家・資産運用者'],a:1,exp:'インフルエンサーはSNS・YouTubeなどで多くのフォロワーを持ち、消費行動や意識に影響を与える人物。'},
+  {q:'「フードロス」とはどのような問題か。',c:['食料の輸送コストが高いこと','まだ食べられる食品が廃棄されること','食料の生産量が不足していること','飲食店の経営が苦しいこと'],a:1,exp:'フードロス（食品ロス）はまだ食べられる食品が廃棄される問題。日本では年間約600万トン（2022年度）の食品ロスが発生。'},
+  {q:'「働き方改革」で主に推進されていることはどれか。',c:['残業を増やして生産性を上げる','長時間労働の是正・多様な働き方の推進','全員をフリーランスにする','週6日勤務を義務化する'],a:1,exp:'働き方改革は長時間労働の是正、同一労働同一賃金、テレワーク推進など多様で柔軟な働き方を実現する取り組み。'},
+  {q:'「ESG投資」のS（Social）が意味することはどれか。',c:['株式（Stock）への投資','社会的な取り組み（人権・労働環境・地域貢献）','持続可能なエネルギー','科学的分析手法'],a:1,exp:'ESGのS=Social（社会）。人権・労働環境・ダイバーシティ・地域社会への貢献などを評価する。'},
+  {q:'「メタバース」とはどのような概念か。',c:['宇宙開発プロジェクト','インターネット上の仮想3D空間・世界','超高速インターネット技術','人工知能の一種'],a:1,exp:'メタバースはインターネット上に構築された仮想3D空間。アバターを使って交流・経済活動などができる次世代プラットフォーム。'},
+  {q:'「ウェルビーイング（Well-being）」の意味として最も適切なものはどれか。',c:['健康診断の結果','身体的・精神的・社会的に良好な状態','給与水準の高さ','福利厚生制度の充実'],a:1,exp:'ウェルビーイングは身体的・精神的・社会的すべてにおいて良好な状態。近年は企業の経営理念にも取り入れられている。'},
+  {q:'「GAFA」とは何を指すか。',c:['日本の大手メーカー4社','Google・Amazon・Facebook（Meta）・Appleの4社','政府機関の略称','国際的な環境団体'],a:1,exp:'GAFAはGoogle・Amazon・Facebook（現Meta）・Appleの頭文字。世界的なプラットフォーム企業として大きな影響力を持つ。'},
+  {q:'「リスキリング」とはどのような取り組みか。',c:['リスク管理能力を高めること','新しいスキルを習得し直すこと（学び直し）','外国語を学ぶこと','体力を鍛えること'],a:1,exp:'リスキリング（Reskilling）は技術革新や産業構造の変化に対応するため、新しいスキルや知識を習得し直すこと。'},
+  {q:'「生成AI」の説明として最も適切なものはどれか。',c:['人間の代わりに工場で働くロボット','テキスト・画像・音声などを新たに生成できるAI','データを分析するソフトウェア','セキュリティを守るシステム'],a:1,exp:'生成AI（Generative AI）はテキスト・画像・動画・音声などを新たに生成できるAI。ChatGPT・Claude・Geminiなどが代表例。'},
+  {q:'「サステナビリティ」とはどのような概念か。',c:['企業の短期的な利益最大化','将来の世代のニーズを損なわずに現在のニーズを満たす持続可能性','製品の耐久性の高さ','従業員の勤続年数の長さ'],a:1,exp:'サステナビリティ（持続可能性）は現世代のニーズを満たしながら、将来の世代のニーズも損なわない発展を目指す概念。'},
+  {q:'「Z世代」とは一般的にどの年代生まれの世代を指すか。',c:['1945〜1960年生まれ','1965〜1980年生まれ','1981〜1996年生まれ','1997年以降生まれ'],a:3,exp:'Z世代は概ね1997年以降生まれ。デジタルネイティブ世代で、SNSや動画コンテンツを中心に情報収集する特徴がある。'},
+  {q:'日本の「少子高齢化」の説明として正しいものはどれか。',c:['子供の数が増え高齢者が減る現象','出生率の低下と高齢者比率の上昇が同時に進む現象','人口が急激に増加する現象','若者が海外へ流出する現象'],a:1,exp:'少子高齢化は出生率低下（少子化）と高齢者の割合増加（高齢化）が同時に進行する現象。労働力不足・社会保障費増大などが課題。'},
+  {q:'「マイナンバー制度」の主な目的はどれか。',c:['国民を監視するため','行政手続きの効率化・社会保障・税の公平化','選挙の投票管理','外国人の入国管理'],a:1,exp:'マイナンバーは行政手続きの効率化、社会保障の適切な運用、税の公平な徴収を目的とした個人番号制度。'},
+],
+seikei:[
+  {q:'日本の国会は何院制か。',c:['一院制','二院制','三院制','四院制'],a:1,exp:'日本の国会は衆議院と参議院の二院制（両院制）。衆議院は任期4年・参議院は任期6年（3年ごとに半数改選）。'},
+  {q:'日本銀行の主な役割として正しいものはどれか。',c:['企業に融資を行う','物価の安定と金融システムの安定を図る中央銀行','個人の預金を管理する','税金を徴収する'],a:1,exp:'日本銀行は「発券銀行・銀行の銀行・政府の銀行」の3役割を持つ中央銀行。金融政策（利上げ・利下げ等）を担う。'},
+  {q:'「GDP」とは何の略称か。',c:['国内総生産','国際貿易協定','政府財政赤字','国民総幸福量'],a:0,exp:'GDPはGross Domestic Productの略。一定期間に国内で生産された財・サービスの付加価値の合計。経済規模を示す指標。'},
+  {q:'「円高」になると輸入業者にとってどのような影響があるか。',c:['仕入れコストが上がる','仕入れコストが下がる','影響はない','売上が減少する'],a:1,exp:'円高になると、同じ外貨を少ない円で買えるため、輸入業者は仕入れコストが下がる。逆に輸出業者は不利になる。'},
+  {q:'消費税の課税標準として正しいものはどれか。',c:['売上高の合計','商品・サービスの価格に対して課税','利益に対して課税','資産に対して課税'],a:1,exp:'消費税は商品・サービスの購入価格に対して課税される間接税。日本では現在10%（軽減税率8%）。'},
+  {q:'「財政赤字」とはどのような状態か。',c:['政府の収入が支出を上回る状態','政府の支出が収入を上回る状態','企業の利益がゼロの状態','貿易において輸出より輸入が多い状態'],a:1,exp:'財政赤字は政府の歳出が歳入（税収等）を上回る状態。不足分は国債発行で賄われることが多い。'},
+  {q:'「国連」の正式名称はどれか。',c:['国際連盟','国際連合','世界貿易機関','国際通貨基金'],a:1,exp:'国連（UN）は国際連合（United Nations）の略。1945年設立。現在193ヶ国が加盟する国際機関。'},
+  {q:'日本の内閣総理大臣は誰が指名するか。',c:['天皇','国民の直接選挙','国会','最高裁判所'],a:2,exp:'内閣総理大臣は国会議員の中から国会の議決によって指名される（憲法第67条）。天皇が任命する。'},
+  {q:'「金融政策」の説明として正しいものはどれか。',c:['企業の財務戦略','中央銀行が金利・通貨量を調整する政策','政府が税率を決める政策','国際貿易のルールを定める政策'],a:1,exp:'金融政策は中央銀行（日本では日本銀行）が政策金利や通貨供給量を調整して、物価や景気を安定させる政策。'},
+  {q:'「規制緩和」の説明として最も適切なものはどれか。',c:['新たな規制を追加すること','政府が設けてきた規制を撤廃・緩める改革','税率を上げること','競争を制限すること'],a:1,exp:'規制緩和は政府・行政が設けてきた規制を撤廃・緩和して市場の自由競争を促進する改革。新産業の育成・効率化が目的。'},
+  {q:'「貿易黒字」とはどのような状態か。',c:['輸入額が輸出額を上回る状態','輸出額が輸入額を上回る状態','輸出と輸入が均衡している状態','関税収入が増加している状態'],a:1,exp:'貿易黒字は輸出額が輸入額を上回る状態。反対に輸入超過は「貿易赤字」。'},
+  {q:'「三権分立」の三権とは何か。',c:['立法権・行政権・司法権','国家権力・軍事権・外交権','立法権・財政権・警察権','国会・内閣・最高裁'],a:0,exp:'三権分立は国家権力を立法（国会）・行政（内閣）・司法（裁判所）の3つに分けて権力の集中を防ぐ仕組み。'},
+  {q:'「TPP」の正式名称として正しいものはどれか。',c:['太平洋自由貿易協定','環太平洋パートナーシップ協定','東南アジア諸国連合','アジア太平洋経済協力'],a:1,exp:'TPPは「Trans-Pacific Partnership」の略で環太平洋パートナーシップ協定。貿易・投資の自由化を目指す多国間協定。'},
+  {q:'日本の最高法規はどれか。',c:['民法','刑法','憲法','国会法'],a:2,exp:'憲法は日本の最高法規（憲法第98条）。他のすべての法律は憲法に反することはできない。'},
+  {q:'「公正取引委員会」の主な役割はどれか。',c:['公平な税の徴収','独占禁止法の運用・競争の促進','消費者トラブルの解決','労働環境の監視'],a:1,exp:'公正取引委員会は独占禁止法を運用し、市場における公正な競争を守るための機関。カルテル・独占的行為を取り締まる。'},
+],
+rekishi:[
+  {q:'「大政奉還」が行われたのはいつか。',c:['1853年','1860年','1867年','1877年'],a:2,exp:'1867年（慶応3年）、15代将軍徳川慶喜が政権を朝廷に返還した。翌1868年の明治維新へとつながる。'},
+  {q:'日本国憲法が施行されたのはいつか。',c:['1945年8月15日','1946年11月3日','1947年5月3日','1948年1月1日'],a:2,exp:'日本国憲法は1946年11月3日公布、1947年5月3日施行。現在の「憲法記念日」は5月3日。'},
+  {q:'「明治維新」で廃止された制度として正しいものはどれか。',c:['選挙制度','参勤交代（武士身分制度）','寺子屋','商工業'],a:1,exp:'参勤交代は江戸幕府の制度で明治維新後廃止。身分制度（士農工商）も廃止され四民平等が実現した。'},
+  {q:'「ベルリンの壁」が崩壊したのは何年か。',c:['1979年','1985年','1989年','1991年'],a:2,exp:'ベルリンの壁は1989年11月9日に崩壊。東西冷戦の終結・東西ドイツ統一（1990年）へとつながった歴史的事件。'},
+  {q:'「フランス革命」が起きた年はどれか。',c:['1776年','1789年','1804年','1815年'],a:1,exp:'フランス革命は1789年。自由・平等・友愛を掲げ、絶対王政を打倒した市民革命。バスティーユ牢獄襲撃が象徴的な事件。'},
+  {q:'奈良の大仏（東大寺盧舎那仏）が建立されたのはいつの時代か。',c:['飛鳥時代','奈良時代','平安時代','鎌倉時代'],a:1,exp:'東大寺の大仏は聖武天皇の命により奈良時代（752年）に完成。国家の安泰を祈って造立された。'},
+  {q:'「ルネサンス」が最初に始まった国はどこか。',c:['フランス','スペイン','イタリア','ドイツ'],a:2,exp:'ルネサンス（文芸復興）は14〜16世紀にイタリアで始まった。フィレンツェを中心に美術・文学・科学が花開いた。'},
+  {q:'日本の47都道府県で最も面積が大きいのはどこか。',c:['岩手県','新潟県','長野県','北海道'],a:3,exp:'北海道の面積は約8.3万km²。日本全体の約22%を占め、47都道府県の中で最大。2位は岩手県。'},
+  {q:'世界で最も人口が多い国はどこか（2024年現在）。',c:['中国','インド','アメリカ','インドネシア'],a:1,exp:'2023年以降インドが中国を抜いて世界最多人口国になった。インドの人口は約14億人超。'},
+  {q:'「シルクロード」とはどのような道か。',c:['絹（シルク）の産地への道','中国とヨーロッパをつないだ交易路','日本と中国を結ぶ海路','インド洋の航路'],a:1,exp:'シルクロードは古代中国からユーラシア大陸を横断してヨーロッパへ至る交易路。絹・香辛料・文化が行き交った。'},
+  {q:'「江戸時代」の期間として正しいものはどれか。',c:['1192年〜1333年','1338年〜1573年','1603年〜1868年','1868年〜1912年'],a:2,exp:'江戸時代は1603年（徳川家康が征夷大将軍に任命）〜1868年（明治維新）の約260年間。'},
+  {q:'「アパルトヘイト」とはどのような制度か。',c:['南アフリカの人種隔離政策','インドのカースト制度','中国の一人っ子政策','ソ連の集団農場制度'],a:0,exp:'アパルトヘイトは南アフリカで1948〜1991年まで実施された人種隔離政策。ネルソン・マンデラらの闘争で廃止された。'},
+  {q:'赤道に最も近い日本の都道府県はどれか。',c:['鹿児島県','沖縄県','東京都（小笠原諸島）','長崎県'],a:1,exp:'沖縄県（沖縄本島・波照間島）が日本最南端に近い都道府県。ただし最南端の島は東京都小笠原村の沖ノ鳥島。'},
+  {q:'「産業革命」が最初に起きた国はどこか。',c:['フランス','ドイツ','アメリカ','イギリス'],a:3,exp:'産業革命は18世紀後半にイギリスで始まった。蒸気機関の発明・綿工業の機械化が起点。マンチェスターが象徴的な都市。'},
+  {q:'日本の「高度経済成長期」はいつ頃か。',c:['1945〜1954年','1955〜1973年','1975〜1985年','1990〜2000年'],a:1,exp:'高度経済成長期は1955〜1973年頃。年平均10%前後のGDP成長率を記録。1964年東京五輪・1970年大阪万博が象徴的。'},
+],
+kokugo:[
+  {q:'「忖度（そんたく）」の意味として正しいものはどれか。',c:['強く反発すること','相手の気持ちや意向を推し量ること','率直に意見を言うこと','徹底的に調査すること'],a:1,exp:'「忖度」は他人の心中を推し量ること。近年は上位者の意向を先読みして配慮する意味でも使われる。'},
+  {q:'「蓋然性（がいぜんせい）」の意味として正しいものはどれか。',c:['確実に起こる性質','ある程度起こりそうな可能性の度合い','全く起こらない性質','理論的に証明された性質'],a:1,exp:'「蓋然性」は物事が起こる確からしさ・可能性の程度のこと。「高い蓋然性」はかなり起こりそうな状態を指す。'},
+  {q:'「汚名挽回」という表現は正しいか。',c:['正しい','誤用で「汚名返上」または「名誉挽回」が正しい','文脈によって正しい','新しい表現として定着している'],a:1,exp:'「挽回」は失ったものを取り戻すこと。「汚名」は取り戻すものではなく雪ぐもの。正しくは「汚名返上」か「名誉挽回」。'},
+  {q:'「役不足」の正しい意味はどれか。',c:['その人の力量が仕事に対して足りない','その人の力量に対して仕事・役目が軽すぎる','やる気がないこと','仕事が難しすぎること'],a:1,exp:'「役不足」は本来「役目が軽すぎる・もの足りない」の意。能力不足の意で使うのは誤用。正しくは「力不足」。'},
+  {q:'次のうち敬語の使い方として正しいものはどれか。',c:['先生がおっしゃられた','先生がおっしゃった','先生が申された','先生が言われた'],a:1,exp:'「おっしゃる」は「言う」の尊敬語。「おっしゃられた」は二重敬語で誤り。正しくは「おっしゃった」。'},
+  {q:'「三日坊主」と同じ意味のことわざはどれか。',c:['継続は力なり','七転び八起き','飽きは道楽の敵','石の上にも三年'],a:2,exp:'「飽きは道楽の敵」は飽きやすい性格が趣味・継続を妨げるという意味で、「三日坊主」と近い意味を持つ。'},
+  {q:'「煮え湯を飲まされる」の意味として正しいものはどれか。',c:['非常においしいものを食べる','信頼していた人に裏切られ、ひどい目にあう','困難な状況を乗り越える','強い薬を飲む'],a:1,exp:'「煮え湯を飲まされる」は親しい人・信頼していた相手から裏切られ、ひどい目にあわせられることのたとえ。'},
+  {q:'「鶴の一声」の意味として正しいものはどれか。',c:['鶴が鳴く美しい声','みんなが従わざるを得ない権力者の一言','人々が感動する演説','静かな場所で聞こえる声'],a:1,exp:'「鶴の一声」は権威ある人物の一言で、議論が決着したり物事が決まったりすること。「鶴の一声で決まった」のように使う。'},
+  {q:'次の四字熟語「起死回生」の意味として正しいものはどれか。',c:['生まれ変わること','死にかけた状態から生き返ること・絶望的な状況を立て直すこと','長い間生き続けること','勝負に勝つこと'],a:1,exp:'「起死回生」は死にかけた者を生き返らせること。転じて絶望的な状況を立て直す逆転策のこと。'},
+  {q:'「以心伝心」の意味として正しいものはどれか。',c:['手紙で気持ちを伝えること','言葉を使わずとも心が通じ合うこと','会議で意見をまとめること','友人に秘密を打ち明けること'],a:1,exp:'「以心伝心」は言葉・文字を使わず、心から心へ気持ちが伝わること。禅の言葉から生まれた四字熟語。'},
+  {q:'「出る杭は打たれる」の意味として正しいものはどれか。',c:['努力した者は必ず報われる','才能ある者や目立つ者は周囲から妨害・批判される','積極的に行動することが大切だ','謙虚さが成功の秘訣だ'],a:1,exp:'「出る杭は打たれる」は才能・実力があって目立つ人は、周囲から妬まれたり批判されたりするというたとえ。'},
+  {q:'「ご苦労様です」の使い方として正しいものはどれか。',c:['誰にでも使える万能な言葉','目上の人から目下の人への労いの言葉で、上司には「お疲れ様です」が適切','目上の人への敬語として最適','部下には使ってはいけない'],a:1,exp:'「ご苦労様」は目上の人が目下の人を労う言葉。上司・先輩への使用は失礼にあたり、「お疲れ様です」が適切。'},
+  {q:'「破天荒」の本来の正しい意味はどれか。',c:['豪快で大胆な様子','今まで誰もしなかったことを初めてすること','非常識な行動をとること','天候が荒れること'],a:1,exp:'「破天荒」の本来の意味は「前代未聞・誰も成し遂げなかったことを初めて行う」こと。豪快・型破りの意は誤用。'},
+  {q:'「確信犯」の本来の意味として正しいものはどれか。',c:['証拠が確実な犯罪','自分の行為が正しいという信念に基づいて行う犯罪','わかっていてわざとやる行為（一般的誤用）','証拠隠滅を図る犯罪'],a:1,exp:'確信犯は「政治的・宗教的・道徳的信念に基づく犯罪行為」が本来の意味。「わかってわざとやる」は誤用。'},
+  {q:'次の文で正しい助詞の使い方はどれか。',c:['私は彼女を好きです','私は彼女が好きです','私は彼女に好きです','私は彼女も好きです'],a:1,exp:'「好き」は感情・状態を表す形容動詞なので、対象には「が」を使う。「彼女が好きです」が正しい。'},
+],
+sugaku:[
+  {q:'√2 の近似値として最も適切なものはどれか。',c:['1.313','1.414','1.524','1.618'],a:1,exp:'√2≒1.41421…。語呂合わせ「一夜一夜に人見頃（1.41421356…）」で覚えよう。'},
+  {q:'円の面積の公式として正しいものはどれか。',c:['πr','2πr','πr²','2πr²'],a:2,exp:'円の面積S=πr²（πはπ≒3.14159、rは半径）。円周は2πr。混同しないこと。'},
+  {q:'連立方程式「x+y=10, x-y=4」を解くと？',c:['x=6, y=4','x=7, y=3','x=8, y=2','x=5, y=5'],a:1,exp:'加算：2x=14→x=7。代入：7+y=10→y=3。'},
+  {q:'1から100までの整数の和はいくらか。',c:['4,950','5,000','5,050','5,100'],a:2,exp:'等差数列の和：n(n+1)/2=100×101/2=5,050。ガウスの公式。'},
+  {q:'2の10乗は？',c:['512','1,024','2,048','4,096'],a:1,exp:'2¹⁰=1,024。コンピュータの世界で頻出（1KB≒1024バイト）。'},
+  {q:'正三角形の1辺が4cmのとき、面積はいくらか（√3≒1.73）。',c:['約5.2cm²','約6.9cm²','約8.0cm²','約9.2cm²'],a:1,exp:'正三角形の面積=(√3/4)×a²=(1.73/4)×16=6.92≒6.9cm²。'},
+  {q:'サイコロを2回振るとき、合計が7になる確率はどれか。',c:['1/6','1/8','1/9','1/12'],a:0,exp:'目の組み合わせ：(1,6)(2,5)(3,4)(4,3)(5,2)(6,1)の6通り。全体36通り。確率=6/36=1/6。'},
+  {q:'500mlの10%食塩水に水を何ml加えると5%になるか。',c:['400ml','500ml','600ml','700ml'],a:1,exp:'食塩量=500×0.1=50g。5%にするには50÷0.05=1000ml必要。追加水=1000-500=500ml。'},
+  {q:'次の不等式を解け。3x - 6 > 9',c:['x > 3','x > 4','x > 5','x > 6'],a:2,exp:'3x>15→x>5。'},
+  {q:'5人をA・B・C・D・Eの順で並べると何通りか。',c:['60通り','100通り','120通り','240通り'],a:2,exp:'5!=5×4×3×2×1=120通り。'},
+  {q:'ある商品を定価の3割引きで買い、さらに消費税10%を払った。定価1,000円のとき最終的に払う金額は？',c:['740円','770円','780円','800円'],a:1,exp:'1000×0.7=700円。700×1.1=770円。'},
+  {q:'三角形ABCでA=90°、BC=10cm、AB=6cmのとき、ACは何cmか。',c:['6cm','7cm','8cm','9cm'],a:2,exp:'ピタゴラスの定理：AC²=BC²-AB²=100-36=64→AC=8cm。'},
+  {q:'平均80点・標準偏差10のとき、70点の偏差値はいくらか。',c:['40','45','50','55'],a:0,exp:'偏差値=(得点-平均)÷標準偏差×10+50=(70-80)÷10×10+50=40。'},
+  {q:'y=3x+2のグラフが通る点はどれか。',c:['(0,3)','(1,5)','(2,8)','(3,12)'],a:1,exp:'x=1のとき y=3×1+2=5。(1,5)を通る。'},
+  {q:'1〜10の整数のうち、素数はいくつあるか。',c:['3個','4個','5個','6個'],a:1,exp:'素数：2,3,5,7の4個。1は素数でない。4,6,8,9,10は素数でない。'},
+],
+eigo:[
+  {q:'"Perseverance" の意味として最も近いものはどれか。',c:['忍耐・粘り強さ','革新性','謙虚さ','礼儀正しさ'],a:0,exp:'"Perseverance" は困難に屈せず努力し続けること。就活の面接でも "I value perseverance."のように使える重要語。'},
+  {q:'"Concise" の意味として正しいものはどれか。',c:['詳細な','簡潔な・要点を絞った','複雑な','重要な'],a:1,exp:'"Concise" は不要な言葉を省いて簡潔に表現すること。ビジネスメールでは"Please be concise."（簡潔に書いてください）と使う。'},
+  {q:'次の文の空欄に最も適切な語を選べ。\n"She has a strong （　） for details."',c:['attention','attraction','intention','retention'],a:0,exp:'"Attention to detail"（細部への注意・几帳面さ）は就活面接で頻出の表現。"I have a strong attention to detail."'},
+  {q:'"At your earliest convenience" の意味はどれか。',c:['今すぐ','ご都合のよい時に','緊急に','後ほど'],a:1,exp:'"At your earliest convenience" はビジネスメールの定番表現で「ご都合のよい早い時点で」という丁寧な依頼表現。'},
+  {q:'次のうち "enthusiasm" の反意語に最も近いものはどれか。',c:['passion','excitement','apathy','motivation'],a:2,exp:'"Enthusiasm"（熱意）の反意語は "apathy"（無関心・無気力）。"passion"・"excitement"・"motivation"は類義語。'},
+  {q:'"I would like to follow up on my application." の意味はどれか。',c:['応募を取り下げたい','応募の進捗を確認したい','追加書類を提出したい','面接を辞退したい'],a:1,exp:'"Follow up on"（〜の経過を確認する）。就活メールで「その後の選考状況を確認させてください」という意味で使う。'},
+  {q:'次の空欄に適切な前置詞を選べ。\n"I am responsible （　） managing the team."',c:['of','to','for','with'],a:2,exp:'"Be responsible for" で「〜に責任がある・〜を担当している」。就活英語で必須の表現。'},
+  {q:'"Proofread" の意味として正しいものはどれか。',c:['証拠を読む','誤りがないか校正・確認する','新聞を読む','読書をする'],a:1,exp:'"Proofread" は文書・メール・論文などの誤字・脱字・表現を確認・修正すること。提出前にプルーフリードする習慣を。'},
+  {q:'ビジネスメールで「お世話になっております」に最も近い英語表現はどれか。',c:['How are you?','I hope this email finds you well.','Nice to meet you.','Long time no see.'],a:1,exp:'"I hope this email finds you well." は「お元気でお過ごしでしょうか」というビジネスメールの挨拶文。日本語の「お世話になっております」に近い。'},
+  {q:'次の空欄に適切な語を選べ。\n"Please （　） me know if you have any questions."',c:['make','let','have','do'],a:1,exp:'"Please let me know"（お知らせください）はビジネスメールの定番表現。"Let someone know" で「〜に知らせる」。'},
+  {q:'"Benchmark" の意味として正しいものはどれか。',c:['目印・基準点','書類作成','予算計画','市場調査'],a:0,exp:'"Benchmark" は比較の基準・指標のこと。"Set a benchmark"（基準を設ける）・"Benchmarking"（他社との比較分析）などビジネスで頻出。'},
+  {q:'次の英文の誤りを選べ。\n"Each of the employees have submitted their report."',c:['Each of','have','submitted','their report'],a:1,exp:'"Each of" は単数扱いなので動詞は "has" が正しい。"Each of the employees has submitted their report."'},
+  {q:'"To put it simply" の意味として正しいものはどれか。',c:['詳しく言えば','簡単に言えば','正直に言えば','正式に言えば'],a:1,exp:'"To put it simply" は複雑な内容を噛み砕いて説明する際の前置き。"In other words"（言い換えれば）と似た使い方。'},
+  {q:'次の空欄に最も適切な語を選べ。\n"The new policy will （　） effect next month."',c:['take','make','do','have'],a:0,exp:'"Take effect"（効力を発する・実施される）。"The new law takes effect in April."（新法は4月に施行される）。'},
+  {q:'"Leverage" をビジネスで使う場合の意味として正しいものはどれか。',c:['てこ（機械）','資源・強みを最大限に活用する','借金をする','競合他社に勝つ'],a:1,exp:'"Leverage" はビジネス文脈で「強み・資源・関係などを最大限に活用する」こと。"Leverage our network"（ネットワークを活用する）。'},
+],
+rika:[
+  {q:'光合成の化学式として正しいものはどれか。',c:['CO₂+H₂O → O₂+C₆H₁₂O₆（+光エネルギー）','O₂+H₂O → CO₂+C₆H₁₂O₆','CO₂+O₂ → H₂O+C₆H₁₂O₆','H₂O+O₂ → CO₂+C₆H₁₂O₆'],a:0,exp:'光合成：6CO₂+6H₂O+光エネルギー→C₆H₁₂O₆+6O₂。二酸化炭素と水を材料にブドウ糖と酸素を生成。'},
+  {q:'ヒトの血液型（ABO式）で最も多いのはどの型か（日本人）。',c:['A型','B型','O型','AB型'],a:0,exp:'日本人の血液型比率：A型約40%・O型約30%・B型約20%・AB型約10%。A型が最多。'},
+  {q:'「オームの法則」の式として正しいものはどれか。',c:['V=IR','V=I/R','I=VR','R=VI'],a:0,exp:'オームの法則：V（電圧）=I（電流）×R（抵抗）。変形すると I=V/R、R=V/I。電気の基本法則。'},
+  {q:'食塩の化学式として正しいものはどれか。',c:['NaOH','NaCl','KCl','CaCl₂'],a:1,exp:'食塩（塩化ナトリウム）の化学式はNaCl。Na=ナトリウム・Cl=塩素の化合物。'},
+  {q:'「細胞分裂」で細胞の数を増やす分裂はどれか。',c:['減数分裂','体細胞分裂','無性生殖','有性生殖'],a:1,exp:'体細胞分裂は通常の細胞数を増やす分裂（染色体数は変わらない）。減数分裂は生殖細胞を作る際の分裂（染色体数が半分になる）。'},
+  {q:'地球の大気で最も多く含まれる気体はどれか。',c:['酸素','二酸化炭素','窒素','アルゴン'],a:2,exp:'大気の組成：窒素78%・酸素21%・アルゴン0.93%・二酸化炭素0.04%。窒素が最多。'},
+  {q:'「フレミングの左手の法則」は何に使うか。',c:['電磁誘導の方向を求める','電流・磁界・力の方向の関係を求める','光の屈折方向を求める','熱伝導の方向を求める'],a:1,exp:'フレミングの左手の法則：人差し指=磁界の向き、中指=電流の向き、親指=力（モーター）の向き。電動機の原理に使う。'},
+  {q:'「pH7」はどのような状態か。',c:['強酸性','弱酸性','中性','アルカリ性'],a:2,exp:'pH7は中性（純水の状態）。pH7未満が酸性・pH7超がアルカリ性（塩基性）。pH0が最強酸・pH14が最強アルカリ。'},
+  {q:'太陽系で最も大きい惑星はどれか。',c:['土星','木星','天王星','海王星'],a:1,exp:'木星は太陽系最大の惑星。直径は地球の約11倍・質量は地球の約318倍。大赤斑（巨大な嵐）が特徴。'},
+  {q:'「ニュートンの第一法則」（慣性の法則）の内容として正しいものはどれか。',c:['力=質量×加速度','外力が働かない限り物体は静止または等速直線運動を続ける','作用と反作用は等しく逆方向','エネルギーは保存される'],a:1,exp:'慣性の法則は「外力が働かない限り静止した物体は静止し続け、運動中の物体は等速直線運動を続ける」。ニュートン第一法則。'},
+  {q:'「DNA」の正式名称として正しいものはどれか。',c:['デオキシリボ核酸','リボ核酸','アミノ酸','核タンパク質'],a:0,exp:'DNA=Deoxyribonucleic Acid（デオキシリボ核酸）。遺伝情報を担う分子。RNAはRibonucleic Acid（リボ核酸）。'},
+  {q:'「プレートテクトニクス」とはどのような理論か。',c:['大陸が移動するという理論','地球の表面がプレートと呼ばれる板で覆われ、その動きで地震・火山・大陸移動が起きるという理論','地球の内部が液体であるという理論','惑星の運動を説明する理論'],a:1,exp:'プレートテクトニクスは地球の表層が複数のプレートで構成され、その動きで地震・火山・造山運動が起きるという理論。'},
+  {q:'「相対性理論」を提唱した科学者はだれか。',c:['ニュートン','ガリレオ','アインシュタイン','ダーウィン'],a:2,exp:'アルベルト・アインシュタインは特殊相対性理論（1905年）・一般相対性理論（1915年）を提唱。E=mc²が有名。'},
+  {q:'植物の根・茎・葉に水を送る組織の名称はどれか。',c:['師管（しかん）','道管（どうかん）','気孔','葉緑体'],a:1,exp:'道管（どうかん）は根から吸収した水と無機塩類を上方へ運ぶ管状組織。師管（しかん）は光合成産物（糖など）を運ぶ。'},
+  {q:'「ビッグバン理論」とはどのような理論か。',c:['太陽の誕生を説明する理論','宇宙は約138億年前の大爆発（ビッグバン）から始まったという理論','ブラックホールの形成を説明する理論','地球の誕生を説明する理論'],a:1,exp:'ビッグバン理論は宇宙が約138億年前の高温・高密度の状態からの大爆発（ビッグバン）で始まったとする宇宙論の標準モデル。'},
+],
+};
+
+// ==================== STATE ====================
+let currentSection='jiji';
+const ALL_SIDS=['jiji','seikei','rekishi','kokugo','sugaku','eigo','rika'];
+let answered=Object.fromEntries(ALL_SIDS.map(s=>[s,{}]));
+let aiAnswered=Object.fromEntries(ALL_SIDS.map(s=>[s,{}]));
+let aiQuestions=Object.fromEntries(ALL_SIDS.map(s=>[s,[]]));
+let selectedDifficulty=Object.fromEntries(ALL_SIDS.map(s=>[s,'normal']));
+let aiLoading=Object.fromEntries(ALL_SIDS.map(s=>[s,false]));
+const TOTAL_FIXED=Object.values(QUESTIONS).reduce((s,q)=>s+q.length,0);
+
+function buildTabs(){
+  document.getElementById('sectionBar').innerHTML=SECTIONS.map(s=>`
+    <button class="section-tab${s.id===currentSection?' active':''}" onclick="switchSection('${s.id}')">
+      ${s.icon} ${s.name}
+    </button>`).join('');
+}
+function switchSection(id){currentSection=id;buildTabs();renderMain();updateScore();}
+
+function updateScore(){
+  let correct=0,done=0;
+  ALL_SIDS.forEach(sid=>{
+    Object.values(answered[sid]).forEach(a=>{if(a.correct)correct++;done++;});
+    Object.values(aiAnswered[sid]).forEach(a=>{if(a.correct)correct++;done++;});
+  });
+  document.getElementById('totalScore').innerHTML=`${correct}<span> / ${done}問</span>`;
+  const pct=done>0?Math.round(correct/done*100):0;
+  document.getElementById('progressFill').style.width=Math.min(done/TOTAL_FIXED*100,100)+'%';
+  document.getElementById('progressText').textContent=`${pct}% 正答率（${done}/${TOTAL_FIXED}問以上回答済み）`;
+}
+
+const NOTES={
+  jiji:'時事問題は新聞・ニュースを毎日チェックする習慣が最強の対策。特にビジネス・経済関連の用語を押さえよう。',
+  seikei:'政治・経済は基本的な仕組み（三権分立・金融政策・財政など）を正確に理解することが大切。',
+  rekishi:'歴史は「年号」「人物」「出来事」の3つをセットで覚えよう。流れを理解すると記憶に残りやすい。',
+  kokugo:'語彙・慣用句・四字熟語は本来の意味を正確に押さえること。誤用が問われるケースも多い。',
+  sugaku:'一般常識の数学は基礎計算・確率・統計が中心。公式を正確に覚え、素早く計算できるよう練習しよう。',
+  eigo:'ビジネス英語の語彙・表現を重点的に学ぼう。メールの定番表現や面接で使える語彙を優先して覚えよう。',
+  rika:'理科の基礎知識（化学式・法則・宇宙）を整理しよう。暗記より原理の理解が答えを導きやすくする。',
+};
+
+function renderMain(){
+  const s=SECTIONS.find(x=>x.id===currentSection);
+  const qs=QUESTIONS[currentSection];
+  const ans=answered[currentSection];
+  const allDone=Object.keys(ans).length===qs.length;
+  let html=`<div class="section-header">
+    <h2>${s.icon} ${s.name}（固定問題：全${qs.length}問）</h2>
+    <p>${s.desc}</p>
+    <div class="gen-note">💡 攻略ポイント：${NOTES[currentSection]}</div>
+  </div>`;
+  if(allDone){html+=renderSectionResult(currentSection);}
+  else{
+    html+=`<div class="subsection-label">📝 問題を解いてみよう</div>`;
+    html+=qs.map((q,i)=>renderQCard(currentSection,i,q,ans[i],false)).join('');
+  }
+  html+=renderAISection(currentSection);
+  document.getElementById('mainArea').innerHTML=html;
+}
+
+function renderQCard(sid,i,q,a,isAI){
+  const isDone=a!==undefined;
+  const labels=['A','B','C','D'];
+  const numClass=isAI?'q-num ai-num':'q-num';
+  const numLabel=isAI?`AI-${i+1}`:`Q${i+1}`;
+  const choices=q.c.map((c,ci)=>{
+    let cls='choice-btn';
+    if(isDone){
+      if(ci===q.a) cls+=' show-correct';
+      else if(ci===a.chosen&&!a.correct) cls+=' wrong';
+    }
+    const onclick=isAI?`answerAI('${sid}',${i},${ci})`:`answer('${sid}',${i},${ci})`;
+    return `<button class="${cls}" ${isDone?'disabled':''} onclick="${onclick}">
+      <span class="choice-label">${labels[ci]}</span><span>${c}</span>
+    </button>`;
+  }).join('');
+  let expHtml='';
+  if(isDone){
+    const ok=a.correct;
+    expHtml=`<div class="explanation ${ok?'correct-exp':'wrong-exp'}">
+      <div class="exp-head">${ok?'✅ 正解！':`❌ 不正解。正解：「${q.c[q.a]}」`}</div>
+      <div>${q.exp}</div>
+    </div>`;
+  }
+  return `<div class="q-card">
+    <div class="q-head"><span class="${numClass}">${numLabel}</span><div class="q-text">${q.q.replace(/\n/g,'<br>')}</div></div>
+    <div class="q-body"><div class="choices">${choices}</div>${expHtml}</div>
+  </div>`;
+}
+
+function answer(sid,qi,chosen){
+  answered[sid][qi]={chosen,correct:chosen===QUESTIONS[sid][qi].a};
+  renderMain();updateScore();
+}
+function answerAI(sid,qi,chosen){
+  aiAnswered[sid][qi]={chosen,correct:chosen===aiQuestions[sid][qi].a};
+  renderMain();updateScore();
+}
+
+function renderSectionResult(sid){
+  const correct=Object.values(answered[sid]).filter(a=>a.correct).length;
+  const total=QUESTIONS[sid].length;
+  const pct=Math.round(correct/total*100);
+  let emoji='😢',doshi='「解説を読んで知識を定着させよう。一般常識は広く浅く覚えることが大切。」';
+  if(pct>=80){emoji='🏆';doshi='「一般常識は万全！AI出題でさらに知識の幅を広げよう！」';}
+  else if(pct>=60){emoji='😊';doshi='「あと一歩！間違えた問題の解説を読み返そう。」';}
+  else if(pct>=40){emoji='😅';doshi='「基礎知識を固め直そう。毎日少しずつ積み上げることが大切。」';}
+  return `<div class="section-result">
+    <div class="result-emoji">${emoji}</div>
+    <div class="result-score">${correct}<span> / ${total}問</span></div>
+    <div class="result-pct" style="color:${pct>=60?'var(--rose-mid)':'#ef4444'}">${pct}%</div>
+    <div class="doshi-box"><span class="doshi-label">🔥 キャリ爺より</span><p>${doshi}</p></div>
+    <button class="btn-retry" onclick="retrySection('${sid}')">🔄 もう一度解く</button>
+  </div>`;
+}
+function retrySection(sid){answered[sid]={};renderMain();updateScore();}
+
+function renderAISection(sid){
+  const s=SECTIONS.find(x=>x.id===sid);
+  const diff=selectedDifficulty[sid];
+  const loading=aiLoading[sid];
+  const aiQs=aiQuestions[sid];
+  const aiAns=aiAnswered[sid];
+  let aiQsHtml='';
+  if(aiQs.length>0){
+    aiQsHtml='<div style="display:flex;flex-direction:column;gap:10px;">'
+      +aiQs.map((q,i)=>renderQCard(sid,i,q,aiAns[i],true)).join('')+'</div>';
+  }
+  const loadingHtml=loading?`<div class="ai-loading">🤖 AIが問題を生成中<span class="ai-loading-dots"></span></div>`:'';
+  return `<div class="ai-section">
+    <div class="ai-section-head">
+      <span class="ai-section-icon">🤖</span>
+      <div>
+        <div class="ai-section-title">AI自動出題コーナー｜${s.name}</div>
+        <div class="ai-section-sub">難易度を選んでAIが新問題を5問生成（何度でも挑戦可）</div>
+      </div>
+    </div>
+    <div class="ai-section-body">
+      <div class="ai-note">⚠️ AIが生成した問題です。まれに不正確な場合があります。参考程度にご活用ください。</div>
+      <div class="ai-controls">
+        <span class="ai-controls-label">難易度：</span>
+        <button class="difficulty-btn normal${diff==='normal'?' selected':''}" onclick="setDifficulty('${sid}','normal')">📗 普通</button>
+        <button class="difficulty-btn hard${diff==='hard'?' selected':''}" onclick="setDifficulty('${sid}','hard')">📕 難関</button>
+        <button class="btn-ai-generate" onclick="generateAI('${sid}')" ${loading?'disabled':''}>
+          ${loading?'⏳ 生成中...':'✨ AI問題を生成（5問）'}
+        </button>
+      </div>
+      ${loadingHtml}${aiQsHtml}
+    </div>
+  </div>`;
+}
+function setDifficulty(sid,diff){selectedDifficulty[sid]=diff;renderMain();}
+
+async function generateAI(sid){
+  const s=SECTIONS.find(x=>x.id===sid);
+  const diff=selectedDifficulty[sid];
+  const diffLabel=diff==='hard'?'難関（応用・高難度）':'普通（標準レベル）';
+  const prompts={
+    jiji:'就活一般常識の時事・社会問題（SDGs・DX・AI・働き方改革・ビジネス用語など最新トピック）',
+    seikei:'就活一般常識の政治・経済問題（日本の政治制度・経済指標・国際関係・金融政策）',
+    rekishi:'就活一般常識の歴史・地理問題（日本史・世界史・地理・文化）',
+    kokugo:'就活一般常識の国語問題（語彙・慣用句・ことわざ・四字熟語・敬語・文法）',
+    sugaku:'就活一般常識の数学問題（計算・方程式・確率・図形・統計）',
+    eigo:'就活一般常識の英語問題（ビジネス英語・語彙・文法・熟語）',
+    rika:'就活一般常識の理科問題（生物・化学・物理・地学の基礎知識）',
+  };
+  const systemPrompt=`あなたは就職活動の一般常識試験の問題作成専門家です。${prompts[sid]}を${diffLabel}レベルで5問作成してください。
+必ずJSON形式のみで返答。{"questions":[{"q":"問題文","c":["A","B","C","D"],"a":正解インデックス(0-3),"exp":"解説（100字以内・根拠を含む）"}]}
+条件：4択・正解1つ・解説簡潔・${diff==='hard'?'高難度の応用・細かい知識を問う問題':'基本的な知識を確認する標準問題'}・日本語`;
+  const userContent=`${prompts[sid]}を${diffLabel}で5問。JSON形式のみ。`;
+  aiLoading[sid]=true;renderMain();
+  try{
+    const key=getGeminiKey();
+    if(!key) throw new Error('NO_KEY');
+    const text=await callGemini(systemPrompt, userContent);
+    const clean=text.replace(/```json|```/g,'').trim();
+    const parsed=JSON.parse(clean);
+    aiQuestions[sid]=parsed.questions||[];
+    aiAnswered[sid]={};
+  }catch(e){
+    if(e.message==='NO_KEY'){
+      aiQuestions[sid]=[{q:'⚠️ Gemini APIキーが設定されていません。トップページ（drill-index.html）でAPIキーを設定してください。',c:['トップページへ戻る','—','—','—'],a:0,exp:'drill-index.htmlのAPIキー設定欄にGemini APIキーを入力・保存してください。'}];
+    } else {
+      aiQuestions[sid]=[{q:'AI問題の生成中にエラーが発生しました。APIキーを確認してもう一度お試しください。',c:['再試行する','—','—','—'],a:0,exp:'ネットワークエラーまたはAPI応答の解析に失敗しました。エラー：'+e.message}];
+    }
+    aiAnswered[sid]={};
+  }
+  aiLoading[sid]=false;renderMain();
+}
+
+function resetAll(){
+  answered=Object.fromEntries(ALL_SIDS.map(s=>[s,{}]));
+  aiAnswered=Object.fromEntries(ALL_SIDS.map(s=>[s,{}]));
+  aiQuestions=Object.fromEntries(ALL_SIDS.map(s=>[s,[]]));
+  renderMain();updateScore();
+}
+
+buildTabs();renderMain();updateScore();
+</script>
+</body>
+</html>
