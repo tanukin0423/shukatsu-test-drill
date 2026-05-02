@@ -127,6 +127,20 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--indigo-pale);min-hei
 </head>
 <body>
 
+<!-- ====== APIキー設定バー ====== -->
+<div id="apiKeyBar" style="background:linear-gradient(135deg,#4c1d95,#7c3aed);padding:12px 20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;position:sticky;top:0;z-index:999;">
+  <span style="font-size:14px;">🔑</span>
+  <span style="color:#fff;font-size:12px;font-weight:700;white-space:nowrap;">Gemini APIキー：</span>
+  <input id="apiKeyInput" type="password"
+    placeholder="AIzaSy... を入力して保存してください"
+    style="flex:1;min-width:180px;padding:7px 12px;border-radius:8px;border:none;font-size:12px;outline:none;"
+  />
+  <button onclick="saveApiKey()" style="padding:7px 16px;background:#22c55e;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;">💾 保存</button>
+  <button onclick="clearApiKey()" style="padding:7px 12px;background:rgba(255,255,255,0.2);color:#fff;border:none;border-radius:8px;font-size:12px;cursor:pointer;white-space:nowrap;">🗑️</button>
+  <span id="apiKeyStatus" style="font-size:11px;font-weight:700;white-space:nowrap;"></span>
+</div>
+
+
 <div class="hero">
   <div class="hero-tree">⚙️</div>
   <div class="brand-badge">🌱 就活の木｜キャリア支援課</div>
@@ -162,27 +176,50 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--indigo-pale);min-hei
 
 <script>
 
-// ====== Gemini APIキー読み込み ======
+// ====== APIキー管理（sessionStorage使用） ======
 const GEMINI_KEY_NAME = 'shukatsu_gemini_key';
 
 function getGeminiKey() {
-  return localStorage.getItem(GEMINI_KEY_NAME) || '';
+  return sessionStorage.getItem(GEMINI_KEY_NAME) || '';
 }
+
+function saveApiKey() {
+  const key = document.getElementById('apiKeyInput').value.trim();
+  if (!key) { showApiStatus('❌ キーを入力してください', '#fca5a5'); return; }
+  if (!key.startsWith('AIza')) { showApiStatus('⚠️ AIzaSy...で始まるキーを入力', '#fde68a'); return; }
+  sessionStorage.setItem(GEMINI_KEY_NAME, key);
+  document.getElementById('apiKeyInput').value = '';
+  showApiStatus('✅ 保存済み！AI出題が使えます', '#86efac');
+}
+
+function clearApiKey() {
+  sessionStorage.removeItem(GEMINI_KEY_NAME);
+  showApiStatus('🗑️ 削除しました', '#e5e7eb');
+}
+
+function showApiStatus(msg, color) {
+  const el = document.getElementById('apiKeyStatus');
+  el.style.color = color;
+  el.textContent = msg;
+  setTimeout(() => { if(el.textContent===msg) el.textContent=''; }, 5000);
+}
+
+// ページ読み込み時に保存済みキーを確認
+window.addEventListener('load', () => {
+  const saved = sessionStorage.getItem(GEMINI_KEY_NAME);
+  if (saved) showApiStatus('✅ APIキー設定済み', '#86efac');
+});
 
 async function callGemini(systemPrompt, userPrompt) {
   const key = getGeminiKey();
-  if (!key) {
-    throw new Error('NO_KEY');
-  }
+  if (!key) throw new Error('NO_KEY');
   const res = await fetch(
     `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        contents: [{
-          parts: [{ text: systemPrompt + '\n\n' + userPrompt }]
-        }],
+        contents: [{ parts: [{ text: systemPrompt + '\n\n' + userPrompt }] }],
         generationConfig: { temperature: 0.7, maxOutputTokens: 1500 }
       })
     }
@@ -194,6 +231,8 @@ async function callGemini(systemPrompt, userPrompt) {
   const data = await res.json();
   return data.candidates?.[0]?.content?.parts?.[0]?.text || '';
 }
+
+
 
 const SECTIONS=[
   {id:'anzan', icon:'🧮', name:'暗算（CAB）',   desc:'四則演算を素早く正確に解く。1問10秒以内が目標'},
@@ -444,6 +483,30 @@ function renderMain(){
     html+=`<div class="subsection-label">📝 問題を解いてみよう</div>`;
     html+=qs.map((q,i)=>renderQCard(currentSection,i,q,ans[i],false)).join('');
   }
+  html+=`
+<!-- ====== パワーアップメッセージ ====== -->
+<div style="background:linear-gradient(135deg,#F0FDF0,#DCFCE7);border:2px solid #4A8C4B;border-radius:16px;padding:18px 20px;margin:24px 0;text-align:center;">
+  <div style="font-size:15px;font-weight:900;color:#2C5F2D;margin-bottom:6px;">
+    ✅ ここまでは、そのまま使えます！
+  </div>
+  <div style="font-size:13px;color:#374151;line-height:1.8;margin-bottom:12px;">
+    固定問題は<strong>APIキー不要</strong>で今すぐ練習できます。<br>
+    4択・即時採点・解説つき。まずここから始めよう！
+  </div>
+  <div style="background:linear-gradient(135deg,#4c1d95,#7c3aed);border-radius:12px;padding:14px 18px;color:#fff;">
+    <div style="font-size:16px;font-weight:900;margin-bottom:6px;">
+      🚀 AIでパワーアップしよう！
+    </div>
+    <div style="font-size:12px;line-height:1.8;opacity:0.92;">
+      AIが新しい問題を<strong style="color:#fde68a;">無制限</strong>に自動生成！<br>
+      普通・難関の2レベルで何度でも練習できます。<br><br>
+      <strong style="color:#fde68a;">→ 上の紫色のバーにAPIキーを入力するだけ！</strong><br>
+      無料・3分で取得：<a href="https://aistudio.google.com/app/apikey" target="_blank"
+        style="color:#fde68a;font-weight:700;">aistudio.google.com</a>
+    </div>
+  </div>
+</div>
+`;
   html+=renderAISection(currentSection);
   document.getElementById('mainArea').innerHTML=html;
 }
@@ -583,7 +646,7 @@ async function generateAI(sid){
     aiAnswered[sid]={};
   }catch(e){
     if(e.message==='NO_KEY'){
-      aiQuestions[sid]=[{q:'⚠️ Gemini APIキーが設定されていません。トップページ（drill-index.html）でAPIキーを設定してください。',c:['トップページへ戻る','—','—','—'],a:0,exp:'drill-index.htmlのAPIキー設定欄にGemini APIキーを入力・保存してください。'}];
+      aiQuestions[sid]=[{q:'⚠️ Gemini APIキーが設定されていません。トップページ（index.html）でAPIキーを設定してください。',c:['トップページへ戻る','—','—','—'],a:0,exp:'index.htmlのAPIキー設定欄にGemini APIキーを入力・保存してください。'}];
     } else {
       aiQuestions[sid]=[{q:'AI問題の生成中にエラーが発生しました。APIキーを確認してもう一度お試しください。',c:['再試行する','—','—','—'],a:0,exp:'ネットワークエラーまたはAPI応答の解析に失敗しました。エラー：'+e.message}];
     }

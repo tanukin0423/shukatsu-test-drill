@@ -453,13 +453,13 @@ function saveApiKey() {
   const key = document.getElementById('apiKeyInput').value.trim();
   if (!key) { showStatus('❌ キーを入力してください', '#ef4444'); return; }
   if (!key.startsWith('AIza')) { showStatus('⚠️ Gemini APIキーは「AIzaSy...」で始まります', '#F59E0B'); return; }
-  localStorage.setItem(KEY_NAME, key);
+  sessionStorage.setItem(KEY_NAME, key);
   document.getElementById('apiKeyInput').value = '';
   showStatus('✅ 保存しました！全ドリルでAI出題が使えます', '#22c55e');
 }
 
 function clearApiKey() {
-  localStorage.removeItem(KEY_NAME);
+  sessionStorage.removeItem(KEY_NAME);
   document.getElementById('apiKeyInput').value = '';
   showStatus('🗑️ 削除しました', '#6B7280');
 }
@@ -473,7 +473,7 @@ function showStatus(msg, color) {
 
 // ページ読み込み時：保存済みキーを確認
 window.addEventListener('load', () => {
-  const saved = localStorage.getItem(KEY_NAME);
+  const saved = sessionStorage.getItem(KEY_NAME);
   if (saved) {
     showStatus('✅ APIキーは設定済みです。全ドリルでAI出題が使えます', '#22c55e');
   }
