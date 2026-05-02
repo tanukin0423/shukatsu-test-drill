@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📝 筆記試験対策ドリル｜就活の木</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--green:#2C5F2D;--green-mid:#4A8C4B;--green-pale:#E8F5E9;--amber:#F59E0B;--gray:#6B7280;--shadow:0 2px 8px rgba(0,0,0,0.10);}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans JP',sans-serif;background:#F0FDF0;min-height:100vh;color:#1F2937;}
+
+/* APIキーバー */
+#apiBar{background:linear-gradient(135deg,#4c1d95,#7c3aed);padding:10px 16px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:999;}
+#apiBar span.label{color:#fff;font-size:12px;font-weight:700;white-space:nowrap;}
+#apiKeyInput{flex:1;min-width:160px;padding:7px 12px;border-radius:8px;border:none;font-size:12px;outline:none;}
+.api-btn{padding:7px 14px;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+.api-save{background:#22c55e;color:#fff;}
+.api-clear{background:rgba(255,255,255,0.2);color:#fff;}
+#apiStatus{font-size:11px;font-weight:700;color:#fff;white-space:nowrap;}
+
+/* ヒーロー */
+.hero{background:linear-gradient(150deg,#2C5F2D,#4A8C4B);padding:36px 20px 44px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'🌳';position:absolute;right:-10px;bottom:0;font-size:120px;opacity:0.08;line-height:1;}
+.brand{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);color:rgba(255,255,255,0.9);font-size:11px;font-weight:700;letter-spacing:0.1em;padding:4px 12px;border-radius:20px;margin-bottom:12px;}
+.hero-icon{font-size:44px;display:block;margin-bottom:8px;animation:float 3s ease-in-out infinite;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+.hero h1{font-size:clamp(20px,5vw,28px);font-weight:900;color:#fff;margin-bottom:8px;}
+.hero p{font-size:13px;color:rgba(255,255,255,0.85);line-height:1.7;}
+.stats{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:16px;}
+.stat{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);border-radius:10px;padding:8px 16px;text-align:center;}
+.stat-num{font-size:20px;font-weight:900;color:#fff;}
+.stat-lbl{font-size:10px;color:rgba(255,255,255,0.8);}
+
+/* コンテンツ */
+.content{max-width:720px;margin:0 auto;padding:24px 16px 60px;}
+
+/* APIキー設定カード */
+.api-card{background:#fff;border-radius:16px;box-shadow:var(--shadow);padding:20px;margin-bottom:24px;}
+.api-card-title{font-size:14px;font-weight:900;color:#4c1d95;margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+.api-steps{background:#F9FAFB;border:1px solid #E5E7EB;border-radius:10px;padding:12px 14px;font-size:12px;line-height:1.9;color:var(--gray);}
+.api-steps a{color:#4c1d95;font-weight:700;}
+
+/* セクションラベル */
+.sec-label{font-size:11px;font-weight:700;letter-spacing:0.10em;color:var(--gray);margin:20px 0 12px;display:flex;align-items:center;gap:8px;}
+.sec-label::after{content:'';flex:1;height:1px;background:#C8E6C9;}
+
+/* ドリルカード */
+.drill-grid{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+.drill-card{display:flex;align-items:center;background:#fff;border-radius:14px;box-shadow:var(--shadow);overflow:hidden;text-decoration:none;color:#1F2937;transition:transform 0.18s,box-shadow 0.18s;}
+.drill-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.13);}
+.card-bar{width:6px;flex-shrink:0;align-self:stretch;}
+.card-inner{flex:1;padding:14px 16px;display:flex;align-items:center;gap:12px;}
+.card-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.card-info{flex:1;}
+.card-num{font-size:10px;font-weight:700;letter-spacing:0.08em;margin-bottom:2px;}
+.card-title{font-size:14px;font-weight:900;margin-bottom:3px;}
+.card-desc{font-size:11px;color:var(--gray);}
+.card-tags{display:flex;flex-wrap:wrap;gap:3px;margin-top:5px;}
+.tag{font-size:10px;font-weight:600;padding:2px 7px;border-radius:8px;}
+.card-right{padding:14px 16px 14px 0;flex-shrink:0;text-align:right;}
+.card-count{font-size:18px;font-weight:900;}
+.card-count-lbl{font-size:10px;color:var(--gray);}
+.card-arrow{font-size:16px;margin-top:6px;}
+
+/* キャリ爺メッセージ */
+.message{background:#fff;border-radius:14px;box-shadow:var(--shadow);padding:16px;}
+.message-inner{background:linear-gradient(135deg,#FFF7ED,#FEF3C7);border-left:4px solid var(--amber);border-radius:0 10px 10px 0;padding:12px 14px;}
+.message-lbl{font-size:10px;font-weight:700;color:#92400E;margin-bottom:4px;display:block;}
+.message-text{font-size:13px;color:#78350F;font-style:italic;line-height:1.8;}
+
+.footer{text-align:center;padding:0 16px 40px;font-size:11px;color:var(--gray);}
+.footer b{color:var(--green-mid);}
+
+/* カラー */
+.c1 .card-bar{background:linear-gradient(180deg,#2C5F2D,#97BC62);}
+.c1 .card-icon{background:#E8F5E9;}
+.c1 .card-num,.c1 .card-count{color:#2C5F2D;}
+.c1 .card-arrow{color:#4A8C4B;}
+.c1 .tag{background:#E8F5E9;color:#2C5F2D;}
+
+.c2 .card-bar{background:linear-gradient(180deg,#1e3a5f,#3b82f6);}
+.c2 .card-icon{background:#EFF6FF;}
+.c2 .card-num,.c2 .card-count{color:#1e3a5f;}
+.c2 .card-arrow{color:#3b82f6;}
+.c2 .tag{background:#EFF6FF;color:#1e3a5f;}
+
+.c3 .card-bar{background:linear-gradient(180deg,#134e4a,#14b8a6);}
+.c3 .card-icon{background:#F0FDFA;}
+.c3 .card-num,.c3 .card-count{color:#134e4a;}
+.c3 .card-arrow{color:#14b8a6;}
+.c3 .tag{background:#F0FDFA;color:#134e4a;}
+
+.c4 .card-bar{background:linear-gradient(180deg,#1e1b4b,#6366F1);}
+.c4 .card-icon{background:#EEF2FF;}
+.c4 .card-num,.c4 .card-count{color:#1e1b4b;}
+.c4 .card-arrow{color:#6366F1;}
+.c4 .tag{background:#EEF2FF;color:#1e1b4b;}
+
+.c5 .card-bar{background:linear-gradient(180deg,#9F1239,#E11D48);}
+.c5 .card-icon{background:#FFF1F2;}
+.c5 .card-num,.c5 .card-count{color:#9F1239;}
+.c5 .card-arrow{color:#E11D48;}
+.c5 .tag{background:#FFF1F2;color:#9F1239;}
+
+.c6 .card-bar{background:linear-gradient(180deg,#7c2d12,#EA580C);}
+.c6 .card-icon{background:#FFF7ED;}
+.c6 .card-num,.c6 .card-count{color:#7c2d12;}
+.c6 .card-arrow{color:#EA580C;}
+.c6 .tag{background:#FFF7ED;color:#7c2d12;}
+
+@media(max-width:480px){.hero{padding:28px 14px 36px;}.content{padding:16px 12px 50px;}.card-title{font-size:13px;}.card-desc{font-size:10px;}}
+</style>
+</head>
+<body>
+
+<!-- APIキーバー -->
+<div id="apiBar">
+  <span class="label">🔑 Gemini APIキー：</span>
+  <input id="apiKeyInput" type="password" placeholder="AIzaSy... を入力して保存（全ドリルで共有）"/>
+  <button class="api-btn api-save" onclick="saveKey()">💾 保存</button>
+  <button class="api-btn api-clear" onclick="clearKey()">🗑️</button>
+  <span id="apiStatus"></span>
+</div>
+
+<!-- ヒーロー -->
+<div class="hero">
+  <div class="brand">🌱 就活の木｜キャリア支援課</div>
+  <span class="hero-icon">📝</span>
+  <h1>筆記試験対策ドリル</h1>
+  <p>SPI3・TG-WEB・玉手箱・CAB/GAB・一般常識・独自試験<br>固定問題＋AI自動出題（普通・難関）｜4択・即時採点・解説つき</p>
+  <div class="stats">
+    <div class="stat"><div class="stat-num">13</div><div class="stat-lbl">単元</div></div>
+    <div class="stat"><div class="stat-num">200+</div><div class="stat-lbl">固定問題</div></div>
+    <div class="stat"><div class="stat-num">∞</div><div class="stat-lbl">AI出題</div></div>
+    <div class="stat"><div class="stat-num">無料</div><div class="stat-lbl">APIキーのみ</div></div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- APIキー設定案内 -->
+  <div class="api-card">
+    <div class="api-card-title">🔑 AI自動出題を使うには（無料・3分）</div>
+    <div class="api-steps">
+      ① <a href="https://aistudio.google.com/app/apikey" target="_blank">aistudio.google.com</a> にアクセス（Googleアカウントでログイン）<br>
+      ② 「APIキーを作成」をクリック → AIzaSy...のキーをコピー<br>
+      ③ 上の紫バーに貼り付けて「💾 保存」を押す<br>
+      ④ 全ドリルでAI自動出題が使えます！（ブラウザを閉じるまで有効）
+    </div>
+  </div>
+
+  <!-- SPI3 -->
+  <div class="sec-label">📖 SPI3対策（最多採用・大手〜中堅全般）</div>
+  <div class="drill-grid">
+    <a class="drill-card c1" href="spi3_gengo.html">
+      <div class="card-bar"></div>
+      <div class="card-inner">
+        <div class="card-icon">📖</div>
+        <div class="card-info">
+          <div class="card-num">SPI3 - 01</div>
+          <div class="card-title">言語ドリル</div>
+          <div class="card-desc">語彙・語句の関係・文章読解・ことわざ</div>
+          <div class="card-tags"><span class="tag">語彙</span><span class="tag">読解</span><span class="tag">慣用句</span></div>
+        </div>
+      </div>
+      <div class="card-right">
+        <div class="card-count">20</div>
+        <div class="card-count-lbl">固定問題</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </a>
+    <a class="drill-card c1" href="spi3_higengo.html">
+      <div class="card-bar"></div>
+      <div class="card-inner">
+        <div class="card-icon">🔢</div>
+        <div class="card-info">
+          <div class="card-num">SPI3 - 02</div>
+          <div class="card-title">非言語ドリル</div>
+          <div class="card-desc">割合・速さ・仕事算・確率・図形</div>
+          <div class="card-tags"><span class="tag">割合</span><span class="tag">速さ</span><span class="tag">確率</span></div>
+        </div>
+      </div>
+      <div class="card-right">
+        <div class="card-count">20</div>
+        <div class="card-count-lbl">固定問題</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </a>
+    <a class="drill-card c1" href="spi3_eigo.html">
+      <div class="card-bar"></div>
+      <div class="card-inner">
+        <div class="card-icon">🇬🇧</div>
+        <div class="card-info">
+          <div class="card-num">SPI3 - 03</div>
+          <div class="card-title">英語ドリル</div>
+          <div class="card-desc">語彙・文法・ビジネス英語・穴埋め・読解</div>
+          <div class="card-tags"><span class="tag">語彙</span><span class="tag">文法</span><span class="tag">ビジネス英語</span></div>
+        </div>
+      </div>
+      <div class="card-right">
+        <div class="card-count">15</div>
+        <div class="card-count-lbl">固定問題</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- TG-WEB -->
+  <div class="sec-label">🧠 TG-WEB対策（大手・人気企業で急増中）</div>
+  <div class="drill-grid">
+    <a class="drill-card c2" href="tgweb_gengo.html">
+      <div class="card-bar"></div>
+      <div class="card-inner">
+        <div class="card-icon">📖</div>
+        <div class="card-info">
+          <div class="card-num">TG-WEB - 01</div>
+          <div class="card-title">言語ドリル</div>
+          <div class="card-desc">長文読解・趣旨把握・論理推論・空欄補充</div>
+          <div class="card-tags"><span class="tag">長文読解</span><span class="tag">趣旨把握</span><span class="tag">論理</span></div>
+        </div>
+      </div>
+      <div class="card-right">
+        <div class="card-count">15</div>
+        <div class="card-count-lbl">固定問題</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </a>
+    <a class="drill-card c2" href="tgweb_keisuu.html">
+      <div class="card-bar"></div>
+      <div class="card-inner">
+        <div class="card-icon">🔢</div>
+        <div class="card-info">
+          <div class="card-num">TG-WEB - 02</div>
+          <div class="card-title">計数ドリル</div>
+          <div class="card-desc">鶴亀算・ニュートン算・数列・順列組み合わせ</div>
+          <div class="card-tags"><span class="tag">鶴亀算</span><span class="tag">数列</span><span class="tag">確率</span></div>
+        </div>
+      </div>
+      <div class="card-right">
+        <div class="card-count">15</div>
+        <div class="card-count-lbl">固定問題</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- 玉手箱 -->
+  <div class="sec-label">💎 玉手箱対策（外資系・大手・金融）</div>
+  <div class="drill-grid">
+    <a class="drill-card c3" href="tamatebako_shisoku.html">
+      <div class="card-bar"></div>
+      <div class="card-inner">
+        <div class="card-icon">🔣</div>
+        <div class="card-info">
+          <div class="card-num">玉手箱 - 01</div>
+          <div class="card-title">四則逆算ドリル</div>
+          <div class="card-desc">□に入る数を求める｜1問10秒が目標</div>
+          <div class="card-tags"><span class="tag">逆算</span><span class="tag">スピード</span></div>
+        </div>
+      </div>
+      <div class="card-right">
+        <div class="card-count">20</div>
+        <div class="card-count-lbl">固定問題</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </a>
+    <a class="drill-card c3" href="tamatebako_zuhyo.html">
+      <div class="card-bar"></div>
+      <div class="card-inner">
+        <div class="card-icon">📊</div>
+        <div class="card-info">
+          <div class="card-num">玉手箱 - 02</div>
+          <div class="card-title">図表読み取りドリル</div>
+          <div class="card-desc">グラフ・表から正確に数値を読み取り計算</div>
+          <div class="card-tags"><span class="tag">図表</span><span class="tag">計算</span></div>
+        </div>
+      </div>
+      <div class="card-right">
+        <div class="card-count">15</div>
+        <div class="card-count-lbl">固定問題</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- CAB/GAB -->
+  <div class="sec-label">⚙️ CAB/GAB対策（IT系・コンサル・商社）</div>
+  <div class="drill-grid">
+    <a class="drill-card c4" href="cabgab_anzan.html">
+      <div class="card-bar"></div>
+      <div class="card-inner">
+        <div class="card-icon">🧮</div>
+        <div class="card-info">
+          <div class="card-num">CAB - 01</div>
+          <div class="card-title">暗算ドリル</div>
+          <div class="card-desc">四則演算を素早く正確に｜1問8〜10秒が目標</div>
+          <div class="card-tags"><span class="tag">暗算</span><span class="tag">スピード</span></div>
+        </div>
+      </div>
+      <div class="card-right">
+        <div class="card-count">20</div>
+        <div class="card-count-lbl">固定問題</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </a>
+    <a class="drill-card c4" href="cabgab_hosoku.html">
+      <div class="card-bar"></div>
+      <div class="card-inner">
+        <div class="card-icon">🔀</div>
+        <div class="card-info">
+          <div class="card-num">CAB - 02</div>
+          <div class="card-title">法則性ドリル</div>
+          <div class="card-desc">数字・記号のパターンを見つける</div>
+          <div class="card-tags"><span class="tag">数列</span><span class="tag">パターン</span></div>
+        </div>
+      </div>
+      <div class="card-right">
+        <div class="card-count">15</div>
+        <div class="card-count-lbl">固定問題</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- 一般常識 -->
+  <div class="sec-label">🗞️ 一般常識対策（中小・マスコミ・金融・公務員）</div>
+  <div class="drill-grid">
+    <a class="drill-card c5" href="ippan_jiji.html">
+      <div class="card-bar"></div>
+      <div class="card-inner">
+        <div class="card-icon">🗞️</div>
+        <div class="card-info">
+          <div class="card-num">一般常識 - 01</div>
+          <div class="card-title">時事・社会ドリル</div>
+          <div class="card-desc">SDGs・DX・AI・働き方改革・ビジネス用語</div>
+          <div class="card-tags"><span class="tag">時事</span><span class="tag">DX</span><span class="tag">SDGs</span></div>
+        </div>
+      </div>
+      <div class="card-right">
+        <div class="card-count">15</div>
+        <div class="card-count-lbl">固定問題</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </a>
+    <a class="drill-card c5" href="ippan_kokugo.html">
+      <div class="card-bar"></div>
+      <div class="card-inner">
+        <div class="card-icon">📚</div>
+        <div class="card-info">
+          <div class="card-num">一般常識 - 02</div>
+          <div class="card-title">国語ドリル</div>
+          <div class="card-desc">語彙・慣用句・ことわざ・四字熟語・敬語・誤用</div>
+          <div class="card-tags"><span class="tag">語彙</span><span class="tag">敬語</span><span class="tag">誤用注意</span></div>
+        </div>
+      </div>
+      <div class="card-right">
+        <div class="card-count">15</div>
+        <div class="card-count-lbl">固定問題</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- 独自試験 -->
+  <div class="sec-label">🏢 独自試験対策（新聞社・金融・コンサル・放送局）</div>
+  <div class="drill-grid">
+    <a class="drill-card c6" href="dokujitu_ronri.html">
+      <div class="card-bar"></div>
+      <div class="card-inner">
+        <div class="card-icon">🧩</div>
+        <div class="card-info">
+          <div class="card-num">独自試験 - 01</div>
+          <div class="card-title">論理・推論ドリル</div>
+          <div class="card-desc">三段論法・批判的思考・論理パズル・フレームワーク</div>
+          <div class="card-tags"><span class="tag">三段論法</span><span class="tag">MECE</span><span class="tag">論理</span></div>
+        </div>
+      </div>
+      <div class="card-right">
+        <div class="card-count">15</div>
+        <div class="card-count-lbl">固定問題</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </a>
+    <a class="drill-card c6" href="dokujitu_sakumon.html">
+      <div class="card-bar"></div>
+      <div class="card-inner">
+        <div class="card-icon">✍️</div>
+        <div class="card-info">
+          <div class="card-num">独自試験 - 02</div>
+          <div class="card-title">作文・小論文ドリル</div>
+          <div class="card-desc">論述構成・評価ポイント・PREP法・テーマ別対策</div>
+          <div class="card-tags"><span class="tag">PREP法</span><span class="tag">論述</span><span class="tag">小論文</span></div>
+        </div>
+      </div>
+      <div class="card-right">
+        <div class="card-count">15</div>
+        <div class="card-count-lbl">固定問題</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- キャリ爺メッセージ -->
+  <div class="message">
+    <div class="message-inner">
+      <span class="message-lbl">🌱 キャリ爺より</span>
+      <div class="message-text">「筆記試験は"貯金型"の対策です。今日1問解いた積み重ねが、半年後の本番で必ず返ってきます。焦らず、一問ずつ。まず自分が受ける企業の試験種別を確認して、そのドリルから始めてみてください。答えは、君の中にある。」</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer"><b>🌱 就活の木</b>｜多摩大学キャリア支援課｜キャリ爺作成</div>
+
+<script>
+const KEY='shukatsu_gemini_key';
+function saveKey(){
+  const k=document.getElementById('apiKeyInput').value.trim();
+  if(!k){showSt('❌ キーを入力してください','#fca5a5');return;}
+  if(!k.startsWith('AIza')){showSt('⚠️ AIzaSy...で始まるキーを入力','#fde68a');return;}
+  sessionStorage.setItem(KEY,k);
+  document.getElementById('apiKeyInput').value='';
+  showSt('✅ 保存済み！全ドリルでAI出題が使えます','#86efac');
+}
+function clearKey(){
+  sessionStorage.removeItem(KEY);
+  showSt('🗑️ 削除しました','#e5e7eb');
+}
+function showSt(msg,color){
+  const el=document.getElementById('apiStatus');
+  el.style.color=color;el.textContent=msg;
+  setTimeout(()=>{if(el.textContent===msg)el.textContent='';},5000);
+}
+window.addEventListener('load',()=>{
+  if(sessionStorage.getItem(KEY)) showSt('✅ APIキー設定済み','#86efac');
+});
+</script>
+</body>
+</html>

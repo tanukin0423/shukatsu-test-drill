@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📖 SPI3言語ドリル｜就活の木</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--green:#2C5F2D;--green-mid:#4A8C4B;--green-pale:#E8F5E9;--amber:#F59E0B;--gray:#6B7280;--white:#fff;--shadow:0 2px 8px rgba(0,0,0,0.10);}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans JP',sans-serif;background:#F0FDF0;min-height:100vh;color:#1F2937;}
+
+/* APIキーバー */
+#apiBar{background:linear-gradient(135deg,#4c1d95,#7c3aed);padding:10px 16px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:999;}
+#apiBar span{color:#fff;font-size:12px;font-weight:700;white-space:nowrap;}
+#apiKeyInput{flex:1;min-width:160px;padding:7px 12px;border-radius:8px;border:none;font-size:12px;outline:none;}
+.api-btn{padding:7px 14px;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+.api-save{background:#22c55e;color:#fff;}
+.api-clear{background:rgba(255,255,255,0.2);color:#fff;}
+#apiStatus{font-size:11px;font-weight:700;color:#fff;white-space:nowrap;}
+
+/* ヘッダー */
+.hero{background:linear-gradient(150deg,#2C5F2D,#4A8C4B);padding:28px 20px;text-align:center;color:#fff;}
+.hero h1{font-size:24px;font-weight:900;margin-bottom:6px;}
+.hero p{font-size:13px;opacity:0.85;}
+
+/* コンテンツ */
+.content{max-width:680px;margin:0 auto;padding:20px 16px 60px;}
+
+/* スコアバー */
+.score-bar{background:#fff;border-radius:12px;box-shadow:var(--shadow);padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.score-num{font-size:20px;font-weight:900;color:var(--green);}
+.score-num span{font-size:12px;color:var(--gray);font-weight:400;}
+.progress{flex:1;min-width:100px;height:7px;background:#E5E7EB;border-radius:4px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--green),#97BC62);border-radius:4px;transition:width 0.4s;}
+.score-pct{font-size:11px;color:var(--gray);}
+.btn-reset{padding:6px 12px;background:var(--green-pale);border:1px solid #C8E6C9;color:var(--green);border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;}
+
+/* パワーアップバナー */
+.powerup{background:linear-gradient(135deg,#F0FDF0,#DCFCE7);border:2px solid #4A8C4B;border-radius:14px;padding:16px 18px;margin:20px 0;text-align:center;}
+.powerup-title{font-size:14px;font-weight:900;color:#2C5F2D;margin-bottom:6px;}
+.powerup-sub{font-size:12px;color:#374151;line-height:1.7;margin-bottom:10px;}
+.powerup-cta{background:linear-gradient(135deg,#4c1d95,#7c3aed);border-radius:10px;padding:12px 16px;color:#fff;}
+.powerup-cta-title{font-size:14px;font-weight:900;margin-bottom:4px;}
+.powerup-cta-sub{font-size:12px;opacity:0.9;line-height:1.7;}
+.powerup-cta a{color:#fde68a;font-weight:700;}
+
+/* 問題カード */
+.q-card{background:#fff;border-radius:12px;box-shadow:var(--shadow);margin-bottom:10px;overflow:hidden;animation:fadeUp 0.3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.q-head{padding:12px 14px 8px;border-bottom:1px solid #F0F0F0;display:flex;gap:8px;align-items:flex-start;}
+.q-num{background:var(--green);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap;margin-top:2px;flex-shrink:0;}
+.q-num.ai{background:#7C3AED;}
+.q-text{font-size:13px;font-weight:700;line-height:1.65;}
+.q-body{padding:10px 14px 12px;}
+.choices{display:flex;flex-direction:column;gap:6px;}
+.choice{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;border:1.5px solid #E5E7EB;background:#FAFAFA;cursor:pointer;font-size:13px;font-weight:500;transition:all 0.15s;width:100%;text-align:left;}
+.choice:hover:not(:disabled){border-color:var(--green-mid);background:var(--green-pale);color:var(--green);}
+.choice-lbl{width:20px;height:20px;border-radius:50%;background:#E5E7EB;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;transition:all 0.15s;}
+.choice:hover:not(:disabled) .choice-lbl{background:var(--green-mid);color:#fff;}
+.choice.ok{border-color:#22c55e;background:#F0FDF4;color:#15803d;}
+.choice.ok .choice-lbl{background:#22c55e;color:#fff;}
+.choice.ng{border-color:#ef4444;background:#FEF2F2;color:#991b1b;}
+.choice.ng .choice-lbl{background:#ef4444;color:#fff;}
+.choice.show{border-color:#22c55e;background:#F0FDF4;color:#15803d;}
+.choice.show .choice-lbl{background:#22c55e;color:#fff;}
+.choice:disabled{cursor:default;}
+.exp{margin-top:8px;padding:10px 12px;border-radius:8px;font-size:12px;line-height:1.75;}
+.exp.ok{background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border:1px solid #BBF7D0;color:#14532d;}
+.exp.ng{background:linear-gradient(135deg,#FFF7ED,#FEF3C7);border:1px solid #FDE68A;color:#78350f;}
+.exp-head{font-size:11px;font-weight:700;margin-bottom:3px;}
+
+/* AI出題セクション */
+.ai-section{background:#fff;border-radius:14px;box-shadow:var(--shadow);margin-top:20px;overflow:hidden;}
+.ai-head{background:linear-gradient(135deg,#4c1d95,#7c3aed);padding:14px 18px;display:flex;align-items:center;gap:10px;}
+.ai-head-icon{font-size:24px;}
+.ai-head-title{color:#fff;font-size:14px;font-weight:900;}
+.ai-head-sub{color:rgba(255,255,255,0.8);font-size:11px;margin-top:2px;}
+.ai-body{padding:16px 18px;}
+.ai-note{font-size:11px;color:var(--gray);background:#F9FAFB;border:1px solid #E5E7EB;border-radius:8px;padding:7px 10px;margin-bottom:12px;}
+.ai-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+.diff-btn{padding:7px 16px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;border:2px solid transparent;transition:all 0.15s;}
+.diff-normal{background:var(--green-pale);border-color:#C8E6C9;color:var(--green);}
+.diff-normal.on{background:var(--green);color:#fff;}
+.diff-hard{background:#F5F3FF;border-color:#C4B5FD;color:#7C3AED;}
+.diff-hard.on{background:#7C3AED;color:#fff;}
+.btn-gen{padding:9px 20px;background:linear-gradient(135deg,#4c1d95,#7c3aed);color:#fff;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.15s;}
+.btn-gen:hover{transform:translateY(-2px);}
+.btn-gen:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+.ai-loading{text-align:center;padding:18px;color:#7C3AED;font-size:13px;font-weight:600;}
+
+/* 完了画面 */
+.result{background:#fff;border-radius:14px;box-shadow:var(--shadow);padding:24px;text-align:center;margin-bottom:16px;}
+.result-emoji{font-size:44px;margin-bottom:8px;}
+.result-score{font-size:38px;font-weight:900;color:var(--green);}
+.result-score span{font-size:15px;color:var(--gray);font-weight:400;}
+.result-pct{font-size:22px;font-weight:900;margin:4px 0 10px;}
+.doshi{background:linear-gradient(135deg,#FFF7ED,#FEF3C7);border-left:4px solid var(--amber);border-radius:0 10px 10px 0;padding:12px 14px;text-align:left;margin:10px 0;}
+.doshi-lbl{font-size:10px;font-weight:700;color:#92400E;margin-bottom:4px;display:block;}
+.doshi p{font-size:12px;color:#78350F;font-style:italic;line-height:1.75;}
+.btn-retry{padding:10px 24px;background:linear-gradient(135deg,#2C5F2D,#4A8C4B);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;margin-top:6px;}
+
+.footer{text-align:center;padding:0 16px 40px;font-size:11px;color:var(--gray);}
+.footer b{color:var(--green-mid);}
+
+@media(max-width:480px){.hero{padding:22px 14px;}.content{padding:16px 12px 50px;}.q-text{font-size:12px;}.choice{font-size:12px;padding:8px 10px;}}
+</style>
+</head>
+<body>
+
+<!-- APIキーバー -->
+<div id="apiBar">
+  <span>🔑 Gemini APIキー：</span>
+  <input id="apiKeyInput" type="password" placeholder="AIzaSy... を入力して保存"/>
+  <button class="api-btn api-save" onclick="saveKey()">💾 保存</button>
+  <button class="api-btn api-clear" onclick="clearKey()">🗑️</button>
+  <span id="apiStatus"></span>
+</div>
+
+<!-- ヒーロー -->
+<div class="hero">
+  <h1>📖 SPI3 言語ドリル</h1>
+  <p>語彙・語句の関係・文章読解｜全20問 ＋ AI自動出題<br>4択・即時採点・解説つき</p>
+</div>
+
+<div class="content">
+  <!-- スコアバー -->
+  <div class="score-bar">
+    <div>
+      <div style="font-size:11px;color:var(--gray);margin-bottom:2px;">スコア</div>
+      <div class="score-num" id="scoreNum">0<span> / 0問</span></div>
+    </div>
+    <div style="flex:1;min-width:100px;">
+      <div class="progress"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+      <div class="score-pct" id="scorePct" style="margin-top:3px;">0% 正答率</div>
+    </div>
+    <button class="btn-reset" onclick="resetAll()">🔄 リセット</button>
+  </div>
+
+  <div id="mainArea"></div>
+</div>
+
+<div class="footer"><b>🌱 就活の木</b>｜多摩大学キャリア支援課｜キャリ爺作成</div>
+
+<script>
+// ===== 問題データ =====
+const QS = [
+  {q:'「逡巡（しゅんじゅん）」の意味として正しいものはどれか。',c:['激しく怒ること','ためらうこと・なかなか決心がつかない様子','深く感動すること','素直に従うこと'],a:1,exp:'「逡巡」はためらうこと。「逡巡せずに行動した」のように使う。就活でも頻出の語彙。'},
+  {q:'「齟齬（そご）」の意味として正しいものはどれか。',c:['深い感謝','強い信頼','食い違い・かみ合わないこと','長い沈黙'],a:2,exp:'「齟齬をきたす」は意見や物事がかみ合わない状態を指す。'},
+  {q:'「恣意的（しいてき）」の意味として正しいものはどれか。',c:['論理的な','自分勝手な・気ままな','慎重な','積極的な'],a:1,exp:'「恣意的」は自分の思うまま・勝手な様子。「恣意的な判断」のように使う。'},
+  {q:'「瑕疵（かし）」の意味として正しいものはどれか。',c:['長所・特技','欠点・傷・不完全な点','才能・能力','技術・技巧'],a:1,exp:'「瑕疵」は欠点・傷・不完全な点。法律・不動産の分野で特に頻出。'},
+  {q:'「付和雷同（ふわらいどう）」の意味として正しいものはどれか。',c:['力を合わせて困難を乗り越えること','自分の意見なく人に同調すること','雷のように素早く行動すること','多数決で物事を決めること'],a:1,exp:'「付和雷同」は自分の意見を持たずみだりに人の意見に同調すること。'},
+  {q:'「一期一会（いちごいちえ）」の意味として正しいものはどれか。',c:['一つの目標に向かって努力すること','一生に一度の出会いと心得て大切にすること','物事は一つずつ確実に行うこと','出会いと別れを繰り返すこと'],a:1,exp:'「一期一会」は茶道から生まれた言葉。この出会いは一生に一度と心得て誠実に向き合うこと。'},
+  {q:'「捲土重来（けんどちょうらい）」の意味として正しいものはどれか。',c:['一気に攻め立てること','一度敗れた後に勢いを盛り返して再び挑むこと','多くの人が集まること','勢いよく押し寄せること'],a:1,exp:'「捲土重来」は一度負けた者が勢いを盛り返して再び挑むこと。'},
+  {q:'「五十歩百歩」の意味として正しいものはどれか。',c:['少しの努力でも大きな差が生まれる','本質的な差はなく似たり寄ったりである','努力の量と成果は比例する','わずかな差が大きな結果を生む'],a:1,exp:'「五十歩百歩」は程度の差があっても本質的には同じであることのたとえ。'},
+  {q:'「医師：患者」と同じ関係にあるものはどれか。',c:['教師：生徒','親：子','警察：犯人','弁護士：依頼人'],a:3,exp:'医師と患者、弁護士と依頼人はどちらも「専門家とサービスを受ける人」という対等な関係。'},
+  {q:'次のうち仲間外れはどれか。「桜・梅・松・紅葉・菊」',c:['桜','松','菊','紅葉'],a:1,exp:'桜・梅・紅葉・菊は花や紅葉を観賞する植物。松は常緑樹で他と性質が異なる。'},
+  {q:'「虎の威を借る狐」の意味として正しいものはどれか。',c:['強者に依頼して問題解決する','権力者の力を背景に威張る','敵の弱点を突いて勝つ','機会をうかがって行動する'],a:1,exp:'「虎の威を借る狐」は権力のある者の力を背景にして弱い者が威張ることのたとえ。'},
+  {q:'「光陰矢の如し」の意味として正しいものはどれか。',c:['努力は必ず報われる','時間は矢のように速く過ぎ去る','明るい未来が必ず来る','何事も勢いが大切だ'],a:1,exp:'「光陰矢の如し」は月日が経つのは矢のように速いという意味。'},
+  {q:'「忖度（そんたく）」の意味として正しいものはどれか。',c:['強く反発すること','相手の気持ちや意向を推し量ること','率直に意見を言うこと','徹底的に調査すること'],a:1,exp:'「忖度」は他人の心中を推し量ること。近年は上位者の意向を先読みして配慮する意味でも使われる。'},
+  {q:'「役不足」の正しい意味はどれか。',c:['その人の力量が仕事に対して足りない','その人の力量に対して仕事・役目が軽すぎる','やる気がないこと','仕事が難しすぎること'],a:1,exp:'「役不足」は本来「役目が軽すぎる・もの足りない」の意。能力不足の意で使うのは誤用。正しくは「力不足」。'},
+  {q:'「破天荒」の本来の意味として正しいものはどれか。',c:['豪快で大胆な様子','今まで誰もしなかったことを初めてすること','非常識な行動をとること','天候が荒れること'],a:1,exp:'「破天荒」の本来の意味は「前代未聞・誰も成し遂げなかったことを初めて行う」こと。豪快の意は誤用。'},
+  {q:'「塞翁が馬（さいおうがうま）」の意味として正しいものはどれか。',c:['馬は財産の象徴である','何事も最後まで諦めないことが大切','幸不幸は予測できず一概に判断できない','努力なくして成功はない'],a:2,exp:'「人間万事塞翁が馬」は幸・不幸は予測不可能で、何が幸いになるかわからないというたとえ。'},
+  {q:'次の空欄に入る最も適切な語を選べ。「彼は自分の行動を（　）し、深く反省した。」',c:['弁解','正当化','正当','顧みて'],a:3,exp:'「顧みる（かえりみる）」は過去の自分の行動を振り返り反省する意味。'},
+  {q:'「蓋然性（がいぜんせい）」の意味として正しいものはどれか。',c:['確実に起こる性質','ある程度起こりそうな可能性の度合い','全く起こらない性質','理論的に正しい性質'],a:1,exp:'「蓋然性」は物事が起こる確からしさ・可能性の程度のこと。「高い蓋然性」はかなり起こりそうな状態。'},
+  {q:'「辟易（へきえき）」の意味として正しいものはどれか。',c:['非常に感動すること','うんざりして困ること','強い怒りを感じること','深く考え込むこと'],a:1,exp:'「辟易する」はうんざりして嫌になること。「彼のしつこさに辟易した」のように使う。'},
+  {q:'次のことわざと同じ意味のものを選べ。「石の上にも三年」',c:['七転び八起き','継続は力なり','急いては事を仕損じる','柔よく剛を制す'],a:1,exp:'「石の上にも三年」は辛抱強く続ければ必ず報われるという意味で「継続は力なり」に近い。'},
+];
+
+// ===== 状態 =====
+const KEY = 'shukatsu_gemini_key';
+let answered = {};
+let aiAnswered = {};
+let aiQs = [];
+let diff = 'normal';
+let aiLoading = false;
+
+// ===== APIキー管理 =====
+function getKey(){ return sessionStorage.getItem(KEY)||''; }
+function saveKey(){
+  const k=document.getElementById('apiKeyInput').value.trim();
+  if(!k){showSt('❌ キーを入力してください','#fca5a5');return;}
+  if(!k.startsWith('AIza')){showSt('⚠️ AIzaSy...で始まるキーを入力','#fde68a');return;}
+  sessionStorage.setItem(KEY,k);
+  document.getElementById('apiKeyInput').value='';
+  showSt('✅ 保存済み！AI出題が使えます','#86efac');
+}
+function clearKey(){
+  sessionStorage.removeItem(KEY);
+  showSt('🗑️ 削除しました','#e5e7eb');
+}
+function showSt(msg,color){
+  const el=document.getElementById('apiStatus');
+  el.style.color=color;el.textContent=msg;
+  setTimeout(()=>{if(el.textContent===msg)el.textContent='';},5000);
+}
+window.addEventListener('load',()=>{
+  if(getKey()) showSt('✅ APIキー設定済み','#86efac');
+});
+
+// ===== Gemini API =====
+async function callGemini(sys,usr){
+  const key=getKey();
+  if(!key) throw new Error('NO_KEY');
+  // ストリーミング方式（es-compare.htmlと同じ方式）
+  const url='https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key='+key;
+  const res=await fetch(url,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      contents:[{role:'user',parts:[{text:sys+'\n\n'+usr}]}],
+      generationConfig:{temperature:0.7,maxOutputTokens:8000}
+    })
+  });
+  if(!res.ok){
+    const err=await res.json().catch(()=>({}));
+    if(res.status===400) throw new Error('APIキーが無効です');
+    if(res.status===429) throw new Error('Geminiのレート制限に達しました（無料枠上限）');
+    throw new Error((err.error&&err.error.message)||'HTTP '+res.status);
+  }
+  const reader=res.body.getReader();
+  const decoder=new TextDecoder();
+  let buffer='',fullText='';
+  while(true){
+    const {done,value}=await reader.read();
+    if(done) break;
+    buffer+=decoder.decode(value,{stream:true});
+    const lines=buffer.split('\n');buffer=lines.pop();
+    for(const line of lines){
+      if(!line.startsWith('data: ')) continue;
+      try{
+        const evt=JSON.parse(line.slice(6));
+        const text=evt?.candidates?.[0]?.content?.parts?.[0]?.text;
+        if(text) fullText+=text;
+      }catch(_){}
+    }
+  }
+  // ループ終了後、bufferに残った最後のチャンクを処理
+  if(buffer.startsWith('data: ')){
+    try{
+      const evt=JSON.parse(buffer.slice(6));
+      const text=evt?.candidates?.[0]?.content?.parts?.[0]?.text;
+      if(text) fullText+=text;
+    }catch(_){}
+  }
+  return fullText;
+}
+
+// ===== スコア更新 =====
+function updateScore(){
+  let correct=0,done=0;
+  Object.values(answered).forEach(a=>{if(a.ok)correct++;done++;});
+  Object.values(aiAnswered).forEach(a=>{if(a.ok)correct++;done++;});
+  document.getElementById('scoreNum').innerHTML=`${correct}<span> / ${done}問</span>`;
+  const pct=done>0?Math.round(correct/done*100):0;
+  document.getElementById('progressFill').style.width=Math.min(done/QS.length*100,100)+'%';
+  document.getElementById('scorePct').textContent=`${pct}% 正答率（${done}/${QS.length}問回答済み）`;
+}
+
+// ===== 問題カードを描画 =====
+function renderCard(q,i,ans,isAI){
+  const done=ans!==undefined;
+  const labels=['A','B','C','D'];
+  const numCls=isAI?'q-num ai':'q-num';
+  const numLbl=isAI?`AI-${i+1}`:`Q${i+1}`;
+  const choices=q.c.map((c,ci)=>{
+    let cls='choice';
+    if(done){
+      if(ci===q.a) cls+=' show';
+      else if(ci===ans.chosen&&!ans.ok) cls+=' ng';
+    }
+    const fn=isAI?`answerAI(${i},${ci})`:`answer(${i},${ci})`;
+    return `<button class="${cls}" ${done?'disabled':''} onclick="${fn}">
+      <span class="choice-lbl">${labels[ci]}</span><span>${c}</span>
+    </button>`;
+  }).join('');
+  let expHtml='';
+  if(done){
+    const ok=ans.ok;
+    expHtml=`<div class="exp ${ok?'ok':'ng'}">
+      <div class="exp-head">${ok?'✅ 正解！':`❌ 不正解。正解：「${q.c[q.a]}」`}</div>
+      ${q.exp}
+    </div>`;
+  }
+  return `<div class="q-card">
+    <div class="q-head"><span class="${numCls}">${numLbl}</span><div class="q-text">${q.q}</div></div>
+    <div class="q-body"><div class="choices">${choices}</div>${expHtml}</div>
+  </div>`;
+}
+
+// ===== 回答処理 =====
+function answer(qi,chosen){
+  answered[qi]={chosen,ok:chosen===QS[qi].a};
+  render();updateScore();
+}
+function answerAI(qi,chosen){
+  aiAnswered[qi]={chosen,ok:chosen===aiQs[qi].a};
+  render();updateScore();
+}
+
+// ===== AI出題セクション描画 =====
+function renderAI(){
+  const aiCardsHtml=aiQs.length>0
+    ?'<div style="display:flex;flex-direction:column;gap:10px;margin-top:4px;">'+
+      aiQs.map((q,i)=>renderCard(q,i,aiAnswered[i],true)).join('')+'</div>'
+    :'';
+  const loadHtml=aiLoading?'<div class="ai-loading">🤖 AIが問題を生成中...</div>':'';
+  return `<div class="ai-section">
+    <div class="ai-head">
+      <span class="ai-head-icon">🤖</span>
+      <div>
+        <div class="ai-head-title">AI自動出題コーナー｜SPI3言語</div>
+        <div class="ai-head-sub">難易度を選んでAIが新問題を5問生成（何度でも可）</div>
+      </div>
+    </div>
+    <div class="ai-body">
+      <div class="ai-note">⚠️ AIが生成した問題です。まれに不正確な場合があります。参考程度にご活用ください。</div>
+      <div class="ai-controls">
+        <span style="font-size:12px;font-weight:700;">難易度：</span>
+        <button class="diff-btn diff-normal${diff==='normal'?' on':''}" onclick="setDiff('normal')">📗 普通</button>
+        <button class="diff-btn diff-hard${diff==='hard'?' on':''}" onclick="setDiff('hard')">📕 難関</button>
+        <button class="btn-gen" onclick="generateAI()" ${aiLoading?'disabled':''}>
+          ${aiLoading?'⏳ 生成中...':'✨ AI問題を生成（5問）'}
+        </button>
+      </div>
+      ${loadHtml}${aiCardsHtml}
+    </div>
+  </div>`;
+}
+
+// ===== 完了画面 =====
+function renderResult(){
+  const correct=Object.values(answered).filter(a=>a.ok).length;
+  const total=QS.length;
+  const pct=Math.round(correct/total*100);
+  let emoji='😢',doshi='「間違えた問題の解説を読み返し、弱点を把握しましょう。」';
+  if(pct>=80){emoji='🏆';doshi='「素晴らしい！AI出題でさらに実力を磨きましょう！」';}
+  else if(pct>=60){emoji='😊';doshi='「あと一歩！解説をしっかり確認してください。」';}
+  else if(pct>=40){emoji='😅';doshi='「焦らず一問ずつ解説を読んで理解していこう。」';}
+  return `<div class="result">
+    <div class="result-emoji">${emoji}</div>
+    <div class="result-score">${correct}<span> / ${total}問</span></div>
+    <div class="result-pct" style="color:${pct>=60?'#2C5F2D':'#ef4444'}">${pct}%</div>
+    <div class="doshi"><span class="doshi-lbl">🔥 キャリ爺より</span><p>${doshi}</p></div>
+    <button class="btn-retry" onclick="resetFixed()">🔄 もう一度解く</button>
+  </div>`;
+}
+
+// ===== メイン描画 =====
+function render(){
+  const allDone=Object.keys(answered).length===QS.length;
+  let html='';
+  if(allDone){
+    html+=renderResult();
+  } else {
+    html+=`<div style="font-size:11px;font-weight:700;color:var(--gray);letter-spacing:0.08em;margin:16px 0 10px;display:flex;align-items:center;gap:8px;">
+      📝 問題を解いてみよう
+      <span style="flex:1;height:1px;background:#C8E6C9;display:block;"></span>
+    </div>`;
+    html+=QS.map((q,i)=>renderCard(q,i,answered[i],false)).join('');
+  }
+  // パワーアップバナー
+  html+=`<div class="powerup">
+    <div class="powerup-title">✅ ここまでは、そのまま使えます！</div>
+    <div class="powerup-sub">固定問題は<strong>APIキー不要</strong>で今すぐ練習できます。</div>
+    <div class="powerup-cta">
+      <div class="powerup-cta-title">🚀 AIでパワーアップしよう！</div>
+      <div class="powerup-cta-sub">AIが新しい問題を<strong>無制限</strong>に自動生成！<br>
+        → 上の紫バーにAPIキーを入力するだけ！<br>
+        無料・3分で取得：<a href="https://aistudio.google.com/app/apikey" target="_blank">aistudio.google.com</a>
+      </div>
+    </div>
+  </div>`;
+  html+=renderAI();
+  document.getElementById('mainArea').innerHTML=html;
+}
+
+function setDiff(d){diff=d;render();}
+function resetFixed(){answered={};render();updateScore();}
+function resetAll(){answered={};aiAnswered={};aiQs=[];render();updateScore();}
+
+// ===== AI問題生成 =====
+async function generateAI(){
+  const diffLabel=diff==='hard'?'難関（応用・高難度）':'普通（標準レベル）';
+  const sys=`あなたはSPI3試験の言語問題作成専門家です。就活生向けのSPI3言語問題（語彙・語句の関係・ことわざ・文章読解）を以下の難易度基準で5問作成してください。【普通】日常語レベルの語彙・短文・基本的なことわざや慣用句・中学生が知っている言葉のレベル。【難関】文語や難読語・長文読解・複数の意味を比較する問題・大学入試レベルの語彙。必ずJSON形式のみで返答。形式：{"questions":[{"q":"問題文","c":["A","B","C","D"],"a":正解インデックス(0-3),"exp":"解説（80字以内）"}]}`;
+  const usr=`上記の難易度基準で${diffLabel}の問題を5問。必ずJSON形式のみで返答。他のテキスト一切不要。`;
+  aiQs=[];aiAnswered={};aiLoading=true;render();
+  let retryCount=0;
+  const maxRetry=2;
+  while(retryCount<=maxRetry){
+    try{
+      const text=await callGemini(sys,usr);
+      const match=text.match(/\{[\s\S]*\}/);
+      if(!match) throw new Error('JSON_PARSE');
+      const parsed=JSON.parse(match[0]);
+      aiQs=parsed.questions||[];
+      if(aiQs.length===0) throw new Error('JSON_PARSE');
+      aiAnswered={};
+      break;
+    }catch(e){
+      if(e.message==='NO_KEY'){
+        aiQs=[{q:'⚠️ APIキーが設定されていません。上の紫バーにAPIキーを入力して「💾 保存」を押してください。',c:['上のバーで設定する','—','—','—'],a:0,exp:'aistudio.google.com でAPIキーを無料取得できます。'}];
+        aiAnswered={};
+        break;
+      }
+      retryCount++;
+      if(retryCount>maxRetry){
+        aiQs=[{q:'問題の生成に失敗しました。もう一度「AI問題を生成」ボタンを押してください。',c:['もう一度試す','—','—','—'],a:0,exp:'AIの応答が不安定でした。再試行すると成功することが多いです。'}];
+        aiAnswered={};
+      }
+    }
+  }
+  aiLoading=false;render();
+}
+
+// 初期描画
+render();updateScore();
+</script>
+</body>
+</html>
