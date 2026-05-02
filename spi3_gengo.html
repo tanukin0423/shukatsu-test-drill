@@ -209,7 +209,7 @@ async function callGemini(sys,usr){
     body:JSON.stringify({
       system_instruction:{parts:[{text:sys}]},
       contents:[{role:'user',parts:[{text:usr}]}],
-      generationConfig:{temperature:0.7,maxOutputTokens:1200}
+      generationConfig:{temperature:0.7,maxOutputTokens:3000,thinkingConfig:{thinkingBudget:0}}
     })
   });
   if(!res.ok){
@@ -365,8 +365,9 @@ async function generateAI(){
   aiLoading=true;render();
   try{
     const text=await callGemini(sys,usr);
-    const clean=text.replace(/```json|```/g,'').trim();
-    const parsed=JSON.parse(clean);
+    const match=text.match(/\{[\s\S]*\}/);
+    if(!match) throw new Error('JSONが見つかりません：'+text.substring(0,100));
+    const parsed=JSON.parse(match[0]);
     aiQs=parsed.questions||[];
     aiAnswered={};
   }catch(e){
