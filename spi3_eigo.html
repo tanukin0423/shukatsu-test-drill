@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🇬🇧 SPI3 英語ドリル｜就活の木</title>
+<title>📚 一般常識 国語ドリル｜就活の木</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
 
@@ -110,18 +110,19 @@ body{font-family:'Noto Sans JP',sans-serif;background:#F0FDF0;min-height:100vh;c
 </head>
 <body>
 
+<!-- APIキーバー -->
 <div id="apiBar">
-  <span>🔑 Gemini APIキー：</span>
-  <input id="apiKeyInput" type="password" placeholder="AIzaSy... を入力して保存"/>
+  <span>🔑 Groq APIキー：</span>
+  <input id="apiKeyInput" type="password" placeholder="gsk_... を入力して保存"/>
   <button class="api-btn api-save" onclick="saveKey()">💾 保存</button>
   <button class="api-btn api-clear" onclick="clearKey()">🗑️</button>
   <span id="apiStatus"></span>
 </div>
 
-<div class="hero" style="background:linear-gradient(150deg,#1e3a5f,#0ea5e9);">
-  <h1>🇬🇧 SPI3 英語ドリル</h1>
-  <p>語彙・文法・読解・穴埋め｜全15問 ＋ AI自動出題
-4択・即時採点・解説つき</p>
+<div class="hero" style="background:linear-gradient(150deg,#9F1239,#be123c);">
+  <h1>📚 一般常識 国語ドリル</h1>
+  <p>語彙・慣用句・ことわざ・四字熟語・敬語｜全15問 ＋ AI自動出題
+誤用に注意！本来の意味で覚えよう</p>
 </div>
 
 <div class="content">
@@ -143,174 +144,24 @@ body{font-family:'Noto Sans JP',sans-serif;background:#F0FDF0;min-height:100vh;c
 
 <script>
 const QS = [
-  {
-    "q": "\"Perseverance\" の意味として最も近いものはどれか。",
-    "c": [
-      "忍耐・粘り強さ",
-      "革新性",
-      "謙虚さ",
-      "礼儀正しさ"
-    ],
-    "a": 0,
-    "exp": "Perseveranceは困難に屈せず努力し続けること。就活面接でも頻出の重要語。"
-  },
-  {
-    "q": "\"Concise\" の意味として正しいものはどれか。",
-    "c": [
-      "詳細な",
-      "簡潔な・要点を絞った",
-      "複雑な",
-      "重要な"
-    ],
-    "a": 1,
-    "exp": "Conciseは不要な言葉を省いて簡潔に表現すること。ビジネスメールで頻出。"
-  },
-  {
-    "q": "次の空欄に最も適切な語を選べ。\n\"Please (  ) me know if you have any questions.\"",
-    "c": [
-      "make",
-      "let",
-      "have",
-      "do"
-    ],
-    "a": 1,
-    "exp": "\"Please let me know\"はビジネスメールの定番表現。「お知らせください」の意味。"
-  },
-  {
-    "q": "\"At your earliest convenience\" の意味はどれか。",
-    "c": [
-      "今すぐ",
-      "ご都合のよい時に",
-      "緊急に",
-      "後ほど"
-    ],
-    "a": 1,
-    "exp": "ビジネスメールで「ご都合のよい早い時点で」という丁寧な依頼表現。"
-  },
-  {
-    "q": "次の空欄に適切な前置詞を選べ。\n\"I am responsible (  ) managing the team.\"",
-    "c": [
-      "of",
-      "to",
-      "for",
-      "with"
-    ],
-    "a": 2,
-    "exp": "\"Be responsible for\"で「担当している・責任がある」。就活英語で必須。"
-  },
-  {
-    "q": "\"Proofread\" の意味として正しいものはどれか。",
-    "c": [
-      "証拠を読む",
-      "誤りがないか校正・確認する",
-      "新聞を読む",
-      "読書をする"
-    ],
-    "a": 1,
-    "exp": "Proofreadは文書・メールなどの誤字脱字・表現を確認・修正すること。"
-  },
-  {
-    "q": "ビジネスメールで「お世話になっております」に最も近い英語表現はどれか。",
-    "c": [
-      "How are you?",
-      "I hope this email finds you well.",
-      "Nice to meet you.",
-      "Long time no see."
-    ],
-    "a": 1,
-    "exp": "\"I hope this email finds you well.\"はビジネスメールの定番挨拶文。"
-  },
-  {
-    "q": "\"Leverage\" をビジネスで使う場合の意味として正しいものはどれか。",
-    "c": [
-      "てこ（機械）",
-      "資源・強みを最大限に活用する",
-      "借金をする",
-      "競合他社に勝つ"
-    ],
-    "a": 1,
-    "exp": "ビジネス文脈で「強みや資源を最大限に活用する」こと。\"Leverage our network.\""
-  },
-  {
-    "q": "次の文の誤りを選べ。\n\"Each of the employees have submitted their report.\"",
-    "c": [
-      "Each of",
-      "have",
-      "submitted",
-      "their report"
-    ],
-    "a": 1,
-    "exp": "\"Each of\"は単数扱いなので動詞は\"has\"が正しい。\"Each of the employees has submitted.\""
-  },
-  {
-    "q": "\"To put it simply\" の意味として正しいものはどれか。",
-    "c": [
-      "詳しく言えば",
-      "簡単に言えば",
-      "正直に言えば",
-      "正式に言えば"
-    ],
-    "a": 1,
-    "exp": "複雑な内容を噛み砕いて説明する際の前置き。"
-  },
-  {
-    "q": "次の空欄に最も適切な語を選べ。\n\"The new policy will (  ) effect next month.\"",
-    "c": [
-      "take",
-      "make",
-      "do",
-      "have"
-    ],
-    "a": 0,
-    "exp": "\"Take effect\"で「効力を発する・実施される」。\"The new law takes effect in April.\""
-  },
-  {
-    "q": "\"Benchmark\" の意味として正しいものはどれか。",
-    "c": [
-      "目印・基準点・比較指標",
-      "書類作成",
-      "予算計画",
-      "市場調査"
-    ],
-    "a": 0,
-    "exp": "Benchmarkは比較の基準・指標のこと。ビジネスで頻出。"
-  },
-  {
-    "q": "Read and choose the best answer.\n\"Remote work offers flexibility but often lacks job security.\"",
-    "c": [
-      "リモートワークは完全に安全だ",
-      "リモートワークには柔軟性があるが雇用保障が欠ける",
-      "リモートワークは廃止すべきだ",
-      "伝統的雇用に利点はない"
-    ],
-    "a": 1,
-    "exp": "flexibility（柔軟性）はメリット、lacks job security（雇用保障が欠ける）がデメリット。"
-  },
-  {
-    "q": "次の空欄に適切な語を選べ。\n\"She has a strong (  ) for details.\"",
-    "c": [
-      "attention",
-      "attraction",
-      "intention",
-      "retention"
-    ],
-    "a": 0,
-    "exp": "\"Attention to detail\"（細部への注意）は就活面接で頻出の表現。"
-  },
-  {
-    "q": "\"I would like to follow up on my application.\" の意味はどれか。",
-    "c": [
-      "応募を取り下げたい",
-      "応募の進捗を確認したい",
-      "追加書類を提出したい",
-      "面接を辞退したい"
-    ],
-    "a": 1,
-    "exp": "\"Follow up on\"で「経過を確認する」。就活メールで選考状況確認に使う表現。"
-  }
+  {q:'「忖度（そんたく）」の意味として正しいものはどれか。',c:['強く反発すること','相手の気持ちや意向を推し量ること','率直に意見を言うこと','徹底的に調査すること'],a:1,exp:'「忖度」は他人の心中を推し量ること。近年は上位者の意向を先読みして配慮する意味でも使われる。'},
+  {q:'「役不足」の正しい意味はどれか。',c:['その人の力量が仕事に対して足りない','その人の力量に対して仕事・役目が軽すぎる','やる気がないこと','仕事が難しすぎること'],a:1,exp:'「役不足」は本来「役目が軽すぎる」の意。能力不足の意で使うのは誤用。正しくは「力不足」。'},
+  {q:'「汚名挽回」という表現は正しいか。',c:['正しい','誤用で「汚名返上」または「名誉挽回」が正しい','文脈によって正しい','新しい表現として定着している'],a:1,exp:'「挽回」は失ったものを取り戻すこと。「汚名」は雪ぐもの。正しくは「汚名返上」か「名誉挽回」。'},
+  {q:'「破天荒」の本来の正しい意味はどれか。',c:['豪快で大胆な様子','今まで誰もしなかったことを初めてすること','非常識な行動をとること','天候が荒れること'],a:1,exp:'「破天荒」の本来の意味は「前代未聞・誰も成し遂げなかったことを初めて行う」こと。豪快の意は誤用。'},
+  {q:'次のうち敬語の使い方として正しいものはどれか。',c:['先生がおっしゃられた','先生がおっしゃった','先生が申された','先生が言われた'],a:1,exp:'「おっしゃる」は「言う」の尊敬語。「おっしゃられた」は二重敬語で誤り。正しくは「おっしゃった」。'},
+  {q:'「煮え湯を飲まされる」の意味として正しいものはどれか。',c:['非常においしいものを食べる','信頼していた人に裏切られひどい目にあう','困難な状況を乗り越える','強い薬を飲む'],a:1,exp:'「煮え湯を飲まされる」は親しい人・信頼していた相手から裏切られることのたとえ。'},
+  {q:'「鶴の一声」の意味として正しいものはどれか。',c:['鶴が鳴く美しい声','みんなが従わざるを得ない権力者の一言','人々が感動する演説','静かな場所で聞こえる声'],a:1,exp:'「鶴の一声」は権威ある人物の一言で議論が決着したり物事が決まったりすること。'},
+  {q:'四字熟語「起死回生」の意味として正しいものはどれか。',c:['生まれ変わること','死にかけた状態から生き返ること・絶望的な状況を立て直すこと','長い間生き続けること','勝負に勝つこと'],a:1,exp:'「起死回生」は死にかけた者を生き返らせること。転じて絶望的な状況を立て直す逆転策のこと。'},
+  {q:'「以心伝心」の意味として正しいものはどれか。',c:['手紙で気持ちを伝えること','言葉を使わずとも心が通じ合うこと','会議で意見をまとめること','友人に秘密を打ち明けること'],a:1,exp:'「以心伝心」は言葉・文字を使わず、心から心へ気持ちが伝わること。禅の言葉から生まれた四字熟語。'},
+  {q:'「出る杭は打たれる」の意味として正しいものはどれか。',c:['努力した者は必ず報われる','才能ある者や目立つ者は周囲から妨害・批判される','積極的に行動することが大切だ','謙虚さが成功の秘訣だ'],a:1,exp:'「出る杭は打たれる」は才能・実力があって目立つ人は周囲から妬まれたり批判されたりするというたとえ。'},
+  {q:'「ご苦労様です」の使い方として正しいものはどれか。',c:['誰にでも使える万能な言葉','目上の人から目下の人への労いの言葉で、上司には「お疲れ様です」が適切','目上の人への敬語として最適','部下には使ってはいけない'],a:1,exp:'「ご苦労様」は目上の人が目下の人を労う言葉。上司・先輩への使用は失礼で「お疲れ様です」が適切。'},
+  {q:'「確信犯」の本来の意味として正しいものはどれか。',c:['証拠が確実な犯罪','自分の行為が正しいという信念に基づいて行う犯罪','わかっていてわざとやる行為（一般的誤用）','証拠隠滅を図る犯罪'],a:1,exp:'確信犯は「政治的・宗教的・道徳的信念に基づく犯罪行為」が本来の意味。「わかってわざとやる」は誤用。'},
+  {q:'「辟易（へきえき）」の意味として正しいものはどれか。',c:['非常に感動すること','うんざりして困ること','強い怒りを感じること','深く考え込むこと'],a:1,exp:'「辟易する」はうんざりして嫌になること。「彼のしつこさに辟易した」のように使う。'},
+  {q:'「蓋然性（がいぜんせい）」の意味として正しいものはどれか。',c:['確実に起こる性質','ある程度起こりそうな可能性の度合い','全く起こらない性質','理論的に証明された性質'],a:1,exp:'「蓋然性」は物事が起こる確からしさ・可能性の程度のこと。「高い蓋然性」はかなり起こりそうな状態。'},
+  {q:'「捲土重来（けんどちょうらい）」の意味として正しいものはどれか。',c:['一気に攻め立てること','一度敗れた後に勢いを盛り返して再び挑むこと','多くの人が集まること','勢いよく押し寄せること'],a:1,exp:'「捲土重来」は一度負けた者が勢いを盛り返して再び挑むこと。'},
 ];
 
-const KEY = 'shukatsu_gemini_key';
+const KEY = 'shukatsu_groq_key';
 let answered = {};
 let aiAnswered = {};
 let aiQs = [];
@@ -321,7 +172,7 @@ function getKey(){ return sessionStorage.getItem(KEY)||''; }
 function saveKey(){
   const k=document.getElementById('apiKeyInput').value.trim();
   if(!k){showSt('❌ キーを入力してください','#fca5a5');return;}
-  if(!k.startsWith('AIza')){showSt('⚠️ AIzaSy...で始まるキーを入力','#fde68a');return;}
+  if(!k.startsWith('gsk_')){showSt('⚠️ gsk_で始まるGroqキーを入力してください','#fde68a');return;}
   sessionStorage.setItem(KEY,k);
   document.getElementById('apiKeyInput').value='';
   showSt('✅ 保存済み！AI出題が使えます','#86efac');
@@ -339,50 +190,23 @@ window.addEventListener('load',()=>{
   if(getKey()) showSt('✅ APIキー設定済み','#86efac');
 });
 
-async function callGemini(sys,usr){
+async function callGemini(sys, usr){
   const key=getKey();
-  if(!key) throw new Error('NO_KEY');
-  const url='https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key='+key;
+  if(!key) return null;
+  const url='https://api.groq.com/openai/v1/chat/completions';
   const res=await fetch(url,{
     method:'POST',
-    headers:{'Content-Type':'application/json'},
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},
     body:JSON.stringify({
-      contents:[{role:'user',parts:[{text:sys+'\n\n'+usr}]}],
-      generationConfig:{temperature:0.7,maxOutputTokens:8000}
+      model:'llama-3.3-70b-versatile',
+      messages:[{role:'system',content:sys},{role:'user',content:usr}],
+      max_tokens:2000,temperature:0.7
     })
   });
-  if(!res.ok){
-    const err=await res.json().catch(()=>({}));
-    if(res.status===400) throw new Error('APIキーが無効です');
-    if(res.status===429) throw new Error('Geminiのレート制限に達しました');
-    throw new Error((err.error&&err.error.message)||'HTTP '+res.status);
-  }
-  const reader=res.body.getReader();
-  const decoder=new TextDecoder();
-  let buffer='',fullText='';
-  while(true){
-    const {done,value}=await reader.read();
-    if(done) break;
-    buffer+=decoder.decode(value,{stream:true});
-    const lines=buffer.split('\n');buffer=lines.pop();
-    for(const line of lines){
-      if(!line.startsWith('data: ')) continue;
-      try{
-        const evt=JSON.parse(line.slice(6));
-        const text=evt?.candidates?.[0]?.content?.parts?.[0]?.text;
-        if(text) fullText+=text;
-      }catch(_){}
-    }
-  }
-  // ループ終了後、bufferに残った最後のチャンクを処理
-  if(buffer.startsWith('data: ')){
-    try{
-      const evt=JSON.parse(buffer.slice(6));
-      const text=evt?.candidates?.[0]?.content?.parts?.[0]?.text;
-      if(text) fullText+=text;
-    }catch(_){}
-  }
-  return fullText;
+  if(res.status===429) throw new Error('Groqのレート制限に達しました。しばらく待ってから再試行してください。');
+  if(!res.ok) throw new Error('APIエラー: '+res.status);
+  const data=await res.json();
+  return data.choices[0].message.content;
 }
 
 function updateScore(){
@@ -444,7 +268,7 @@ function renderAI(){
     <div class="ai-head">
       <span class="ai-head-icon">🤖</span>
       <div>
-        <div class="ai-head-title">AI自動出題コーナー｜SPI3 英語ドリル</div>
+        <div class="ai-head-title">AI自動出題コーナー｜一般常識 国語ドリル</div>
         <div class="ai-head-sub">難易度を選んでAIが新問題を5問生成（何度でも可）</div>
       </div>
     </div>
@@ -499,7 +323,7 @@ function render(){
       <div class="powerup-cta-title">🚀 AIでパワーアップしよう！</div>
       <div class="powerup-cta-sub">AIが新しい問題を<strong>無制限</strong>に自動生成！<br>
         → 上の紫バーにAPIキーを入力するだけ！<br>
-        無料・3分で取得：<a href="https://aistudio.google.com/app/apikey" target="_blank">aistudio.google.com</a>
+        無料・3分で取得：<a href="https://console.groq.com/keys" target="_blank">console.groq.com/keys</a>（1日1,000回・クレカ不要）
       </div>
     </div>
   </div>`;
@@ -513,7 +337,7 @@ function resetAll(){answered={};aiAnswered={};aiQs=[];render();updateScore();}
 
 async function generateAI(){
   const diffLabel=diff==='hard'?'難関（応用・高難度）':'普通（標準レベル）';
-  const sys=`あなたはSPI3試験の英語問題作成専門家です。就活生向けのSPI3英語問題（語彙・文法・ビジネス英語・穴埋め・読解）を以下の難易度基準で5問作成してください。【普通】中学〜高校基礎レベルの語彙・文法・短文・日常英語レベル。【難関】ビジネス英語・難語彙・長文・複雑な文法構造・TOEIC600点以上レベル。必ずJSON形式のみで返答。形式：{"questions":[{"q":"問題文","c":["A","B","C","D"],"a":正解インデックス(0-3),"exp":"解説（80字以内）"}]}`;
+  const sys=`あなたは就職活動の一般常識試験（国語分野）の問題作成専門家です。就活生向けの国語問題（語彙・慣用句・ことわざ・四字熟語・敬語・誤用）を以下の難易度基準で5問作成してください。【普通】日常語レベルの語彙・基本的な慣用句やことわざ・高校生なら知っているレベル。【難関】難読漢字・マイナーな四字熟語・敬語の複雑な使い分け・誤用が紛らわしいレベル。必ずJSON形式のみで返答。形式：{"questions":[{"q":"問題文","c":["A","B","C","D"],"a":正解インデックス(0-3),"exp":"解説（80字以内）"}]}`;
   const usr=`上記の難易度基準で${diffLabel}の問題を5問。必ずJSON形式のみで返答。他のテキスト一切不要。`;
   aiQs=[];aiAnswered={};aiLoading=true;render();
   let retryCount=0;
@@ -530,7 +354,7 @@ async function generateAI(){
       break;
     }catch(e){
       if(e.message==='NO_KEY'){
-        aiQs=[{q:'⚠️ APIキーが設定されていません。上の紫バーにAPIキーを入力して「💾 保存」を押してください。',c:['上のバーで設定する','—','—','—'],a:0,exp:'aistudio.google.com でAPIキーを無料取得できます。'}];
+        aiQs=[{q:'⚠️ APIキーが設定されていません。上の紫バーにAPIキーを入力して「💾 保存」を押してください。',c:['上のバーで設定する','—','—','—'],a:0,exp:'console.groq.com/keys でGroq APIキーを無料取得できます（1日1,000回・クレカ不要）。'}];
         aiAnswered={};
         break;
       }

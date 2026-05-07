@@ -112,8 +112,8 @@ body{font-family:'Noto Sans JP',sans-serif;background:#F0FDF0;min-height:100vh;c
 
 <!-- APIキーバー -->
 <div id="apiBar">
-  <span>🔑 Gemini APIキー：</span>
-  <input id="apiKeyInput" type="password" placeholder="AIzaSy... を入力して保存"/>
+  <span>🔑 Groq APIキー：</span>
+  <input id="apiKeyInput" type="password" placeholder="gsk_... を入力して保存"/>
   <button class="api-btn api-save" onclick="saveKey()">💾 保存</button>
   <button class="api-btn api-clear" onclick="clearKey()">🗑️</button>
   <span id="apiStatus"></span>
@@ -166,7 +166,7 @@ const QS = [
   {q:'(120 - □) ÷ 4 = 25の□は？',c:['16','18','20','22'],a:2,exp:'120-□=100→□=20。(　)÷4=25→(　)=100。'},
 ];
 
-const KEY = 'shukatsu_gemini_key';
+const KEY = 'shukatsu_groq_key';
 let answered = {};
 let aiAnswered = {};
 let aiQs = [];
@@ -177,7 +177,7 @@ function getKey(){ return sessionStorage.getItem(KEY)||''; }
 function saveKey(){
   const k=document.getElementById('apiKeyInput').value.trim();
   if(!k){showSt('❌ キーを入力してください','#fca5a5');return;}
-  if(!k.startsWith('AIza')){showSt('⚠️ AIzaSy...で始まるキーを入力','#fde68a');return;}
+  if(!k.startsWith('gsk_')){showSt('⚠️ gsk_で始まるGroqキーを入力してください','#fde68a');return;}
   sessionStorage.setItem(KEY,k);
   document.getElementById('apiKeyInput').value='';
   showSt('✅ 保存済み！AI出題が使えます','#86efac');
@@ -195,50 +195,23 @@ window.addEventListener('load',()=>{
   if(getKey()) showSt('✅ APIキー設定済み','#86efac');
 });
 
-async function callGemini(sys,usr){
+async function callGemini(sys, usr){
   const key=getKey();
-  if(!key) throw new Error('NO_KEY');
-  const url='https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key='+key;
+  if(!key) return null;
+  const url='https://api.groq.com/openai/v1/chat/completions';
   const res=await fetch(url,{
     method:'POST',
-    headers:{'Content-Type':'application/json'},
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},
     body:JSON.stringify({
-      contents:[{role:'user',parts:[{text:sys+'\n\n'+usr}]}],
-      generationConfig:{temperature:0.7,maxOutputTokens:8000}
+      model:'llama-3.3-70b-versatile',
+      messages:[{role:'system',content:sys},{role:'user',content:usr}],
+      max_tokens:2000,temperature:0.7
     })
   });
-  if(!res.ok){
-    const err=await res.json().catch(()=>({}));
-    if(res.status===400) throw new Error('APIキーが無効です');
-    if(res.status===429) throw new Error('Geminiのレート制限に達しました');
-    throw new Error((err.error&&err.error.message)||'HTTP '+res.status);
-  }
-  const reader=res.body.getReader();
-  const decoder=new TextDecoder();
-  let buffer='',fullText='';
-  while(true){
-    const {done,value}=await reader.read();
-    if(done) break;
-    buffer+=decoder.decode(value,{stream:true});
-    const lines=buffer.split('\n');buffer=lines.pop();
-    for(const line of lines){
-      if(!line.startsWith('data: ')) continue;
-      try{
-        const evt=JSON.parse(line.slice(6));
-        const text=evt?.candidates?.[0]?.content?.parts?.[0]?.text;
-        if(text) fullText+=text;
-      }catch(_){}
-    }
-  }
-  // ループ終了後、bufferに残った最後のチャンクを処理
-  if(buffer.startsWith('data: ')){
-    try{
-      const evt=JSON.parse(buffer.slice(6));
-      const text=evt?.candidates?.[0]?.content?.parts?.[0]?.text;
-      if(text) fullText+=text;
-    }catch(_){}
-  }
-  return fullText;
+  if(res.status===429) throw new Error('Groqのレート制限に達しました。しばらく待ってから再試行してください。');
+  if(!res.ok) throw new Error('APIエラー: '+res.status);
+  const data=await res.json();
+  return data.choices[0].message.content;
 }
 
 function updateScore(){
@@ -355,7 +328,7 @@ function render(){
       <div class="powerup-cta-title">🚀 AIでパワーアップしよう！</div>
       <div class="powerup-cta-sub">AIが新しい問題を<strong>無制限</strong>に自動生成！<br>
         → 上の紫バーにAPIキーを入力するだけ！<br>
-        無料・3分で取得：<a href="https://aistudio.google.com/app/apikey" target="_blank">aistudio.google.com</a>
+        無料・3分で取得：<a href="https://console.groq.com/keys" target="_blank">console.groq.com/keys</a>（1日1,000回・クレカ不要）
       </div>
     </div>
   </div>`;
@@ -386,7 +359,7 @@ async function generateAI(){
       break;
     }catch(e){
       if(e.message==='NO_KEY'){
-        aiQs=[{q:'⚠️ APIキーが設定されていません。上の紫バーにAPIキーを入力して「💾 保存」を押してください。',c:['上のバーで設定する','—','—','—'],a:0,exp:'aistudio.google.com でAPIキーを無料取得できます。'}];
+        aiQs=[{q:'⚠️ APIキーが設定されていません。上の紫バーにAPIキーを入力して「💾 保存」を押してください。',c:['上のバーで設定する','—','—','—'],a:0,exp:'console.groq.com/keys でGroq APIキーを無料取得できます（1日1,000回・クレカ不要）。'}];
         aiAnswered={};
         break;
       }

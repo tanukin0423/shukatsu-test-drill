@@ -3,179 +3,425 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🗞️ 一般常識 時事・社会ドリル｜就活の木</title>
+<title>📝 筆記試験対策ドリル｜就活の木</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-
-:root{--green:#2C5F2D;--green-mid:#4A8C4B;--green-pale:#E8F5E9;--amber:#F59E0B;--gray:#6B7280;--white:#fff;--shadow:0 2px 8px rgba(0,0,0,0.10);}
+:root{--green:#2C5F2D;--green-mid:#4A8C4B;--green-pale:#E8F5E9;--amber:#F59E0B;--gray:#6B7280;--shadow:0 2px 8px rgba(0,0,0,0.10);}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Noto Sans JP',sans-serif;background:#F0FDF0;min-height:100vh;color:#1F2937;}
 
 /* APIキーバー */
 #apiBar{background:linear-gradient(135deg,#4c1d95,#7c3aed);padding:10px 16px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:999;}
-#apiBar span{color:#fff;font-size:12px;font-weight:700;white-space:nowrap;}
+#apiBar span.label{color:#fff;font-size:12px;font-weight:700;white-space:nowrap;}
 #apiKeyInput{flex:1;min-width:160px;padding:7px 12px;border-radius:8px;border:none;font-size:12px;outline:none;}
 .api-btn{padding:7px 14px;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
 .api-save{background:#22c55e;color:#fff;}
 .api-clear{background:rgba(255,255,255,0.2);color:#fff;}
 #apiStatus{font-size:11px;font-weight:700;color:#fff;white-space:nowrap;}
 
-/* ヘッダー */
-.hero{background:linear-gradient(150deg,#2C5F2D,#4A8C4B);padding:28px 20px;text-align:center;color:#fff;}
-.hero h1{font-size:24px;font-weight:900;margin-bottom:6px;}
-.hero p{font-size:13px;opacity:0.85;}
+/* ヒーロー */
+.hero{background:linear-gradient(150deg,#2C5F2D,#4A8C4B);padding:36px 20px 44px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'🌳';position:absolute;right:-10px;bottom:0;font-size:120px;opacity:0.08;line-height:1;}
+.brand{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);color:rgba(255,255,255,0.9);font-size:11px;font-weight:700;letter-spacing:0.1em;padding:4px 12px;border-radius:20px;margin-bottom:12px;}
+.hero-icon{font-size:44px;display:block;margin-bottom:8px;animation:float 3s ease-in-out infinite;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+.hero h1{font-size:clamp(20px,5vw,28px);font-weight:900;color:#fff;margin-bottom:8px;}
+.hero p{font-size:13px;color:rgba(255,255,255,0.85);line-height:1.7;}
+.stats{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:16px;}
+.stat{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);border-radius:10px;padding:8px 16px;text-align:center;}
+.stat-num{font-size:20px;font-weight:900;color:#fff;}
+.stat-lbl{font-size:10px;color:rgba(255,255,255,0.8);}
 
 /* コンテンツ */
-.content{max-width:680px;margin:0 auto;padding:20px 16px 60px;}
+.content{max-width:720px;margin:0 auto;padding:24px 16px 60px;}
 
-/* スコアバー */
-.score-bar{background:#fff;border-radius:12px;box-shadow:var(--shadow);padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
-.score-num{font-size:20px;font-weight:900;color:var(--green);}
-.score-num span{font-size:12px;color:var(--gray);font-weight:400;}
-.progress{flex:1;min-width:100px;height:7px;background:#E5E7EB;border-radius:4px;overflow:hidden;}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--green),#97BC62);border-radius:4px;transition:width 0.4s;}
-.score-pct{font-size:11px;color:var(--gray);}
-.btn-reset{padding:6px 12px;background:var(--green-pale);border:1px solid #C8E6C9;color:var(--green);border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;}
+/* APIキー設定カード */
+.api-card{background:#fff;border-radius:16px;box-shadow:var(--shadow);padding:20px;margin-bottom:24px;}
+.api-card-title{font-size:14px;font-weight:900;color:#4c1d95;margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+.api-steps{background:#F9FAFB;border:1px solid #E5E7EB;border-radius:10px;padding:12px 14px;font-size:12px;line-height:1.9;color:var(--gray);}
+.api-steps a{color:#4c1d95;font-weight:700;}
 
-/* パワーアップバナー */
-.powerup{background:linear-gradient(135deg,#F0FDF0,#DCFCE7);border:2px solid #4A8C4B;border-radius:14px;padding:16px 18px;margin:20px 0;text-align:center;}
-.powerup-title{font-size:14px;font-weight:900;color:#2C5F2D;margin-bottom:6px;}
-.powerup-sub{font-size:12px;color:#374151;line-height:1.7;margin-bottom:10px;}
-.powerup-cta{background:linear-gradient(135deg,#4c1d95,#7c3aed);border-radius:10px;padding:12px 16px;color:#fff;}
-.powerup-cta-title{font-size:14px;font-weight:900;margin-bottom:4px;}
-.powerup-cta-sub{font-size:12px;opacity:0.9;line-height:1.7;}
-.powerup-cta a{color:#fde68a;font-weight:700;}
+/* セクションラベル */
+.sec-label{font-size:11px;font-weight:700;letter-spacing:0.10em;color:var(--gray);margin:20px 0 12px;display:flex;align-items:center;gap:8px;}
+.sec-label::after{content:'';flex:1;height:1px;background:#C8E6C9;}
 
-/* 問題カード */
-.q-card{background:#fff;border-radius:12px;box-shadow:var(--shadow);margin-bottom:10px;overflow:hidden;animation:fadeUp 0.3s ease;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
-.q-head{padding:12px 14px 8px;border-bottom:1px solid #F0F0F0;display:flex;gap:8px;align-items:flex-start;}
-.q-num{background:var(--green);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap;margin-top:2px;flex-shrink:0;}
-.q-num.ai{background:#7C3AED;}
-.q-text{font-size:13px;font-weight:700;line-height:1.65;}
-.q-body{padding:10px 14px 12px;}
-.choices{display:flex;flex-direction:column;gap:6px;}
-.choice{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;border:1.5px solid #E5E7EB;background:#FAFAFA;cursor:pointer;font-size:13px;font-weight:500;transition:all 0.15s;width:100%;text-align:left;}
-.choice:hover:not(:disabled){border-color:var(--green-mid);background:var(--green-pale);color:var(--green);}
-.choice-lbl{width:20px;height:20px;border-radius:50%;background:#E5E7EB;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;transition:all 0.15s;}
-.choice:hover:not(:disabled) .choice-lbl{background:var(--green-mid);color:#fff;}
-.choice.ok{border-color:#22c55e;background:#F0FDF4;color:#15803d;}
-.choice.ok .choice-lbl{background:#22c55e;color:#fff;}
-.choice.ng{border-color:#ef4444;background:#FEF2F2;color:#991b1b;}
-.choice.ng .choice-lbl{background:#ef4444;color:#fff;}
-.choice.show{border-color:#22c55e;background:#F0FDF4;color:#15803d;}
-.choice.show .choice-lbl{background:#22c55e;color:#fff;}
-.choice:disabled{cursor:default;}
-.exp{margin-top:8px;padding:10px 12px;border-radius:8px;font-size:12px;line-height:1.75;}
-.exp.ok{background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border:1px solid #BBF7D0;color:#14532d;}
-.exp.ng{background:linear-gradient(135deg,#FFF7ED,#FEF3C7);border:1px solid #FDE68A;color:#78350f;}
-.exp-head{font-size:11px;font-weight:700;margin-bottom:3px;}
+/* ドリルカード */
+.drill-grid{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+.drill-card{display:flex;align-items:center;background:#fff;border-radius:14px;box-shadow:var(--shadow);overflow:hidden;text-decoration:none;color:#1F2937;transition:transform 0.18s,box-shadow 0.18s;}
+.drill-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.13);}
+.card-bar{width:6px;flex-shrink:0;align-self:stretch;}
+.card-inner{flex:1;padding:14px 16px;display:flex;align-items:center;gap:12px;}
+.card-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.card-info{flex:1;}
+.card-num{font-size:10px;font-weight:700;letter-spacing:0.08em;margin-bottom:2px;}
+.card-title{font-size:14px;font-weight:900;margin-bottom:3px;}
+.card-desc{font-size:11px;color:var(--gray);}
+.card-tags{display:flex;flex-wrap:wrap;gap:3px;margin-top:5px;}
+.tag{font-size:10px;font-weight:600;padding:2px 7px;border-radius:8px;}
+.card-right{padding:14px 16px 14px 0;flex-shrink:0;text-align:right;}
+.card-count{font-size:18px;font-weight:900;}
+.card-count-lbl{font-size:10px;color:var(--gray);}
+.card-arrow{font-size:16px;margin-top:6px;}
 
-/* AI出題セクション */
-.ai-section{background:#fff;border-radius:14px;box-shadow:var(--shadow);margin-top:20px;overflow:hidden;}
-.ai-head{background:linear-gradient(135deg,#4c1d95,#7c3aed);padding:14px 18px;display:flex;align-items:center;gap:10px;}
-.ai-head-icon{font-size:24px;}
-.ai-head-title{color:#fff;font-size:14px;font-weight:900;}
-.ai-head-sub{color:rgba(255,255,255,0.8);font-size:11px;margin-top:2px;}
-.ai-body{padding:16px 18px;}
-.ai-note{font-size:11px;color:var(--gray);background:#F9FAFB;border:1px solid #E5E7EB;border-radius:8px;padding:7px 10px;margin-bottom:12px;}
-.ai-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
-.diff-btn{padding:7px 16px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;border:2px solid transparent;transition:all 0.15s;}
-.diff-normal{background:var(--green-pale);border-color:#C8E6C9;color:var(--green);}
-.diff-normal.on{background:var(--green);color:#fff;}
-.diff-hard{background:#F5F3FF;border-color:#C4B5FD;color:#7C3AED;}
-.diff-hard.on{background:#7C3AED;color:#fff;}
-.btn-gen{padding:9px 20px;background:linear-gradient(135deg,#4c1d95,#7c3aed);color:#fff;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.15s;}
-.btn-gen:hover{transform:translateY(-2px);}
-.btn-gen:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
-.ai-loading{text-align:center;padding:18px;color:#7C3AED;font-size:13px;font-weight:600;}
-
-/* 完了画面 */
-.result{background:#fff;border-radius:14px;box-shadow:var(--shadow);padding:24px;text-align:center;margin-bottom:16px;}
-.result-emoji{font-size:44px;margin-bottom:8px;}
-.result-score{font-size:38px;font-weight:900;color:var(--green);}
-.result-score span{font-size:15px;color:var(--gray);font-weight:400;}
-.result-pct{font-size:22px;font-weight:900;margin:4px 0 10px;}
-.doshi{background:linear-gradient(135deg,#FFF7ED,#FEF3C7);border-left:4px solid var(--amber);border-radius:0 10px 10px 0;padding:12px 14px;text-align:left;margin:10px 0;}
-.doshi-lbl{font-size:10px;font-weight:700;color:#92400E;margin-bottom:4px;display:block;}
-.doshi p{font-size:12px;color:#78350F;font-style:italic;line-height:1.75;}
-.btn-retry{padding:10px 24px;background:linear-gradient(135deg,#2C5F2D,#4A8C4B);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;margin-top:6px;}
+/* キャリ爺メッセージ */
+.message{background:#fff;border-radius:14px;box-shadow:var(--shadow);padding:16px;}
+.message-inner{background:linear-gradient(135deg,#FFF7ED,#FEF3C7);border-left:4px solid var(--amber);border-radius:0 10px 10px 0;padding:12px 14px;}
+.message-lbl{font-size:10px;font-weight:700;color:#92400E;margin-bottom:4px;display:block;}
+.message-text{font-size:13px;color:#78350F;font-style:italic;line-height:1.8;}
 
 .footer{text-align:center;padding:0 16px 40px;font-size:11px;color:var(--gray);}
 .footer b{color:var(--green-mid);}
 
-@media(max-width:480px){.hero{padding:22px 14px;}.content{padding:16px 12px 50px;}.q-text{font-size:12px;}.choice{font-size:12px;padding:8px 10px;}}
+/* カラー */
+.c1 .card-bar{background:linear-gradient(180deg,#2C5F2D,#97BC62);}
+.c1 .card-icon{background:#E8F5E9;}
+.c1 .card-num,.c1 .card-count{color:#2C5F2D;}
+.c1 .card-arrow{color:#4A8C4B;}
+.c1 .tag{background:#E8F5E9;color:#2C5F2D;}
 
+.c2 .card-bar{background:linear-gradient(180deg,#1e3a5f,#3b82f6);}
+.c2 .card-icon{background:#EFF6FF;}
+.c2 .card-num,.c2 .card-count{color:#1e3a5f;}
+.c2 .card-arrow{color:#3b82f6;}
+.c2 .tag{background:#EFF6FF;color:#1e3a5f;}
+
+.c3 .card-bar{background:linear-gradient(180deg,#134e4a,#14b8a6);}
+.c3 .card-icon{background:#F0FDFA;}
+.c3 .card-num,.c3 .card-count{color:#134e4a;}
+.c3 .card-arrow{color:#14b8a6;}
+.c3 .tag{background:#F0FDFA;color:#134e4a;}
+
+.c4 .card-bar{background:linear-gradient(180deg,#1e1b4b,#6366F1);}
+.c4 .card-icon{background:#EEF2FF;}
+.c4 .card-num,.c4 .card-count{color:#1e1b4b;}
+.c4 .card-arrow{color:#6366F1;}
+.c4 .tag{background:#EEF2FF;color:#1e1b4b;}
+
+.c5 .card-bar{background:linear-gradient(180deg,#9F1239,#E11D48);}
+.c5 .card-icon{background:#FFF1F2;}
+.c5 .card-num,.c5 .card-count{color:#9F1239;}
+.c5 .card-arrow{color:#E11D48;}
+.c5 .tag{background:#FFF1F2;color:#9F1239;}
+
+.c6 .card-bar{background:linear-gradient(180deg,#7c2d12,#EA580C);}
+.c6 .card-icon{background:#FFF7ED;}
+.c6 .card-num,.c6 .card-count{color:#7c2d12;}
+.c6 .card-arrow{color:#EA580C;}
+.c6 .tag{background:#FFF7ED;color:#7c2d12;}
+
+@media(max-width:480px){.hero{padding:28px 14px 36px;}.content{padding:16px 12px 50px;}.card-title{font-size:13px;}.card-desc{font-size:10px;}}
 </style>
 </head>
 <body>
 
 <!-- APIキーバー -->
 <div id="apiBar">
-  <span>🔑 Gemini APIキー：</span>
-  <input id="apiKeyInput" type="password" placeholder="AIzaSy... を入力して保存"/>
+  <span class="label">🔑 Groq APIキー：</span>
+  <input id="apiKeyInput" type="password" placeholder="gsk_... を入力して保存（全ドリルで共有）"/>
   <button class="api-btn api-save" onclick="saveKey()">💾 保存</button>
   <button class="api-btn api-clear" onclick="clearKey()">🗑️</button>
   <span id="apiStatus"></span>
 </div>
 
-<div class="hero" style="background:linear-gradient(150deg,#9F1239,#E11D48);">
-  <h1>🗞️ 一般常識 時事・社会ドリル</h1>
-  <p>SDGs・DX・AI・働き方改革・ビジネス用語｜全15問 ＋ AI自動出題
-中小企業・マスコミ・金融対策</p>
+<!-- ヒーロー -->
+<div class="hero">
+  <div class="brand">🌱 就活の木｜キャリア支援課</div>
+  <span class="hero-icon">📝</span>
+  <h1>筆記試験対策ドリル</h1>
+  <p>SPI3・TG-WEB・玉手箱・CAB/GAB・一般常識・独自試験<br>固定問題＋AI自動出題（普通・難関）｜4択・即時採点・解説つき</p>
+  <div class="stats">
+    <div class="stat"><div class="stat-num">13</div><div class="stat-lbl">単元</div></div>
+    <div class="stat"><div class="stat-num">200+</div><div class="stat-lbl">固定問題</div></div>
+    <div class="stat"><div class="stat-num">∞</div><div class="stat-lbl">AI出題</div></div>
+    <div class="stat"><div class="stat-num">無料</div><div class="stat-lbl">APIキーのみ</div></div>
+  </div>
 </div>
 
 <div class="content">
-  <div class="score-bar">
-    <div>
-      <div style="font-size:11px;color:var(--gray);margin-bottom:2px;">スコア</div>
-      <div class="score-num" id="scoreNum">0<span> / 0問</span></div>
+
+  <!-- APIキー設定案内 -->
+  <div class="api-card">
+    <div class="api-card-title">🔑 AI自動出題を使うには（無料・3分）</div>
+    <div class="api-steps">
+      ① <a href="https://console.groq.com/keys" target="_blank">console.groq.com/keys</a>（1日1,000回・クレカ不要） にアクセス（Googleアカウントでログイン）<br>
+      ② 「APIキーを作成」をクリック → gsk_...のキーをコピー<br>
+      ③ 上の紫バーに貼り付けて「💾 保存」を押す<br>
+      ④ 全ドリルでAI自動出題が使えます！（ブラウザを閉じるまで有効）
     </div>
-    <div style="flex:1;min-width:100px;">
-      <div class="progress"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
-      <div class="score-pct" id="scorePct" style="margin-top:3px;">0% 正答率</div>
-    </div>
-    <button class="btn-reset" onclick="resetAll()">🔄 リセット</button>
   </div>
-  <div id="mainArea"></div>
+
+  <!-- SPI3 -->
+  <div class="sec-label">📖 SPI3対策（最多採用・大手〜中堅全般）</div>
+  <div class="drill-grid">
+    <a class="drill-card c1" href="spi3_gengo.html">
+      <div class="card-bar"></div>
+      <div class="card-inner">
+        <div class="card-icon">📖</div>
+        <div class="card-info">
+          <div class="card-num">SPI3 - 01</div>
+          <div class="card-title">言語ドリル</div>
+          <div class="card-desc">語彙・語句の関係・文章読解・ことわざ</div>
+          <div class="card-tags"><span class="tag">語彙</span><span class="tag">読解</span><span class="tag">慣用句</span></div>
+        </div>
+      </div>
+      <div class="card-right">
+        <div class="card-count">20</div>
+        <div class="card-count-lbl">固定問題</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </a>
+    <a class="drill-card c1" href="spi3_higengo.html">
+      <div class="card-bar"></div>
+      <div class="card-inner">
+        <div class="card-icon">🔢</div>
+        <div class="card-info">
+          <div class="card-num">SPI3 - 02</div>
+          <div class="card-title">非言語ドリル</div>
+          <div class="card-desc">割合・速さ・仕事算・確率・図形</div>
+          <div class="card-tags"><span class="tag">割合</span><span class="tag">速さ</span><span class="tag">確率</span></div>
+        </div>
+      </div>
+      <div class="card-right">
+        <div class="card-count">20</div>
+        <div class="card-count-lbl">固定問題</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </a>
+    <a class="drill-card c1" href="spi3_eigo.html">
+      <div class="card-bar"></div>
+      <div class="card-inner">
+        <div class="card-icon">🇬🇧</div>
+        <div class="card-info">
+          <div class="card-num">SPI3 - 03</div>
+          <div class="card-title">英語ドリル</div>
+          <div class="card-desc">語彙・文法・ビジネス英語・穴埋め・読解</div>
+          <div class="card-tags"><span class="tag">語彙</span><span class="tag">文法</span><span class="tag">ビジネス英語</span></div>
+        </div>
+      </div>
+      <div class="card-right">
+        <div class="card-count">15</div>
+        <div class="card-count-lbl">固定問題</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- TG-WEB -->
+  <div class="sec-label">🧠 TG-WEB対策（大手・人気企業で急増中）</div>
+  <div class="drill-grid">
+    <a class="drill-card c2" href="tgweb_gengo.html">
+      <div class="card-bar"></div>
+      <div class="card-inner">
+        <div class="card-icon">📖</div>
+        <div class="card-info">
+          <div class="card-num">TG-WEB - 01</div>
+          <div class="card-title">言語ドリル</div>
+          <div class="card-desc">長文読解・趣旨把握・論理推論・空欄補充</div>
+          <div class="card-tags"><span class="tag">長文読解</span><span class="tag">趣旨把握</span><span class="tag">論理</span></div>
+        </div>
+      </div>
+      <div class="card-right">
+        <div class="card-count">15</div>
+        <div class="card-count-lbl">固定問題</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </a>
+    <a class="drill-card c2" href="tgweb_keisuu.html">
+      <div class="card-bar"></div>
+      <div class="card-inner">
+        <div class="card-icon">🔢</div>
+        <div class="card-info">
+          <div class="card-num">TG-WEB - 02</div>
+          <div class="card-title">計数ドリル</div>
+          <div class="card-desc">鶴亀算・ニュートン算・数列・順列組み合わせ</div>
+          <div class="card-tags"><span class="tag">鶴亀算</span><span class="tag">数列</span><span class="tag">確率</span></div>
+        </div>
+      </div>
+      <div class="card-right">
+        <div class="card-count">15</div>
+        <div class="card-count-lbl">固定問題</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- 玉手箱 -->
+  <div class="sec-label">💎 玉手箱対策（外資系・大手・金融）</div>
+  <div class="drill-grid">
+    <a class="drill-card c3" href="tamatebako_shisoku.html">
+      <div class="card-bar"></div>
+      <div class="card-inner">
+        <div class="card-icon">🔣</div>
+        <div class="card-info">
+          <div class="card-num">玉手箱 - 01</div>
+          <div class="card-title">四則逆算ドリル</div>
+          <div class="card-desc">□に入る数を求める｜1問10秒が目標</div>
+          <div class="card-tags"><span class="tag">逆算</span><span class="tag">スピード</span></div>
+        </div>
+      </div>
+      <div class="card-right">
+        <div class="card-count">20</div>
+        <div class="card-count-lbl">固定問題</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </a>
+    <a class="drill-card c3" href="tamatebako_zuhyo.html">
+      <div class="card-bar"></div>
+      <div class="card-inner">
+        <div class="card-icon">📊</div>
+        <div class="card-info">
+          <div class="card-num">玉手箱 - 02</div>
+          <div class="card-title">図表読み取りドリル</div>
+          <div class="card-desc">グラフ・表から正確に数値を読み取り計算</div>
+          <div class="card-tags"><span class="tag">図表</span><span class="tag">計算</span></div>
+        </div>
+      </div>
+      <div class="card-right">
+        <div class="card-count">15</div>
+        <div class="card-count-lbl">固定問題</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- CAB/GAB -->
+  <div class="sec-label">⚙️ CAB/GAB対策（IT系・コンサル・商社）</div>
+  <div class="drill-grid">
+    <a class="drill-card c4" href="cabgab_anzan.html">
+      <div class="card-bar"></div>
+      <div class="card-inner">
+        <div class="card-icon">🧮</div>
+        <div class="card-info">
+          <div class="card-num">CAB - 01</div>
+          <div class="card-title">暗算ドリル</div>
+          <div class="card-desc">四則演算を素早く正確に｜1問8〜10秒が目標</div>
+          <div class="card-tags"><span class="tag">暗算</span><span class="tag">スピード</span></div>
+        </div>
+      </div>
+      <div class="card-right">
+        <div class="card-count">20</div>
+        <div class="card-count-lbl">固定問題</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </a>
+    <a class="drill-card c4" href="cabgab_hosoku.html">
+      <div class="card-bar"></div>
+      <div class="card-inner">
+        <div class="card-icon">🔀</div>
+        <div class="card-info">
+          <div class="card-num">CAB - 02</div>
+          <div class="card-title">法則性ドリル</div>
+          <div class="card-desc">数字・記号のパターンを見つける</div>
+          <div class="card-tags"><span class="tag">数列</span><span class="tag">パターン</span></div>
+        </div>
+      </div>
+      <div class="card-right">
+        <div class="card-count">15</div>
+        <div class="card-count-lbl">固定問題</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- 一般常識 -->
+  <div class="sec-label">🗞️ 一般常識対策（中小・マスコミ・金融・公務員）</div>
+  <div class="drill-grid">
+    <a class="drill-card c5" href="ippan_jiji.html">
+      <div class="card-bar"></div>
+      <div class="card-inner">
+        <div class="card-icon">🗞️</div>
+        <div class="card-info">
+          <div class="card-num">一般常識 - 01</div>
+          <div class="card-title">時事・社会ドリル</div>
+          <div class="card-desc">SDGs・DX・AI・働き方改革・ビジネス用語</div>
+          <div class="card-tags"><span class="tag">時事</span><span class="tag">DX</span><span class="tag">SDGs</span></div>
+        </div>
+      </div>
+      <div class="card-right">
+        <div class="card-count">15</div>
+        <div class="card-count-lbl">固定問題</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </a>
+    <a class="drill-card c5" href="ippan_kokugo.html">
+      <div class="card-bar"></div>
+      <div class="card-inner">
+        <div class="card-icon">📚</div>
+        <div class="card-info">
+          <div class="card-num">一般常識 - 02</div>
+          <div class="card-title">国語ドリル</div>
+          <div class="card-desc">語彙・慣用句・ことわざ・四字熟語・敬語・誤用</div>
+          <div class="card-tags"><span class="tag">語彙</span><span class="tag">敬語</span><span class="tag">誤用注意</span></div>
+        </div>
+      </div>
+      <div class="card-right">
+        <div class="card-count">15</div>
+        <div class="card-count-lbl">固定問題</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- 独自試験 -->
+  <div class="sec-label">🏢 独自試験対策（新聞社・金融・コンサル・放送局）</div>
+  <div class="drill-grid">
+    <a class="drill-card c6" href="dokujitu_ronri.html">
+      <div class="card-bar"></div>
+      <div class="card-inner">
+        <div class="card-icon">🧩</div>
+        <div class="card-info">
+          <div class="card-num">独自試験 - 01</div>
+          <div class="card-title">論理・推論ドリル</div>
+          <div class="card-desc">三段論法・批判的思考・論理パズル・フレームワーク</div>
+          <div class="card-tags"><span class="tag">三段論法</span><span class="tag">MECE</span><span class="tag">論理</span></div>
+        </div>
+      </div>
+      <div class="card-right">
+        <div class="card-count">15</div>
+        <div class="card-count-lbl">固定問題</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </a>
+    <a class="drill-card c6" href="dokujitu_sakumon.html">
+      <div class="card-bar"></div>
+      <div class="card-inner">
+        <div class="card-icon">✍️</div>
+        <div class="card-info">
+          <div class="card-num">独自試験 - 02</div>
+          <div class="card-title">作文・小論文ドリル</div>
+          <div class="card-desc">論述構成・評価ポイント・PREP法・テーマ別対策</div>
+          <div class="card-tags"><span class="tag">PREP法</span><span class="tag">論述</span><span class="tag">小論文</span></div>
+        </div>
+      </div>
+      <div class="card-right">
+        <div class="card-count">15</div>
+        <div class="card-count-lbl">固定問題</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- キャリ爺メッセージ -->
+  <div class="message">
+    <div class="message-inner">
+      <span class="message-lbl">🌱 キャリ爺より</span>
+      <div class="message-text">「筆記試験は"貯金型"の対策です。今日1問解いた積み重ねが、半年後の本番で必ず返ってきます。焦らず、一問ずつ。まず自分が受ける企業の試験種別を確認して、そのドリルから始めてみてください。答えは、君の中にある。」</div>
+    </div>
+  </div>
+
 </div>
 
-<div class="footer"><b>🌱 就活の木</b>｜多摩大学キャリア支援課｜キャリ爺作成 ／ <a href="index.html" style="color:var(--green-mid);">← トップに戻る</a></div>
+<div class="footer"><b>🌱 就活の木</b>｜多摩大学キャリア支援課｜キャリ爺作成</div>
 
 <script>
-const QS = [
-  {q:'「カーボンニュートラル」とはどのような状態を指すか。',c:['二酸化炭素を全く排出しない状態','排出する温室効果ガスと吸収量が等しくなる状態','再生可能エネルギーのみを使用する状態','石炭の使用をゼロにする状態'],a:1,exp:'温室効果ガスの排出量と吸収量を均衡させ、実質ゼロにすること。日本は2050年達成を目標。'},
-  {q:'「DX（デジタルトランスフォーメーション）」の説明として最も適切なものはどれか。',c:['デジタル機器を購入すること','デジタル技術を活用してビジネス・社会を変革すること','インターネットを使って買い物をすること','AIを研究開発すること'],a:1,exp:'DXはデジタル技術で組織・ビジネスモデルを根本から変革すること。単なる電子化とは異なる。'},
-  {q:'「ESG投資」のS（Social）が意味することはどれか。',c:['株式（Stock）への投資','社会的な取り組み（人権・労働環境・地域貢献）','持続可能なエネルギー','科学的分析手法'],a:1,exp:'ESGのS=Social（社会）。人権・労働環境・ダイバーシティ・地域社会への貢献などを評価。'},
-  {q:'「メタバース」とはどのような概念か。',c:['宇宙開発プロジェクト','インターネット上の仮想3D空間・世界','超高速インターネット技術','人工知能の一種'],a:1,exp:'メタバースはインターネット上に構築された仮想3D空間。アバターを使って交流・経済活動ができる。'},
-  {q:'「ウェルビーイング（Well-being）」の意味として最も適切なものはどれか。',c:['健康診断の結果','身体的・精神的・社会的に良好な状態','給与水準の高さ','福利厚生制度の充実'],a:1,exp:'ウェルビーイングは身体的・精神的・社会的すべてにおいて良好な状態。企業経営にも取り入れられている。'},
-  {q:'「GAFA」とは何を指すか。',c:['日本の大手メーカー4社','Google・Amazon・Facebook（Meta）・Appleの4社','政府機関の略称','国際的な環境団体'],a:1,exp:'GAFAはGoogle・Amazon・Facebook（現Meta）・Appleの頭文字。世界的なプラットフォーム企業。'},
-  {q:'「リスキリング」とはどのような取り組みか。',c:['リスク管理能力を高めること','新しいスキルを習得し直すこと（学び直し）','外国語を学ぶこと','体力を鍛えること'],a:1,exp:'リスキリング（Reskilling）は技術革新・産業構造の変化に対応するため、新しいスキルを習得し直すこと。'},
-  {q:'「生成AI」の説明として最も適切なものはどれか。',c:['人間の代わりに工場で働くロボット','テキスト・画像・音声などを新たに生成できるAI','データを分析するソフトウェア','セキュリティを守るシステム'],a:1,exp:'生成AI（Generative AI）はテキスト・画像・動画・音声などを新たに生成できるAI。ChatGPT・Claude・Geminiなどが代表例。'},
-  {q:'「Z世代」とは一般的にどの年代生まれの世代を指すか。',c:['1945〜1960年生まれ','1965〜1980年生まれ','1981〜1996年生まれ','1997年以降生まれ'],a:3,exp:'Z世代は概ね1997年以降生まれ。デジタルネイティブ世代で、SNSや動画コンテンツを中心に情報収集する。'},
-  {q:'「少子高齢化」の説明として正しいものはどれか。',c:['子供の数が増え高齢者が減る現象','出生率の低下と高齢者比率の上昇が同時に進む現象','人口が急激に増加する現象','若者が海外へ流出する現象'],a:1,exp:'少子高齢化は出生率低下（少子化）と高齢者割合増加（高齢化）が同時進行する現象。'},
-  {q:'「サステナビリティ」とはどのような概念か。',c:['企業の短期的な利益最大化','将来の世代のニーズを損なわずに現在のニーズを満たす持続可能性','製品の耐久性の高さ','従業員の勤続年数の長さ'],a:1,exp:'サステナビリティ（持続可能性）は現世代のニーズを満たしながら、将来世代のニーズも損なわない発展を目指す概念。'},
-  {q:'「働き方改革」で主に推進されていることはどれか。',c:['残業を増やして生産性を上げる','長時間労働の是正・多様な働き方の推進','全員をフリーランスにする','週6日勤務を義務化する'],a:1,exp:'働き方改革は長時間労働の是正、同一労働同一賃金、テレワーク推進など多様で柔軟な働き方の実現。'},
-  {q:'「フードロス」とはどのような問題か。',c:['食料の輸送コストが高いこと','まだ食べられる食品が廃棄されること','食料の生産量が不足していること','飲食店の経営が苦しいこと'],a:1,exp:'フードロス（食品ロス）はまだ食べられる食品が廃棄される問題。日本では年間約600万トン発生。'},
-  {q:'「マイナンバー制度」の主な目的はどれか。',c:['国民を監視するため','行政手続きの効率化・社会保障・税の公平化','選挙の投票管理','外国人の入国管理'],a:1,exp:'マイナンバーは行政手続きの効率化、社会保障の適切な運用、税の公平な徴収を目的とした個人番号制度。'},
-  {q:'「GX（グリーントランスフォーメーション）」とはどのような取り組みか。',c:['緑の植物を増やす環境運動','化石燃料からクリーンエネルギーへの移行・経済社会の変革','緑色をテーマにしたデザイン改革','農業のデジタル化'],a:1,exp:'GXは化石燃料中心の社会構造をクリーンエネルギー中心に転換し、経済成長と環境対策を同時に実現する取り組み。'},
-];
-
-const KEY = 'shukatsu_gemini_key';
-let answered = {};
-let aiAnswered = {};
-let aiQs = [];
-let diff = 'normal';
-let aiLoading = false;
-
-function getKey(){ return sessionStorage.getItem(KEY)||''; }
+const KEY='shukatsu_groq_key';
 function saveKey(){
   const k=document.getElementById('apiKeyInput').value.trim();
   if(!k){showSt('❌ キーを入力してください','#fca5a5');return;}
-  if(!k.startsWith('AIza')){showSt('⚠️ AIzaSy...で始まるキーを入力','#fde68a');return;}
+  if(!k.startsWith('gsk_')){showSt('⚠️ gsk_で始まるGroqキーを入力してください','#fde68a');return;}
   sessionStorage.setItem(KEY,k);
   document.getElementById('apiKeyInput').value='';
-  showSt('✅ 保存済み！AI出題が使えます','#86efac');
+  showSt('✅ 保存済み！全ドリルでAI出題が使えます','#86efac');
 }
 function clearKey(){
   sessionStorage.removeItem(KEY);
@@ -187,215 +433,8 @@ function showSt(msg,color){
   setTimeout(()=>{if(el.textContent===msg)el.textContent='';},5000);
 }
 window.addEventListener('load',()=>{
-  if(getKey()) showSt('✅ APIキー設定済み','#86efac');
+  if(sessionStorage.getItem(KEY)) showSt('✅ APIキー設定済み','#86efac');
 });
-
-async function callGemini(sys,usr){
-  const key=getKey();
-  if(!key) throw new Error('NO_KEY');
-  const url='https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key='+key;
-  const res=await fetch(url,{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({
-      contents:[{role:'user',parts:[{text:sys+'\n\n'+usr}]}],
-      generationConfig:{temperature:0.7,maxOutputTokens:8000}
-    })
-  });
-  if(!res.ok){
-    const err=await res.json().catch(()=>({}));
-    if(res.status===400) throw new Error('APIキーが無効です');
-    if(res.status===429) throw new Error('Geminiのレート制限に達しました');
-    throw new Error((err.error&&err.error.message)||'HTTP '+res.status);
-  }
-  const reader=res.body.getReader();
-  const decoder=new TextDecoder();
-  let buffer='',fullText='';
-  while(true){
-    const {done,value}=await reader.read();
-    if(done) break;
-    buffer+=decoder.decode(value,{stream:true});
-    const lines=buffer.split('\n');buffer=lines.pop();
-    for(const line of lines){
-      if(!line.startsWith('data: ')) continue;
-      try{
-        const evt=JSON.parse(line.slice(6));
-        const text=evt?.candidates?.[0]?.content?.parts?.[0]?.text;
-        if(text) fullText+=text;
-      }catch(_){}
-    }
-  }
-  // ループ終了後、bufferに残った最後のチャンクを処理
-  if(buffer.startsWith('data: ')){
-    try{
-      const evt=JSON.parse(buffer.slice(6));
-      const text=evt?.candidates?.[0]?.content?.parts?.[0]?.text;
-      if(text) fullText+=text;
-    }catch(_){}
-  }
-  return fullText;
-}
-
-function updateScore(){
-  let correct=0,done=0;
-  Object.values(answered).forEach(a=>{if(a.ok)correct++;done++;});
-  Object.values(aiAnswered).forEach(a=>{if(a.ok)correct++;done++;});
-  document.getElementById('scoreNum').innerHTML=`${correct}<span> / ${done}問</span>`;
-  const pct=done>0?Math.round(correct/done*100):0;
-  document.getElementById('progressFill').style.width=Math.min(done/QS.length*100,100)+'%';
-  document.getElementById('scorePct').textContent=`${pct}% 正答率（${done}/${QS.length}問回答済み）`;
-}
-
-function renderCard(q,i,ans,isAI){
-  const done=ans!==undefined;
-  const labels=['A','B','C','D'];
-  const numCls=isAI?'q-num ai':'q-num';
-  const numLbl=isAI?`AI-${i+1}`:`Q${i+1}`;
-  const choices=q.c.map((c,ci)=>{
-    let cls='choice';
-    if(done){
-      if(ci===q.a) cls+=' show';
-      else if(ci===ans.chosen&&!ans.ok) cls+=' ng';
-    }
-    const fn=isAI?`answerAI(${i},${ci})`:`answer(${i},${ci})`;
-    return `<button class="${cls}" ${done?'disabled':''} onclick="${fn}">
-      <span class="choice-lbl">${labels[ci]}</span><span>${c}</span>
-    </button>`;
-  }).join('');
-  let expHtml='';
-  if(done){
-    const ok=ans.ok;
-    expHtml=`<div class="exp ${ok?'ok':'ng'}">
-      <div class="exp-head">${ok?'✅ 正解！':`❌ 不正解。正解：「${q.c[q.a]}」`}</div>
-      ${q.exp}
-    </div>`;
-  }
-  return `<div class="q-card">
-    <div class="q-head"><span class="${numCls}">${numLbl}</span><div class="q-text">${q.q}</div></div>
-    <div class="q-body"><div class="choices">${choices}</div>${expHtml}</div>
-  </div>`;
-}
-
-function answer(qi,chosen){
-  answered[qi]={chosen,ok:chosen===QS[qi].a};
-  render();updateScore();
-}
-function answerAI(qi,chosen){
-  aiAnswered[qi]={chosen,ok:chosen===aiQs[qi].a};
-  render();updateScore();
-}
-
-function renderAI(){
-  const aiCardsHtml=aiQs.length>0
-    ?'<div style="display:flex;flex-direction:column;gap:10px;margin-top:4px;">'
-      +aiQs.map((q,i)=>renderCard(q,i,aiAnswered[i],true)).join('')+'</div>'
-    :'';
-  const loadHtml=aiLoading?'<div class="ai-loading">🤖 AIが問題を生成中...</div>':'';
-  return `<div class="ai-section">
-    <div class="ai-head">
-      <span class="ai-head-icon">🤖</span>
-      <div>
-        <div class="ai-head-title">AI自動出題コーナー｜一般常識 時事・社会ドリル</div>
-        <div class="ai-head-sub">難易度を選んでAIが新問題を5問生成（何度でも可）</div>
-      </div>
-    </div>
-    <div class="ai-body">
-      <div class="ai-note">⚠️ AIが生成した問題です。まれに不正確な場合があります。参考程度にご活用ください。</div>
-      <div class="ai-controls">
-        <span style="font-size:12px;font-weight:700;">難易度：</span>
-        <button class="diff-btn diff-normal${diff==='normal'?' on':''}" onclick="setDiff('normal')">📗 普通</button>
-        <button class="diff-btn diff-hard${diff==='hard'?' on':''}" onclick="setDiff('hard')">📕 難関</button>
-        <button class="btn-gen" onclick="generateAI()" ${aiLoading?'disabled':''}>
-          ${aiLoading?'⏳ 生成中...':'✨ AI問題を生成（5問）'}
-        </button>
-      </div>
-      ${loadHtml}${aiCardsHtml}
-    </div>
-  </div>`;
-}
-
-function renderResult(){
-  const correct=Object.values(answered).filter(a=>a.ok).length;
-  const total=QS.length;
-  const pct=Math.round(correct/total*100);
-  let emoji='😢',doshi='「間違えた問題の解説を読み返し、弱点を把握しましょう。」';
-  if(pct>=80){emoji='🏆';doshi='「素晴らしい！AI出題でさらに実力を磨きましょう！」';}
-  else if(pct>=60){emoji='😊';doshi='「あと一歩！解説をしっかり確認してください。」';}
-  else if(pct>=40){emoji='😅';doshi='「焦らず一問ずつ解説を読んで理解していこう。」';}
-  return `<div class="result">
-    <div class="result-emoji">${emoji}</div>
-    <div class="result-score">${correct}<span> / ${total}問</span></div>
-    <div class="result-pct" style="color:${pct>=60?'#2C5F2D':'#ef4444'}">${pct}%</div>
-    <div class="doshi"><span class="doshi-lbl">🔥 キャリ爺より</span><p>${doshi}</p></div>
-    <button class="btn-retry" onclick="resetFixed()">🔄 もう一度解く</button>
-  </div>`;
-}
-
-function render(){
-  const allDone=Object.keys(answered).length===QS.length;
-  let html='';
-  if(allDone){
-    html+=renderResult();
-  } else {
-    html+=`<div style="font-size:11px;font-weight:700;color:var(--gray);letter-spacing:0.08em;margin:16px 0 10px;display:flex;align-items:center;gap:8px;">
-      📝 問題を解いてみよう
-      <span style="flex:1;height:1px;background:#C8E6C9;display:block;"></span>
-    </div>`;
-    html+=QS.map((q,i)=>renderCard(q,i,answered[i],false)).join('');
-  }
-  html+=`<div class="powerup">
-    <div class="powerup-title">✅ ここまでは、そのまま使えます！</div>
-    <div class="powerup-sub">固定問題は<strong>APIキー不要</strong>で今すぐ練習できます。</div>
-    <div class="powerup-cta">
-      <div class="powerup-cta-title">🚀 AIでパワーアップしよう！</div>
-      <div class="powerup-cta-sub">AIが新しい問題を<strong>無制限</strong>に自動生成！<br>
-        → 上の紫バーにAPIキーを入力するだけ！<br>
-        無料・3分で取得：<a href="https://aistudio.google.com/app/apikey" target="_blank">aistudio.google.com</a>
-      </div>
-    </div>
-  </div>`;
-  html+=renderAI();
-  document.getElementById('mainArea').innerHTML=html;
-}
-
-function setDiff(d){diff=d;render();}
-function resetFixed(){answered={};render();updateScore();}
-function resetAll(){answered={};aiAnswered={};aiQs=[];render();updateScore();}
-
-async function generateAI(){
-  const diffLabel=diff==='hard'?'難関（応用・高難度）':'普通（標準レベル）';
-  const sys=`あなたは就職活動の一般常識試験（時事・社会分野）の問題作成専門家です。就活生向けの時事・社会問題（SDGs・DX・AI・ビジネス用語・社会動向）を以下の難易度基準で5問作成してください。【普通】ニュースでよく聞くビジネス用語・基本的なSDGsやDXの知識・就活生なら知っておきたい基礎レベル。【難関】専門的な政策や社会課題・業界固有の知識・複数の時事トピックを関連付けて考えるレベル。必ずJSON形式のみで返答。形式：{"questions":[{"q":"問題文","c":["A","B","C","D"],"a":正解インデックス(0-3),"exp":"解説（80字以内）"}]}`;
-  const usr=`上記の難易度基準で${diffLabel}の問題を5問。必ずJSON形式のみで返答。他のテキスト一切不要。`;
-  aiQs=[];aiAnswered={};aiLoading=true;render();
-  let retryCount=0;
-  const maxRetry=2;
-  while(retryCount<=maxRetry){
-    try{
-      const text=await callGemini(sys,usr);
-      const match=text.match(/{[\s\S]*}/);
-      if(!match) throw new Error('JSON_PARSE');
-      const parsed=JSON.parse(match[0]);
-      aiQs=parsed.questions||[];
-      if(aiQs.length===0) throw new Error('JSON_PARSE');
-      aiAnswered={};
-      break;
-    }catch(e){
-      if(e.message==='NO_KEY'){
-        aiQs=[{q:'⚠️ APIキーが設定されていません。上の紫バーにAPIキーを入力して「💾 保存」を押してください。',c:['上のバーで設定する','—','—','—'],a:0,exp:'aistudio.google.com でAPIキーを無料取得できます。'}];
-        aiAnswered={};
-        break;
-      }
-      retryCount++;
-      if(retryCount>maxRetry){
-        aiQs=[{q:'問題の生成に失敗しました。もう一度「AI問題を生成」ボタンを押してください。',c:['もう一度試す','—','—','—'],a:0,exp:'AIの応答が不安定でした。再試行すると成功することが多いです。'}];
-        aiAnswered={};
-      }
-    }
-  }
-  aiLoading=false;render();
-}
-
-render();updateScore();
 </script>
 </body>
 </html>
