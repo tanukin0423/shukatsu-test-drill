@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Webテスト見分け方ガイド｜就活の木</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #f7f4ef;
+  --bg2:     #ffffff;
+  --bg3:     #f0ece4;
+  --border:  #d8d0c4;
+  --text:    #1a1209;
+  --text2:   #3d3028;
+  --text3:   #5a4e42;
+  --green:   #3a7d44;
+  --green2:  #2d6235;
+  --green-l: #e8f5ea;
+  --amber:   #b45309;
+  --amber-l: #fef3c7;
+  --red:     #b91c1c;
+  --red-l:   #fee2e2;
+  --blue:    #1e40af;
+  --blue-l:  #dbeafe;
+  --purple:  #6d28d9;
+  --purple-l:#ede9fe;
+  --teal:    #0f766e;
+  --teal-l:  #ccfbf1;
+  --rose:    #be185d;
+  --rose-l:  #fce7f3;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── ヘッダー ── */
+header {
+  background: var(--green);
+  color: #fff;
+  padding: 0 24px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
+}
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo-icon { font-size: 22px; }
+.logo-text { font-size: 17px; font-weight: 700; letter-spacing: .5px; }
+.logo-sub { font-size: 10px; opacity: .8; margin-top: -2px; }
+
+/* ── ナビ ── */
+nav {
+  background: var(--bg2);
+  border-bottom: 2px solid var(--green);
+  padding: 0 24px;
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+}
+nav a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 20px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text2);
+  text-decoration: none;
+  border-bottom: 3px solid transparent;
+  white-space: nowrap;
+  transition: all .2s;
+}
+nav a:hover { color: var(--green); background: var(--green-l); }
+nav a.active { color: var(--green); border-bottom-color: var(--green); background: var(--green-l); }
+
+/* ── メインコンテナ ── */
+main { max-width: 860px; margin: 0 auto; padding: 32px 20px 60px; }
+
+/* ── ヒーロー ── */
+.hero {
+  background: linear-gradient(135deg, var(--green) 0%, #2d6235 100%);
+  color: #fff;
+  border-radius: 16px;
+  padding: 36px 32px;
+  margin-bottom: 32px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '🌳';
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 80px;
+  opacity: .2;
+}
+.hero-tag {
+  display: inline-block;
+  background: rgba(255,255,255,.2);
+  border: 1px solid rgba(255,255,255,.4);
+  border-radius: 20px;
+  padding: 3px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+.hero h1 { font-size: 26px; font-weight: 900; line-height: 1.4; margin-bottom: 10px; }
+.hero p { font-size: 14px; opacity: .9; line-height: 1.7; }
+
+/* ── セクション見出し ── */
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--green2);
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--green-l);
+}
+.section-title .icon { font-size: 20px; }
+
+/* ── ポイントカード ── */
+.point-card {
+  background: var(--amber-l);
+  border: 1px solid #fcd34d;
+  border-left: 4px solid var(--amber);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--text2);
+}
+.point-card strong { color: var(--amber); }
+
+/* ── URL一覧テーブル ── */
+.url-table { width: 100%; border-collapse: collapse; margin-bottom: 32px; }
+.url-table thead tr {
+  background: var(--green);
+  color: #fff;
+}
+.url-table th {
+  padding: 12px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: left;
+  letter-spacing: .5px;
+}
+.url-table td {
+  padding: 14px 16px;
+  font-size: 13px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+.url-table tbody tr { background: var(--bg2); transition: background .15s; }
+.url-table tbody tr:hover { background: var(--green-l); }
+
+.test-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+.badge-spi    { background: var(--blue-l);   color: var(--blue);   }
+.badge-tama   { background: var(--amber-l);  color: var(--amber);  }
+.badge-tg     { background: var(--purple-l); color: var(--purple); }
+.badge-cab    { background: var(--teal-l);   color: var(--teal);   }
+.badge-cubic  { background: var(--rose-l);   color: var(--rose);   }
+.badge-scoa   { background: var(--green-l);  color: var(--green2); }
+
+.url-code {
+  font-family: 'Courier New', monospace;
+  background: #f1f5f9;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 3px 8px;
+  font-size: 12px;
+  color: var(--red);
+  word-break: break-all;
+}
+
+.diff-tag {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 10px;
+  margin-left: 4px;
+}
+.diff-hard   { background: var(--red-l);    color: var(--red);    }
+.diff-mid    { background: var(--amber-l);  color: var(--amber);  }
+.diff-normal { background: var(--blue-l);   color: var(--blue);   }
+.diff-easy   { background: var(--green-l);  color: var(--green2); }
+
+/* ── 注意ボックス ── */
+.caution {
+  background: var(--red-l);
+  border: 1px solid #fca5a5;
+  border-left: 4px solid var(--red);
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 13px;
+  line-height: 1.8;
+  margin-bottom: 24px;
+  color: var(--text2);
+}
+.caution strong { color: var(--red); }
+
+/* ── フッターナビ ── */
+.page-nav {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 40px;
+}
+.btn-next {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--green);
+  color: #fff;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  transition: background .2s, transform .1s;
+  box-shadow: 0 2px 6px rgba(58,125,68,.3);
+}
+.btn-next:hover { background: var(--green2); transform: translateX(2px); }
+
+/* ── フッター ── */
+footer {
+  background: var(--green2);
+  color: rgba(255,255,255,.8);
+  text-align: center;
+  padding: 20px;
+  font-size: 12px;
+  margin-top: 60px;
+}
+footer strong { color: #fff; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <span class="logo-icon">🌱</span>
+    <div>
+      <div class="logo-text">就活の木</div>
+      <div class="logo-sub">Webテスト見分け方ガイド</div>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <a href="webtest-guide.html" class="active">🔍 URL見分け方</a>
+  <a href="features.html">📊 各テストの特徴</a>
+  <a href="industry.html">🏢 業界別傾向</a>
+  <a href="checklist.html">✅ 受検前チェック</a>
+</nav>
+
+<main>
+
+  <div class="hero">
+    <div class="hero-tag">STEP 1 ／ まず確認しよう</div>
+    <h1>受検URLを見れば<br>テストの種類がわかる！</h1>
+    <p>企業から届いたメールのURLを確認するだけで、<br>どの適性検査か事前に特定できます。対策が変わります！</p>
+  </div>
+
+  <div class="point-card">
+    💡 <strong>なぜURLでわかるの？</strong><br>
+    Webテストは各テスト会社のサーバー上で動いています。そのため、受検用URLに各社固有の<strong>ドメイン名（アドレスの一部）</strong>が含まれています。メールが届いたら、URLを見るだけで種類が判明します。
+  </div>
+
+  <div class="section-title">
+    <span class="icon">🔍</span>URL別・テスト判別一覧
+  </div>
+
+  <table class="url-table">
+    <thead>
+      <tr>
+        <th>テスト名</th>
+        <th>受検URL（実例）</th>
+        <th>難易度</th>
+        <th>ログイン後の目安</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="test-badge badge-spi">🔵 SPI3</span></td>
+        <td><span class="url-code">http://arorua.net/</span></td>
+        <td><span class="diff-normal">★★★☆☆ 標準</span></td>
+        <td>進捗バーあり・1画面1問・入力式多め</td>
+      </tr>
+      <tr>
+        <td><span class="test-badge badge-tama">🟡 玉手箱／GAB／CAB</span></td>
+        <td>
+          <span class="url-code">https://web1.e-exams.jp/</span><br>
+          <span class="url-code">https://web2.e-exams.jp/</span><br>
+          <span class="url-code">https://web3.e-exams.jp/</span><br>
+          <span class="url-code">https://tsvs1.e-exams2.jp/</span><br>
+          <span class="url-code">https://tsvs2.e-exams2.jp/</span><br>
+          <span class="url-code">https://tsvs3.e-exams2.jp/</span><br>
+          <span class="url-code">https://nsvs1.e-exams4.jp/</span><br>
+          <span class="url-code">https://nsvs2.e-exams4.jp/</span>
+        </td>
+        <td><span class="diff-mid">★★★★☆ やや難</span></td>
+        <td>計数9分→玉手箱／暗号問題→CAB／言語＋計数→GABが目安</td>
+      </tr>
+      <tr>
+        <td><span class="test-badge badge-tg">🟣 TG-WEB</span></td>
+        <td>
+          <span class="url-code">http://assessment.c-personal.com/</span><br>
+          <span class="url-code">http://assessment.e-gitest.com/</span><br>
+          <span class="url-code">https://www.e-assessment.jp/</span><br>
+          <span class="url-code">https://www.c-personal.com/</span>
+        </td>
+        <td><span class="diff-hard">★★★★★ 難</span></td>
+        <td>言語12分・計数18分（従来型）が目安</td>
+      </tr>
+      <tr>
+        <td><span class="test-badge badge-cubic">🩷 CUBIC</span></td>
+        <td><span class="url-code">https://web-cubic.jp/</span></td>
+        <td><span class="diff-easy">★★☆☆☆ 易</span></td>
+        <td>中学高校レベル・5科目・図形問題あり</td>
+      </tr>
+      <tr>
+        <td><span class="test-badge badge-scoa">🌿 SCOA</span></td>
+        <td><span class="url-code">apps.ibt-cloud.com</span></td>
+        <td><span class="diff-normal">★★★☆☆ 標準</span></td>
+        <td>5科目・120問60分・常識分野あり</td>
+      </tr>
+      <tr>
+        <td><span class="test-badge" style="background:#fef9c3;color:#713f12;">🟤 GPS</span></td>
+        <td><span class="url-code">https://www.gps-cbt.com/</span></td>
+        <td><span class="diff-normal">★★★☆☆ 標準</span></td>
+        <td>思考力・音声・動画問題あり（特徴的）</td>
+      </tr>
+      <tr>
+        <td><span class="test-badge" style="background:#f0fdf4;color:#166534;">🟢 TAL</span></td>
+        <td><span class="url-code">https://www.tal-sa.jp/talsqi/</span></td>
+        <td><span class="diff-easy">性格検査のみ</span></td>
+        <td>能力検査なし・正直に答えるだけでOK</td>
+      </tr>
+      <tr>
+        <td><span class="test-badge" style="background:#fce7f3;color:#9d174d;">🔴 eF-1G</span></td>
+        <td><span class="url-code">https://ef-1g.com/</span></td>
+        <td><span class="diff-hard">★★★★☆ やや難</span></td>
+        <td>114問30分・発想力問題あり・初見殺し</td>
+      </tr>
+      <tr>
+        <td><span class="test-badge" style="background:#ede9fe;color:#5b21b6;">🟣 BRIDGE</span></td>
+        <td>
+          <span class="url-code">https://generator.cbt.jp/</span><br>
+          <span class="url-code">https://www.cbt-s.jp/</span>
+        </td>
+        <td><span class="diff-normal">★★★☆☆ 標準</span></td>
+        <td>玉手箱・TG-WEBに問題形式が類似</td>
+      </tr>
+      <tr>
+        <td><span class="test-badge" style="background:#dbeafe;color:#1e40af;">🔵 ミキワメ</span></td>
+        <td><span class="url-code">https://survey.career-base.jp/</span></td>
+        <td><span class="diff-easy">★★☆☆☆ 易</span></td>
+        <td>30分程度・コンパクトな内容</td>
+      </tr>
+      <tr>
+        <td><span class="test-badge" style="background:#ccfbf1;color:#0f766e;">🟢 不適性検査スカウター</span></td>
+        <td><span class="url-code">https://tracs.jp/</span></td>
+        <td><span class="diff-easy">★★☆☆☆ 易</span></td>
+        <td>主に中小・ベンチャー企業で採用</td>
+      </tr>
+      <tr>
+        <td><span class="test-badge" style="background:#fef3c7;color:#92400e;">🟡 AIP（アドバンテージ）</span></td>
+        <td><span class="url-code">aip.armg.jp</span></td>
+        <td><span class="diff-normal">★★★☆☆ 標準</span></td>
+        <td>EQ・ストレス耐性に特化</td>
+      </tr>
+      <tr>
+        <td><span class="test-badge" style="background:#f1f5f9;color:#475569;">⬜ GROW</span></td>
+        <td><span class="url-code">アプリをインストール</span></td>
+        <td><span class="diff-normal">★★★☆☆ 標準</span></td>
+        <td>スマホアプリで受検・他者評価あり</td>
+      </tr>
+      <tr>
+        <td><span class="test-badge" style="background:#f1f5f9;color:#475569;">⬜ CBTS</span></td>
+        <td><span class="url-code">gate.web-cbt（企業専用）</span></td>
+        <td><span class="diff-normal">★★★☆☆ 標準</span></td>
+        <td>URLだけでは特定困難・口コミで確認を</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="caution">
+    ⚠️ <strong>注意①：URLだけで100%判断できない場合もあります</strong><br>
+    独自ドメインを使う企業や、採用管理システム経由の場合はURLから特定できないことがあります。<br>
+    ⚠️ <strong>注意②：玉手箱・CAB・GABはURLが似ている</strong><br>
+    同じSHL社製のため `e-exams.jp` が共通で使われます。ログイン後の科目表示で判別してください。<br>（例：「暗号」が出たらCAB、「計数 9分」なら玉手箱、「言語＋計数」のみならGAB）<br>
+    ⚠️ <strong>注意③：TG-WEBとWEB-GABもURLが近い</strong><br>
+    どちらも `c-personal` を含む場合があります。ログイン画面のロゴや科目数で最終確認を。
+  </div>
+
+  <div class="section-title">
+    <span class="icon">📬</span>メールが届いたらこの順番で確認！
+  </div>
+
+  <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 32px;">
+    <div style="background:var(--bg2); border:1px solid var(--border); border-radius:10px; padding:16px; text-align:center;">
+      <div style="font-size:28px; margin-bottom:8px;">📧</div>
+      <div style="font-size:11px; font-weight:700; color:var(--green2); margin-bottom:4px;">STEP 1</div>
+      <div style="font-size:13px; font-weight:700; margin-bottom:6px;">URLを確認</div>
+      <div style="font-size:11px; color:var(--text3);">メールのURLを上の表と照合</div>
+    </div>
+    <div style="background:var(--bg2); border:1px solid var(--border); border-radius:10px; padding:16px; text-align:center;">
+      <div style="font-size:28px; margin-bottom:8px;">🗓️</div>
+      <div style="font-size:11px; font-weight:700; color:var(--green2); margin-bottom:4px;">STEP 2</div>
+      <div style="font-size:13px; font-weight:700; margin-bottom:6px;">受検期限を確認</div>
+      <div style="font-size:11px; color:var(--text3);">通常3〜7日以内。余裕を持って</div>
+    </div>
+    <div style="background:var(--bg2); border:1px solid var(--border); border-radius:10px; padding:16px; text-align:center;">
+      <div style="font-size:28px; margin-bottom:8px;">📚</div>
+      <div style="font-size:11px; font-weight:700; color:var(--green2); margin-bottom:4px;">STEP 3</div>
+      <div style="font-size:13px; font-weight:700; margin-bottom:6px;">該当ドリルで対策</div>
+      <div style="font-size:11px; color:var(--text3);">種類が判明したら即対策開始！</div>
+    </div>
+    <div style="background:var(--bg2); border:1px solid var(--border); border-radius:10px; padding:16px; text-align:center;">
+      <div style="font-size:28px; margin-bottom:8px;">✅</div>
+      <div style="font-size:11px; font-weight:700; color:var(--green2); margin-bottom:4px;">STEP 4</div>
+      <div style="font-size:13px; font-weight:700; margin-bottom:6px;">チェックリスト確認</div>
+      <div style="font-size:11px; color:var(--text3);">受検前日に環境・準備を最終確認</div>
+    </div>
+  </div>
+
+  <div class="section-title">
+    <span class="icon">💬</span>URLでわからない時は口コミサイトで事前調査！
+  </div>
+
+  <div class="point-card">
+    💡 <strong>URLが届く前・届いてもドメインが不明な時</strong>は、口コミサイトで志望企業の過去情報を調べると当たりをつけられます。ただし<strong>毎年同じとは限らない</strong>ので、あくまで参考として活用しましょう。
+  </div>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:20px;">
+
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <div style="background:#1a56db;padding:12px 16px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:20px;">📋</span>
+        <div>
+          <div style="font-size:13px;font-weight:900;color:#fff;">就活会議</div>
+          <a href="https://syukatsu-kaigi.jp/" target="_blank" style="font-size:10px;color:rgba(255,255,255,.9);text-decoration:underline;">syukatsu-kaigi.jp</a>
+        </div>
+        <span style="margin-left:auto;font-size:10px;font-weight:700;background:rgba(255,255,255,.2);border-radius:10px;padding:2px 8px;color:#fff;">★★★</span>
+      </div>
+      <div style="padding:12px 16px;font-size:12px;color:var(--text2);line-height:1.8;">
+        選考体験記が詳細。「筆記試験の形式・難易度・時間」の記入欄があり、Webテストの種類まで書かれていることが多い。ESも閲覧可能。
+      </div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <div style="background:#0f766e;padding:12px 16px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:20px;">📊</span>
+        <div>
+          <div style="font-size:13px;font-weight:900;color:#fff;">ワンキャリア</div>
+          <a href="https://www.onecareer.jp/" target="_blank" style="font-size:10px;color:rgba(255,255,255,.9);text-decoration:underline;">onecareer.jp</a>
+        </div>
+        <span style="margin-left:auto;font-size:10px;font-weight:700;background:rgba(255,255,255,.2);border-radius:10px;padding:2px 8px;color:#fff;">★★★</span>
+      </div>
+      <div style="padding:12px 16px;font-size:12px;color:var(--text2);line-height:1.8;">
+        企業ごとの選考ステップが図で見られる。Webテストの種類・難易度・対策法まで先輩の体験談で確認できる。
+      </div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <div style="background:#b45309;padding:12px 16px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:20px;">📝</span>
+        <div>
+          <div style="font-size:13px;font-weight:900;color:#fff;">みん就（楽天）</div>
+          <a href="https://www.nikki.ne.jp/" target="_blank" style="font-size:10px;color:rgba(255,255,255,.9);text-decoration:underline;">nikki.ne.jp</a>
+        </div>
+        <span style="margin-left:auto;font-size:10px;font-weight:700;background:rgba(255,255,255,.2);border-radius:10px;padding:2px 8px;color:#fff;">★★☆</span>
+      </div>
+      <div style="padding:12px 16px;font-size:12px;color:var(--text2);line-height:1.8;">
+        登録者55万人超。リアルタイムの口コミが集まりやすく、同じ年度の受検情報が見つかりやすい。
+      </div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <div style="background:#6d28d9;padding:12px 16px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:20px;">✨</span>
+        <div>
+          <div style="font-size:13px;font-weight:900;color:#fff;">Unistyle</div>
+          <a href="https://unistyleinc.com/" target="_blank" style="font-size:10px;color:rgba(255,255,255,.9);text-decoration:underline;">unistyleinc.com</a>
+        </div>
+        <span style="margin-left:auto;font-size:10px;font-weight:700;background:rgba(255,255,255,.2);border-radius:10px;padding:2px 8px;color:#fff;">★★☆</span>
+      </div>
+      <div style="padding:12px 16px;font-size:12px;color:var(--text2);line-height:1.8;">
+        ES例文と選考情報が充実。業界・企業別の選考対策記事も多く、Webテストの種類も記載あり。
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 口コミの使い方フロー -->
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:24px;">
+    <div style="font-size:14px;font-weight:900;color:var(--green2);margin-bottom:14px;">🔎 口コミサイトの使い方・検索のコツ</div>
+    <div style="display:flex;flex-direction:column;gap:10px;font-size:13px;color:var(--text2);line-height:1.8;">
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <span style="background:var(--green);color:#fff;font-size:11px;font-weight:900;padding:2px 8px;border-radius:10px;flex-shrink:0;margin-top:2px;">①</span>
+        <div>企業名で検索 → 「選考体験記」「Webテスト」でフィルタリング</div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <span style="background:var(--green);color:#fff;font-size:11px;font-weight:900;padding:2px 8px;border-radius:10px;flex-shrink:0;margin-top:2px;">②</span>
+        <div>「筆記試験の種類」「テスト形式」「制限時間」の記載を探す</div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <span style="background:var(--green);color:#fff;font-size:11px;font-weight:900;padding:2px 8px;border-radius:10px;flex-shrink:0;margin-top:2px;">③</span>
+        <div><strong>できるだけ年度が新しい情報を優先する</strong>（企業がテストを変えることもある）</div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <span style="background:var(--green);color:#fff;font-size:11px;font-weight:900;padding:2px 8px;border-radius:10px;flex-shrink:0;margin-top:2px;">④</span>
+        <div>複数の投稿で同じ種類が書かれていれば信頼性が高い</div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <span style="background:var(--amber);color:#fff;font-size:11px;font-weight:900;padding:2px 8px;border-radius:10px;flex-shrink:0;margin-top:2px;">⚠️</span>
+        <div>種類名が書かれていなくても「計数9分」「暗号問題が出た」などのヒントで推測できる</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 見分け方の優先順位まとめ -->
+  <div style="background:linear-gradient(135deg,var(--green),var(--green2));color:#fff;border-radius:12px;padding:20px 24px;margin-bottom:24px;">
+    <div style="font-size:14px;font-weight:900;margin-bottom:12px;">🏆 テスト種別を特定する方法・優先順位</div>
+    <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;">
+      <div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.15);border-radius:8px;padding:8px 14px;">
+        <span style="font-size:16px;">🥇</span><span><strong>URLで確認</strong>（最も確実・即判明）</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.1);border-radius:8px;padding:8px 14px;">
+        <span style="font-size:16px;">🥈</span><span><strong>口コミサイト・OB/OG訪問で事前調査</strong>（URLより前に対策できる）</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.1);border-radius:8px;padding:8px 14px;">
+        <span style="font-size:16px;">🥉</span><span><strong>ログイン後の科目・時間・画面で確認</strong>（URLが不明な時の最終手段）</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <a href="features.html" class="btn-next">各テストの特徴・難易度を見る →</a>
+  </div>
+
+</main>
+
+<footer>
+  <strong>就活の木</strong>｜Webテスト対策ガイド<br>
+  君は、一人じゃない。いつでも、目の前のキャリア支援課の扉は開いているよ。——キャリ爺
+</footer>
+
+</body>
+</html>
