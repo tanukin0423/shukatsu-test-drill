@@ -3,15 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🧩 独自試験 論理・推論ドリル｜就活の木</title>
+<title>✍️ 独自試験 作文・小論文ドリル｜就活の木</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-
 :root{--green:#2C5F2D;--green-mid:#4A8C4B;--green-pale:#E8F5E9;--amber:#F59E0B;--gray:#6B7280;--white:#fff;--shadow:0 2px 8px rgba(0,0,0,0.10);}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Noto Sans JP',sans-serif;background:#F0FDF0;min-height:100vh;color:#1F2937;}
-
-/* APIキーバー */
 #apiBar{background:linear-gradient(135deg,#4c1d95,#7c3aed);padding:10px 16px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:999;}
 #apiBar span{color:#fff;font-size:12px;font-weight:700;white-space:nowrap;}
 #apiKeyInput{flex:1;min-width:160px;padding:7px 12px;border-radius:8px;border:none;font-size:12px;outline:none;}
@@ -19,25 +16,17 @@ body{font-family:'Noto Sans JP',sans-serif;background:#F0FDF0;min-height:100vh;c
 .api-save{background:#22c55e;color:#fff;}
 .api-clear{background:rgba(255,255,255,0.2);color:#fff;}
 #apiStatus{font-size:11px;font-weight:700;color:#fff;white-space:nowrap;}
-
-/* ヘッダー */
-.hero{background:linear-gradient(150deg,#2C5F2D,#4A8C4B);padding:28px 20px;text-align:center;color:#fff;}
+.hero{background:linear-gradient(150deg,#7c2d12,#EA580C);padding:28px 20px;text-align:center;color:#fff;}
 .hero h1{font-size:24px;font-weight:900;margin-bottom:6px;}
 .hero p{font-size:13px;opacity:0.85;}
-
-/* コンテンツ */
 .content{max-width:680px;margin:0 auto;padding:20px 16px 60px;}
-
-/* スコアバー */
 .score-bar{background:#fff;border-radius:12px;box-shadow:var(--shadow);padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
-.score-num{font-size:20px;font-weight:900;color:var(--green);}
+.score-num{font-size:20px;font-weight:900;color:#7c2d12;}
 .score-num span{font-size:12px;color:var(--gray);font-weight:400;}
 .progress{flex:1;min-width:100px;height:7px;background:#E5E7EB;border-radius:4px;overflow:hidden;}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--green),#97BC62);border-radius:4px;transition:width 0.4s;}
+.progress-fill{height:100%;background:linear-gradient(90deg,#7c2d12,#EA580C);border-radius:4px;transition:width 0.4s;}
 .score-pct{font-size:11px;color:var(--gray);}
-.btn-reset{padding:6px 12px;background:var(--green-pale);border:1px solid #C8E6C9;color:var(--green);border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;}
-
-/* パワーアップバナー */
+.btn-reset{padding:6px 12px;background:#FFF7ED;border:1px solid #FED7AA;color:#7c2d12;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;}
 .powerup{background:linear-gradient(135deg,#F0FDF0,#DCFCE7);border:2px solid #4A8C4B;border-radius:14px;padding:16px 18px;margin:20px 0;text-align:center;}
 .powerup-title{font-size:14px;font-weight:900;color:#2C5F2D;margin-bottom:6px;}
 .powerup-sub{font-size:12px;color:#374151;line-height:1.7;margin-bottom:10px;}
@@ -45,20 +34,18 @@ body{font-family:'Noto Sans JP',sans-serif;background:#F0FDF0;min-height:100vh;c
 .powerup-cta-title{font-size:14px;font-weight:900;margin-bottom:4px;}
 .powerup-cta-sub{font-size:12px;opacity:0.9;line-height:1.7;}
 .powerup-cta a{color:#fde68a;font-weight:700;}
-
-/* 問題カード */
 .q-card{background:#fff;border-radius:12px;box-shadow:var(--shadow);margin-bottom:10px;overflow:hidden;animation:fadeUp 0.3s ease;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
 .q-head{padding:12px 14px 8px;border-bottom:1px solid #F0F0F0;display:flex;gap:8px;align-items:flex-start;}
-.q-num{background:var(--green);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap;margin-top:2px;flex-shrink:0;}
+.q-num{background:#7c2d12;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap;margin-top:2px;flex-shrink:0;}
 .q-num.ai{background:#7C3AED;}
-.q-text{font-size:13px;font-weight:700;line-height:1.65;}
+.q-text{font-size:13px;font-weight:700;line-height:1.65;white-space:pre-wrap;}
 .q-body{padding:10px 14px 12px;}
 .choices{display:flex;flex-direction:column;gap:6px;}
 .choice{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;border:1.5px solid #E5E7EB;background:#FAFAFA;cursor:pointer;font-size:13px;font-weight:500;transition:all 0.15s;width:100%;text-align:left;}
-.choice:hover:not(:disabled){border-color:var(--green-mid);background:var(--green-pale);color:var(--green);}
+.choice:hover:not(:disabled){border-color:#EA580C;background:#FFF7ED;color:#7c2d12;}
 .choice-lbl{width:20px;height:20px;border-radius:50%;background:#E5E7EB;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;transition:all 0.15s;}
-.choice:hover:not(:disabled) .choice-lbl{background:var(--green-mid);color:#fff;}
+.choice:hover:not(:disabled) .choice-lbl{background:#EA580C;color:#fff;}
 .choice.ok{border-color:#22c55e;background:#F0FDF4;color:#15803d;}
 .choice.ok .choice-lbl{background:#22c55e;color:#fff;}
 .choice.ng{border-color:#ef4444;background:#FEF2F2;color:#991b1b;}
@@ -70,46 +57,35 @@ body{font-family:'Noto Sans JP',sans-serif;background:#F0FDF0;min-height:100vh;c
 .exp.ok{background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border:1px solid #BBF7D0;color:#14532d;}
 .exp.ng{background:linear-gradient(135deg,#FFF7ED,#FEF3C7);border:1px solid #FDE68A;color:#78350f;}
 .exp-head{font-size:11px;font-weight:700;margin-bottom:3px;}
-
-/* AI出題セクション */
 .ai-section{background:#fff;border-radius:14px;box-shadow:var(--shadow);margin-top:20px;overflow:hidden;}
 .ai-head{background:linear-gradient(135deg,#4c1d95,#7c3aed);padding:14px 18px;display:flex;align-items:center;gap:10px;}
 .ai-head-icon{font-size:24px;}
 .ai-head-title{color:#fff;font-size:14px;font-weight:900;}
 .ai-head-sub{color:rgba(255,255,255,0.8);font-size:11px;margin-top:2px;}
 .ai-body{padding:16px 18px;}
-.ai-note{font-size:11px;color:var(--gray);background:#F9FAFB;border:1px solid #E5E7EB;border-radius:8px;padding:7px 10px;margin-bottom:12px;}
-.ai-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
-.diff-btn{padding:7px 16px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;border:2px solid transparent;transition:all 0.15s;}
-.diff-normal{background:var(--green-pale);border-color:#C8E6C9;color:var(--green);}
-.diff-normal.on{background:var(--green);color:#fff;}
-.diff-hard{background:#F5F3FF;border-color:#C4B5FD;color:#7C3AED;}
-.diff-hard.on{background:#7C3AED;color:#fff;}
-.btn-gen{padding:9px 20px;background:linear-gradient(135deg,#4c1d95,#7c3aed);color:#fff;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.15s;}
-.btn-gen:hover{transform:translateY(-2px);}
-.btn-gen:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
-.ai-loading{text-align:center;padding:18px;color:#7C3AED;font-size:13px;font-weight:600;}
-
-/* 完了画面 */
+.ai-note{font-size:11px;color:#92400E;background:#FEF3C7;border:1px solid #FDE68A;border-radius:8px;padding:8px 12px;margin-bottom:12px;}
+.ai-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+.diff-btn{padding:6px 14px;border-radius:8px;border:1.5px solid #E5E7EB;background:#F9FAFB;font-size:12px;font-weight:700;cursor:pointer;}
+.diff-normal.on{background:#D1FAE5;border-color:#22c55e;color:#15803d;}
+.diff-hard.on{background:#FEE2E2;border-color:#ef4444;color:#991b1b;}
+.btn-gen{padding:7px 16px;background:linear-gradient(135deg,#4c1d95,#7c3aed);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;margin-left:auto;}
+.btn-gen:disabled{opacity:0.6;cursor:not-allowed;}
+.ai-loading{text-align:center;padding:20px;font-size:13px;color:#7C3AED;font-weight:700;}
 .result{background:#fff;border-radius:14px;box-shadow:var(--shadow);padding:24px;text-align:center;margin-bottom:16px;}
-.result-emoji{font-size:44px;margin-bottom:8px;}
-.result-score{font-size:38px;font-weight:900;color:var(--green);}
-.result-score span{font-size:15px;color:var(--gray);font-weight:400;}
-.result-pct{font-size:22px;font-weight:900;margin:4px 0 10px;}
-.doshi{background:linear-gradient(135deg,#FFF7ED,#FEF3C7);border-left:4px solid var(--amber);border-radius:0 10px 10px 0;padding:12px 14px;text-align:left;margin:10px 0;}
-.doshi-lbl{font-size:10px;font-weight:700;color:#92400E;margin-bottom:4px;display:block;}
-.doshi p{font-size:12px;color:#78350F;font-style:italic;line-height:1.75;}
-.btn-retry{padding:10px 24px;background:linear-gradient(135deg,#2C5F2D,#4A8C4B);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;margin-top:6px;}
-
+.result-emoji{font-size:48px;margin-bottom:8px;}
+.result-score{font-size:36px;font-weight:900;color:#7c2d12;}
+.result-score span{font-size:16px;color:var(--gray);font-weight:400;}
+.result-pct{font-size:20px;font-weight:900;margin:4px 0 16px;}
+.doshi{background:linear-gradient(135deg,#FFF7ED,#FEF3C7);border-left:4px solid var(--amber);border-radius:0 10px 10px 0;padding:12px 14px;text-align:left;margin-bottom:16px;}
+.doshi-lbl{font-size:10px;font-weight:700;color:#92400E;display:block;margin-bottom:4px;}
+.doshi p{font-size:13px;color:#78350F;font-style:italic;line-height:1.7;}
+.btn-retry{padding:10px 24px;background:linear-gradient(135deg,#7c2d12,#EA580C);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;}
 .footer{text-align:center;padding:0 16px 40px;font-size:11px;color:var(--gray);}
 .footer b{color:var(--green-mid);}
-
-@media(max-width:480px){.hero{padding:22px 14px;}.content{padding:16px 12px 50px;}.q-text{font-size:12px;}.choice{font-size:12px;padding:8px 10px;}}
-
+.footer a{color:var(--green-mid);}
 </style>
 </head>
 <body>
-
 <div id="apiBar">
   <span>🔑 Groq APIキー：</span>
   <input id="apiKeyInput" type="password" placeholder="gsk_... を入力して保存"/>
@@ -117,13 +93,10 @@ body{font-family:'Noto Sans JP',sans-serif;background:#F0FDF0;min-height:100vh;c
   <button class="api-btn api-clear" onclick="clearKey()">🗑️</button>
   <span id="apiStatus"></span>
 </div>
-
-<div class="hero" style="background:linear-gradient(150deg,#7c2d12,#EA580C);">
-  <h1>🧩 独自試験 論理・推論ドリル</h1>
-  <p>三段論法・批判的思考・論理パズル｜全15問 ＋ AI自動出題
-コンサル・IT・商社・外資系対策</p>
+<div class="hero">
+  <h1>✍️ 独自試験 作文・小論文ドリル</h1>
+  <p>論述構成・評価ポイント・PREP法・テーマ別対策｜新聞社・金融・コンサル・放送局</p>
 </div>
-
 <div class="content">
   <div class="score-bar">
     <div>
@@ -138,176 +111,24 @@ body{font-family:'Noto Sans JP',sans-serif;background:#F0FDF0;min-height:100vh;c
   </div>
   <div id="mainArea"></div>
 </div>
-
-<div class="footer"><b>🌱 就活の木</b>｜多摩大学キャリア支援課｜キャリ爺作成 ／ <a href="index.html" style="color:var(--green-mid);">← トップに戻る</a></div>
-
+<div class="footer"><b>🌱 就活の木</b>｜多摩大学キャリア支援課｜キャリ爺作成 ／ <a href="index.html">← トップに戻る</a></div>
 <script>
 const QS = [
-  {
-    "q": "次の論理推論で正しい結論はどれか。\n前提1：全てのコンサルタントは論理的思考力が高い。\n前提2：山田さんはコンサルタントだ。",
-    "c": [
-      "山田さんは数学が得意だ",
-      "山田さんは論理的思考力が高い",
-      "山田さんは外国語が話せる",
-      "山田さんは有名大学出身だ"
-    ],
-    "a": 1,
-    "exp": "三段論法：全コンサルタントが論理的で、山田さんはコンサルタントなので、山田さんは論理的思考力が高い。"
-  },
-  {
-    "q": "AならばB、かつ、BならばCが真のとき、必ず真といえる命題はどれか。",
-    "c": [
-      "CならばA",
-      "AならばC",
-      "BならばA",
-      "CならばB"
-    ],
-    "a": 1,
-    "exp": "AからBかつBからCが真ならば、AからCも真（三段論法）。"
-  },
-  {
-    "q": "5人（A〜E）が試験を受けた。\n条件1：AはBより点数が高い\n条件2：DはCより点数が低い\n条件3：BとCは同じ点数\n条件4：EはAより点数が高い\n\n最も点数が高いのは誰か？",
-    "c": [
-      "A",
-      "B",
-      "D",
-      "E"
-    ],
-    "a": 3,
-    "exp": "E>A>B=C>D。条件4のE>Aが最も大きいので、最高点はE。"
-  },
-  {
-    "q": "演繹推論と帰納推論の違いとして正しいものはどれか。",
-    "c": [
-      "演繹は具体例から一般法則を導き、帰納は一般法則から結論を導く",
-      "演繹は一般法則から特定の結論を導き、帰納は具体例から一般法則を導く",
-      "どちらも同じ推論方法",
-      "演繹は感情的、帰納は論理的な推論"
-    ],
-    "a": 1,
-    "exp": "演繹は一般から特殊（必然的）。帰納は特殊から一般（確率的）。"
-  },
-  {
-    "q": "MECEとはどのような概念か。",
-    "c": [
-      "モレなく・ダブりなく物事を分類・整理する考え方",
-      "全ての選択肢を均等に評価する手法",
-      "最も重要な要因を一つに絞る分析手法",
-      "反対意見を積極的に取り入れる議論法"
-    ],
-    "a": 0,
-    "exp": "MECE（Mutually Exclusive, Collectively Exhaustive）はモレなく・ダブりなく。ロジカルシンキングの基本。"
-  },
-  {
-    "q": "クリティカルシンキングにおいて重要な姿勢はどれか。",
-    "c": [
-      "権威ある人の意見を無条件に信頼する",
-      "前提・根拠・論理の飛躍を客観的に検証・評価する姿勢",
-      "一つの情報源のみを深く調べる",
-      "感情に基づいて判断する"
-    ],
-    "a": 1,
-    "exp": "クリティカルシンキングは前提・証拠・論理の妥当性を客観的・批判的に評価する思考法。"
-  },
-  {
-    "q": "次の論理パズルで正しいものを選べ。\n「全ての猫は動物だ。一部の動物は犬だ。」\n\nこの2文から確実に言えることはどれか？",
-    "c": [
-      "一部の猫は犬だ",
-      "全ての犬は猫だ",
-      "猫と犬は全く別の生き物だ",
-      "一部の猫は動物だ、は確実に言える"
-    ],
-    "a": 3,
-    "exp": "全ての猫は動物なので、一部の猫も動物であることは確実に言える。猫と犬の関係は不明。"
-  },
-  {
-    "q": "確証バイアスとはどのような心理現象か。",
-    "c": [
-      "自分に都合の悪い情報を意図的に消す行為",
-      "自分の既存の信念を支持する情報ばかりを集め、反証情報を無視する傾向",
-      "他人の意見に流されやすい心理",
-      "新しい情報を拒絶する傾向"
-    ],
-    "a": 1,
-    "exp": "確証バイアスは自分の仮説・信念を支持する情報を優先し、反証情報を軽視する認知の歪み。"
-  },
-  {
-    "q": "ロジックツリーとはどのような思考ツールか。",
-    "c": [
-      "会議の進行を管理するツール",
-      "問題・課題を樹状に分解して原因・解決策を整理するMECEな分析ツール",
-      "数値データを視覚化するグラフ",
-      "チームの役割分担を整理するツール"
-    ],
-    "a": 1,
-    "exp": "ロジックツリーは問題をMECEに分解しながら樹状に整理するフレームワーク。"
-  },
-  {
-    "q": "次の文章の論理的誤りを指摘せよ。\n「A君はスポーツが得意だから、勉強もできるはずだ。」",
-    "c": [
-      "論理的に正しい",
-      "スポーツ能力と学習能力の関連を前提なく仮定する早まった類推の誤り",
-      "A君への偏見だ",
-      "スポーツと勉強は無関係である"
-    ],
-    "a": 1,
-    "exp": "スポーツが得意なら勉強もできるという関係性は論理的前提がなく、早まった類推の誤り。"
-  },
-  {
-    "q": "仮説思考とはどのような思考プロセスか。",
-    "c": [
-      "全てのデータを集めてから結論を出す",
-      "最初に仮説を立て、それを検証する効率的な問題解決アプローチ",
-      "直感に従って素早く決断する",
-      "権威者の意見を前提として分析する"
-    ],
-    "a": 1,
-    "exp": "仮説思考は全データ収集前に仮説を立てて検証・修正を繰り返す手法。限られた情報・時間での意思決定に有効。"
-  },
-  {
-    "q": "ゼロサムゲームとはどのような状況か。",
-    "c": [
-      "全員が利益を得られる状況",
-      "一方が得をすれば他方が同額の損をする状況（総和がゼロ）",
-      "利益も損失もない均衡状態",
-      "協力することで全員が利益を得られる状況"
-    ],
-    "a": 1,
-    "exp": "ゼロサムゲームは利得の総和が常にゼロになる状況。一方の得は他方の損。"
-  },
-  {
-    "q": "次の数列で（　）に入る数はどれか。\n3, 9, 27, 81, （　）",
-    "c": [
-      "162",
-      "243",
-      "324",
-      "405"
-    ],
-    "a": 1,
-    "exp": "公比3の等比数列。81×3=243。"
-  },
-  {
-    "q": "アブダクション（仮説形成）とはどのような推論か。",
-    "c": [
-      "確実な証拠から結論を導く推論",
-      "観察された事実を最もうまく説明できる仮説を推論する手法",
-      "複数の事例から一般法則を導く推論",
-      "一般法則から個別の結論を導く推論"
-    ],
-    "a": 1,
-    "exp": "アブダクションは観察事実から最もありそうな説明・仮説を形成する推論。科学的発見・医師の診断に使われる。"
-  },
-  {
-    "q": "フレームワーク思考の利点として最も適切なものはどれか。",
-    "c": [
-      "全ての問題を同じ方法で解ける",
-      "問題を構造化して整理し、抜け漏れなく考えることができる",
-      "フレームワークに当てはめるだけで正解が出る",
-      "独創的な発想が生まれやすくなる"
-    ],
-    "a": 1,
-    "exp": "フレームワーク思考は問題を構造化・整理してMECEに考えるための道具。状況に応じた使い分けが重要。"
-  }
+  {"q":"PREP法の正しい順序はどれか。","c":["Point→Reason→Example→Point","Reason→Point→Example→Point","Example→Reason→Point→Point","Point→Example→Reason→Point"],"a":0,"exp":"PREP法：結論（Point）→理由（Reason）→具体例（Example）→再結論（Point）。結論ファーストで説得力が増す。"},
+  {"q":"小論文で最も評価される「論理の構造」として正しいものはどれか。","c":["感情的な訴えかけを多用する","主張→根拠→反論への対処→結論 の形で展開する","文字数を多く書くことで評価が上がる","書き出しに自己紹介を入れる"],"a":1,"exp":"採点者が重視するのは主張の根拠・論拠の明確さと、反論を想定した上での論述構成。"},
+  {"q":"「AIが社会に与える影響」をテーマに小論文を書く際、最も避けるべき書き方はどれか。","c":["賛否両面を検討した上で自分の立場を明確にする","メリットのみ挙げてデメリットは一切触れない","具体的な事例を根拠として示す","字数内で過不足なくまとめる"],"a":1,"exp":"一方向のみの論述は思考の浅さと見なされる。賛否・多角的視点を踏まえた上での主張が評価される。"},
+  {"q":"作文で「自分の強み」を伝える際、採用担当者が最も評価するポイントはどれか。","c":["難しい言葉を多用して知性をアピールする","抽象的な美徳（誠実・真面目）を羅列する","具体的なエピソードと数値で強みを裏付ける","有名人や偉人の格言を多く引用する"],"a":2,"exp":"採点者が見るのは「この人物が実際に何をしたか」。具体的行動・数値・結果のエピソードが最も説得力を持つ。"},
+  {"q":"字数制限600字の小論文を書くとき、構成比率として最も適切なものはどれか。","c":["序論10%・本論50%・結論40%","序論20%・本論60%・結論20%","序論40%・本論30%・結論30%","序論5%・本論90%・結論5%"],"a":1,"exp":"一般的な推奨比率は序論2割・本論6割・結論2割。本論に根拠・具体例を充てるのが基本。"},
+  {"q":"「SDGsと企業の役割」というテーマで序論を書く際、最も効果的な書き出しはどれか。","c":["「私はSDGsが大切だと思います」と書く","「SDGsとは…」と辞書的定義から始める","問いかけや問題提起から始め、テーマへの視点を示す","「近年、SDGsという言葉をよく耳にします」と書く"],"a":2,"exp":"問いかけや問題提起で始めると読み手を引きつけやすい。ただし時事問題に対して明確な自分の視点を示すことが重要。"},
+  {"q":"反論を想定した論述（いわゆる「譲歩」）の正しい書き方はどれか。","c":["反論は一切触れずに自分の主張のみを押し通す","「確かに〇〇という意見もあるが、しかし…」と反論を踏まえた上で主張する","反論に同意して自分の意見を変える","反論を批判・否定することに字数の多くを使う"],"a":1,"exp":"「譲歩→転換→再主張」の構造は論理的成熟さを示す。採点者に思考の深さが伝わる最も有効な手法のひとつ。"},
+  {"q":"以下のうち、採用試験の作文・小論文で使ってはいけない表現・マナーはどれか。","c":["「私は〜と考える」という一人称を使う","段落の最初を一字下げる","「だ・である」調と「です・ます」調を混在させる","数字は算用数字を使う"],"a":2,"exp":"文体の統一は基本マナー。「だ・である」か「です・ます」のどちらかに統一しないと文章が不安定に見え、減点対象になる。"},
+  {"q":"「働くことの意味」をテーマにした作文で、最も内容が評価されやすい方向性はどれか。","c":["給与や待遇の重要性だけを論じる","自分の原体験・価値観と志望企業のビジョンを結びつけて論じる","有名な思想家の言葉を引用して論じる","働くことの苦労や大変さを中心に論じる"],"a":1,"exp":"採用作文では「なぜこの企業で働きたいのか」という文脈が重視される。自分の原体験・価値観と企業理念の接点を論じることが評価される。"},
+  {"q":"小論文において「具体例」を入れる目的として最も適切なものはどれか。","c":["字数を埋めるため","主張の抽象度を下げ、根拠に説得力を持たせるため","採点者を感動させるため","難しいテーマをやさしく言い換えるため"],"a":1,"exp":"具体例は「主張の証拠」として機能する。抽象的な主張に具体性・説得力を与え、読み手の理解を促す役割がある。"},
+  {"q":"「AI・DX時代に求められる人材像」というテーマで本論を展開するとき、最もバランスのよい構成はどれか。","c":["AIへの不安だけを論じる","技術的スキルの重要性のみを論じる","AI活用力と人間固有の強み（共感力・創造性・倫理観）の両面を論じる","AIに全て任せるべきだと論じる"],"a":2,"exp":"採用試験では多面的思考が問われる。技術と人間性の双方を踏まえた論述が評価される。"},
+  {"q":"「序論で問題提起→本論で論拠展開→結論で主張の再確認」という構成の小論文において、最も致命的なミスはどれか。","c":["結論が序論と矛盾する内容になる","本論が2段落以上ある","具体例が1つしかない","文末が「〜です」で統一されている"],"a":0,"exp":"序論の問題提起と結論が矛盾すると論理の一貫性が崩れ、大幅減点になる。結論は序論の問いへの答えであるべき。"},
+  {"q":"企業の作文試験で「最近気になるニュース」を問われた際、最も適切な対応はどれか。","c":["自分が詳しい趣味・エンタメの話題を選ぶ","なんとなく知っているニュースを選んで薄い内容で書く","業界・社会・企業に関連する時事ニュースを選び、自分の見解を示す","政治的に敏感な話題を選んで強い意見を書く"],"a":2,"exp":"「最近気になるニュース」は社会への関心・業界理解・思考力を測る設問。業界関連の時事を選び、自分の見解を論じることが評価される。"},
+  {"q":"小論文で「誤字・脱字・主語述語の不一致」が多い答案の評価への影響として最も適切なものはどれか。","c":["内容が良ければ減点されない","見た目の問題なので採点には影響しない","基礎的な言語能力・注意力の欠如と評価され、大きく減点される","採点者が修正してくれる"],"a":2,"exp":"誤字・脱字・主語述語不一致は基礎的な言語能力の問題として減点される。提出前に必ず読み返す習慣をつけること。"},
+  {"q":"400字の作文で「私の長所」を書く際、PREP法を使った場合の最初の一文として最も適切なものはどれか。","c":["私は昔から友達が多くてよく相談されます","私の長所は「課題解決力」です","長所とは他の人より得意なことを指します","自分の長所について考えてみると、いろいろあります"],"a":1,"exp":"PREP法の「P（Point）：結論から始める」に従い、長所を一言で明示する。冒頭で主張を明確にすることが高評価の第一歩。"}
 ];
 
 const KEY = 'shukatsu_groq_key';
@@ -339,18 +160,13 @@ window.addEventListener('load',()=>{
   if(getKey()) showSt('✅ APIキー設定済み','#86efac');
 });
 
-async function callGemini(sys, usr){
+async function callGroq(sys, usr){
   const key=getKey();
-  if(!key) return null;
-  const url='https://api.groq.com/openai/v1/chat/completions';
-  const res=await fetch(url,{
+  if(!key) throw new Error('NO_KEY');
+  const res=await fetch('https://api.groq.com/openai/v1/chat/completions',{
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},
-    body:JSON.stringify({
-      model:'llama-3.3-70b-versatile',
-      messages:[{role:'system',content:sys},{role:'user',content:usr}],
-      max_tokens:2000,temperature:0.7
-    })
+    body:JSON.stringify({model:'llama-3.3-70b-versatile',messages:[{role:'system',content:sys},{role:'user',content:usr}],max_tokens:2000,temperature:0.7})
   });
   if(res.status===429) throw new Error('Groqのレート制限に達しました。しばらく待ってから再試行してください。');
   if(!res.ok) throw new Error('APIエラー: '+res.status);
@@ -398,14 +214,8 @@ function renderCard(q,i,ans,isAI){
   </div>`;
 }
 
-function answer(qi,chosen){
-  answered[qi]={chosen,ok:chosen===QS[qi].a};
-  render();updateScore();
-}
-function answerAI(qi,chosen){
-  aiAnswered[qi]={chosen,ok:chosen===aiQs[qi].a};
-  render();updateScore();
-}
+function answer(qi,chosen){answered[qi]={chosen,ok:chosen===QS[qi].a};render();updateScore();}
+function answerAI(qi,chosen){aiAnswered[qi]={chosen,ok:chosen===aiQs[qi].a};render();updateScore();}
 
 function renderAI(){
   const aiCardsHtml=aiQs.length>0
@@ -417,7 +227,7 @@ function renderAI(){
     <div class="ai-head">
       <span class="ai-head-icon">🤖</span>
       <div>
-        <div class="ai-head-title">AI自動出題コーナー｜独自試験 論理・推論ドリル</div>
+        <div class="ai-head-title">AI自動出題コーナー｜独自試験 作文・小論文ドリル</div>
         <div class="ai-head-sub">難易度を選んでAIが新問題を5問生成（何度でも可）</div>
       </div>
     </div>
@@ -440,14 +250,14 @@ function renderResult(){
   const correct=Object.values(answered).filter(a=>a.ok).length;
   const total=QS.length;
   const pct=Math.round(correct/total*100);
-  let emoji='😢',doshi='「間違えた問題の解説を読み返し、弱点を把握しましょう。」';
-  if(pct>=80){emoji='🏆';doshi='「素晴らしい！AI出題でさらに実力を磨きましょう！」';}
-  else if(pct>=60){emoji='😊';doshi='「あと一歩！解説をしっかり確認してください。」';}
-  else if(pct>=40){emoji='😅';doshi='「焦らず一問ずつ解説を読んで理解していこう。」';}
+  let emoji='😢',doshi='「解説を読んで、論述の基本構造を一から確認しよう。」';
+  if(pct>=80){emoji='🏆';doshi='「素晴らしい！AI出題でさらに実戦的な論述力を鍛えよう！」';}
+  else if(pct>=60){emoji='😊';doshi='「もう一歩！間違えた問題の解説で評価ポイントを掴もう。」';}
+  else if(pct>=40){emoji='😅';doshi='「PREP法と論述構造を復習してから再挑戦してみよう。」';}
   return `<div class="result">
     <div class="result-emoji">${emoji}</div>
     <div class="result-score">${correct}<span> / ${total}問</span></div>
-    <div class="result-pct" style="color:${pct>=60?'#2C5F2D':'#ef4444'}">${pct}%</div>
+    <div class="result-pct" style="color:${pct>=60?'#7c2d12':'#ef4444'}">${pct}%</div>
     <div class="doshi"><span class="doshi-lbl">🔥 キャリ爺より</span><p>${doshi}</p></div>
     <button class="btn-retry" onclick="resetFixed()">🔄 もう一度解く</button>
   </div>`;
@@ -461,7 +271,7 @@ function render(){
   } else {
     html+=`<div style="font-size:11px;font-weight:700;color:var(--gray);letter-spacing:0.08em;margin:16px 0 10px;display:flex;align-items:center;gap:8px;">
       📝 問題を解いてみよう
-      <span style="flex:1;height:1px;background:#C8E6C9;display:block;"></span>
+      <span style="flex:1;height:1px;background:#FED7AA;display:block;"></span>
     </div>`;
     html+=QS.map((q,i)=>renderCard(q,i,answered[i],false)).join('');
   }
@@ -486,14 +296,14 @@ function resetAll(){answered={};aiAnswered={};aiQs=[];render();updateScore();}
 
 async function generateAI(){
   const diffLabel=diff==='hard'?'難関（応用・高難度）':'普通（標準レベル）';
-  const sys=`あなたは就職活動の独自試験（論理・推論分野）の問題作成専門家です。就活生向けの論理・推論問題（三段論法・批判的思考・論理パズル・ビジネスフレームワーク）を以下の難易度基準で5問作成してください。【普通】前提条件が2つ以内・推論ステップが2段階以内・選択肢が明確に判別できるレベル。【難関】前提条件が3つ以上・推論ステップが3段階以上・複数の条件を組み合わせて矛盾を排除するレベル。必ずJSON形式のみで返答。形式：{"questions":[{"q":"問題文","c":["A","B","C","D"],"a":正解インデックス(0-3),"exp":"解説（80字以内）"}]}`;
+  const sys=`あなたは就職活動の独自試験（作文・小論文分野）の問題作成専門家です。論述構成・PREP法・採点基準・文章マナー・テーマ別小論文のポイントに関する4択問題を5問作成してください。【普通】基本的なPREP法・論述構成・文章マナーに関する問題。【難関】複合的な判断・テーマ別の論じ方・反論対処・高度な論述戦略に関する問題。必ずJSON形式のみで返答。形式：{"questions":[{"q":"問題文","c":["A","B","C","D"],"a":正解インデックス(0-3),"exp":"解説（100字以内）"}]}`;
   const usr=`上記の難易度基準で${diffLabel}の問題を5問。必ずJSON形式のみで返答。他のテキスト一切不要。`;
   aiQs=[];aiAnswered={};aiLoading=true;render();
   let retryCount=0;
   const maxRetry=2;
   while(retryCount<=maxRetry){
     try{
-      const text=await callGemini(sys,usr);
+      const text=await callGroq(sys,usr);
       const match=text.match(/{[\s\S]*}/);
       if(!match) throw new Error('JSON_PARSE');
       const parsed=JSON.parse(match[0]);

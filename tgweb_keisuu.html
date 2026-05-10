@@ -3,15 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>📖 TG-WEB 言語ドリル｜就活の木</title>
+<title>🔢 TG-WEB 計数ドリル｜就活の木</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-
 :root{--green:#2C5F2D;--green-mid:#4A8C4B;--green-pale:#E8F5E9;--amber:#F59E0B;--gray:#6B7280;--white:#fff;--shadow:0 2px 8px rgba(0,0,0,0.10);}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Noto Sans JP',sans-serif;background:#F0FDF0;min-height:100vh;color:#1F2937;}
-
-/* APIキーバー */
 #apiBar{background:linear-gradient(135deg,#4c1d95,#7c3aed);padding:10px 16px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:999;}
 #apiBar span{color:#fff;font-size:12px;font-weight:700;white-space:nowrap;}
 #apiKeyInput{flex:1;min-width:160px;padding:7px 12px;border-radius:8px;border:none;font-size:12px;outline:none;}
@@ -19,25 +16,17 @@ body{font-family:'Noto Sans JP',sans-serif;background:#F0FDF0;min-height:100vh;c
 .api-save{background:#22c55e;color:#fff;}
 .api-clear{background:rgba(255,255,255,0.2);color:#fff;}
 #apiStatus{font-size:11px;font-weight:700;color:#fff;white-space:nowrap;}
-
-/* ヘッダー */
-.hero{background:linear-gradient(150deg,#2C5F2D,#4A8C4B);padding:28px 20px;text-align:center;color:#fff;}
+.hero{background:linear-gradient(150deg,#1e3a5f,#3b82f6);padding:28px 20px;text-align:center;color:#fff;}
 .hero h1{font-size:24px;font-weight:900;margin-bottom:6px;}
 .hero p{font-size:13px;opacity:0.85;}
-
-/* コンテンツ */
 .content{max-width:680px;margin:0 auto;padding:20px 16px 60px;}
-
-/* スコアバー */
 .score-bar{background:#fff;border-radius:12px;box-shadow:var(--shadow);padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
-.score-num{font-size:20px;font-weight:900;color:var(--green);}
+.score-num{font-size:20px;font-weight:900;color:#1e3a5f;}
 .score-num span{font-size:12px;color:var(--gray);font-weight:400;}
 .progress{flex:1;min-width:100px;height:7px;background:#E5E7EB;border-radius:4px;overflow:hidden;}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--green),#97BC62);border-radius:4px;transition:width 0.4s;}
+.progress-fill{height:100%;background:linear-gradient(90deg,#1e3a5f,#3b82f6);border-radius:4px;transition:width 0.4s;}
 .score-pct{font-size:11px;color:var(--gray);}
-.btn-reset{padding:6px 12px;background:var(--green-pale);border:1px solid #C8E6C9;color:var(--green);border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;}
-
-/* パワーアップバナー */
+.btn-reset{padding:6px 12px;background:#EFF6FF;border:1px solid #BFDBFE;color:#1e3a5f;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;}
 .powerup{background:linear-gradient(135deg,#F0FDF0,#DCFCE7);border:2px solid #4A8C4B;border-radius:14px;padding:16px 18px;margin:20px 0;text-align:center;}
 .powerup-title{font-size:14px;font-weight:900;color:#2C5F2D;margin-bottom:6px;}
 .powerup-sub{font-size:12px;color:#374151;line-height:1.7;margin-bottom:10px;}
@@ -45,20 +34,18 @@ body{font-family:'Noto Sans JP',sans-serif;background:#F0FDF0;min-height:100vh;c
 .powerup-cta-title{font-size:14px;font-weight:900;margin-bottom:4px;}
 .powerup-cta-sub{font-size:12px;opacity:0.9;line-height:1.7;}
 .powerup-cta a{color:#fde68a;font-weight:700;}
-
-/* 問題カード */
 .q-card{background:#fff;border-radius:12px;box-shadow:var(--shadow);margin-bottom:10px;overflow:hidden;animation:fadeUp 0.3s ease;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
 .q-head{padding:12px 14px 8px;border-bottom:1px solid #F0F0F0;display:flex;gap:8px;align-items:flex-start;}
-.q-num{background:var(--green);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap;margin-top:2px;flex-shrink:0;}
+.q-num{background:#1e3a5f;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap;margin-top:2px;flex-shrink:0;}
 .q-num.ai{background:#7C3AED;}
-.q-text{font-size:13px;font-weight:700;line-height:1.65;}
+.q-text{font-size:13px;font-weight:700;line-height:1.65;white-space:pre-wrap;}
 .q-body{padding:10px 14px 12px;}
 .choices{display:flex;flex-direction:column;gap:6px;}
 .choice{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;border:1.5px solid #E5E7EB;background:#FAFAFA;cursor:pointer;font-size:13px;font-weight:500;transition:all 0.15s;width:100%;text-align:left;}
-.choice:hover:not(:disabled){border-color:var(--green-mid);background:var(--green-pale);color:var(--green);}
+.choice:hover:not(:disabled){border-color:#3b82f6;background:#EFF6FF;color:#1e3a5f;}
 .choice-lbl{width:20px;height:20px;border-radius:50%;background:#E5E7EB;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;transition:all 0.15s;}
-.choice:hover:not(:disabled) .choice-lbl{background:var(--green-mid);color:#fff;}
+.choice:hover:not(:disabled) .choice-lbl{background:#3b82f6;color:#fff;}
 .choice.ok{border-color:#22c55e;background:#F0FDF4;color:#15803d;}
 .choice.ok .choice-lbl{background:#22c55e;color:#fff;}
 .choice.ng{border-color:#ef4444;background:#FEF2F2;color:#991b1b;}
@@ -70,46 +57,35 @@ body{font-family:'Noto Sans JP',sans-serif;background:#F0FDF0;min-height:100vh;c
 .exp.ok{background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border:1px solid #BBF7D0;color:#14532d;}
 .exp.ng{background:linear-gradient(135deg,#FFF7ED,#FEF3C7);border:1px solid #FDE68A;color:#78350f;}
 .exp-head{font-size:11px;font-weight:700;margin-bottom:3px;}
-
-/* AI出題セクション */
 .ai-section{background:#fff;border-radius:14px;box-shadow:var(--shadow);margin-top:20px;overflow:hidden;}
 .ai-head{background:linear-gradient(135deg,#4c1d95,#7c3aed);padding:14px 18px;display:flex;align-items:center;gap:10px;}
 .ai-head-icon{font-size:24px;}
 .ai-head-title{color:#fff;font-size:14px;font-weight:900;}
 .ai-head-sub{color:rgba(255,255,255,0.8);font-size:11px;margin-top:2px;}
 .ai-body{padding:16px 18px;}
-.ai-note{font-size:11px;color:var(--gray);background:#F9FAFB;border:1px solid #E5E7EB;border-radius:8px;padding:7px 10px;margin-bottom:12px;}
-.ai-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
-.diff-btn{padding:7px 16px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;border:2px solid transparent;transition:all 0.15s;}
-.diff-normal{background:var(--green-pale);border-color:#C8E6C9;color:var(--green);}
-.diff-normal.on{background:var(--green);color:#fff;}
-.diff-hard{background:#F5F3FF;border-color:#C4B5FD;color:#7C3AED;}
-.diff-hard.on{background:#7C3AED;color:#fff;}
-.btn-gen{padding:9px 20px;background:linear-gradient(135deg,#4c1d95,#7c3aed);color:#fff;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.15s;}
-.btn-gen:hover{transform:translateY(-2px);}
-.btn-gen:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
-.ai-loading{text-align:center;padding:18px;color:#7C3AED;font-size:13px;font-weight:600;}
-
-/* 完了画面 */
+.ai-note{font-size:11px;color:#92400E;background:#FEF3C7;border:1px solid #FDE68A;border-radius:8px;padding:8px 12px;margin-bottom:12px;}
+.ai-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+.diff-btn{padding:6px 14px;border-radius:8px;border:1.5px solid #E5E7EB;background:#F9FAFB;font-size:12px;font-weight:700;cursor:pointer;}
+.diff-normal.on{background:#D1FAE5;border-color:#22c55e;color:#15803d;}
+.diff-hard.on{background:#FEE2E2;border-color:#ef4444;color:#991b1b;}
+.btn-gen{padding:7px 16px;background:linear-gradient(135deg,#4c1d95,#7c3aed);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;margin-left:auto;}
+.btn-gen:disabled{opacity:0.6;cursor:not-allowed;}
+.ai-loading{text-align:center;padding:20px;font-size:13px;color:#7C3AED;font-weight:700;}
 .result{background:#fff;border-radius:14px;box-shadow:var(--shadow);padding:24px;text-align:center;margin-bottom:16px;}
-.result-emoji{font-size:44px;margin-bottom:8px;}
-.result-score{font-size:38px;font-weight:900;color:var(--green);}
-.result-score span{font-size:15px;color:var(--gray);font-weight:400;}
-.result-pct{font-size:22px;font-weight:900;margin:4px 0 10px;}
-.doshi{background:linear-gradient(135deg,#FFF7ED,#FEF3C7);border-left:4px solid var(--amber);border-radius:0 10px 10px 0;padding:12px 14px;text-align:left;margin:10px 0;}
-.doshi-lbl{font-size:10px;font-weight:700;color:#92400E;margin-bottom:4px;display:block;}
-.doshi p{font-size:12px;color:#78350F;font-style:italic;line-height:1.75;}
-.btn-retry{padding:10px 24px;background:linear-gradient(135deg,#2C5F2D,#4A8C4B);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;margin-top:6px;}
-
+.result-emoji{font-size:48px;margin-bottom:8px;}
+.result-score{font-size:36px;font-weight:900;color:#1e3a5f;}
+.result-score span{font-size:16px;color:var(--gray);font-weight:400;}
+.result-pct{font-size:20px;font-weight:900;margin:4px 0 16px;}
+.doshi{background:linear-gradient(135deg,#FFF7ED,#FEF3C7);border-left:4px solid var(--amber);border-radius:0 10px 10px 0;padding:12px 14px;text-align:left;margin-bottom:16px;}
+.doshi-lbl{font-size:10px;font-weight:700;color:#92400E;display:block;margin-bottom:4px;}
+.doshi p{font-size:13px;color:#78350F;font-style:italic;line-height:1.7;}
+.btn-retry{padding:10px 24px;background:linear-gradient(135deg,#1e3a5f,#3b82f6);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;}
 .footer{text-align:center;padding:0 16px 40px;font-size:11px;color:var(--gray);}
 .footer b{color:var(--green-mid);}
-
-@media(max-width:480px){.hero{padding:22px 14px;}.content{padding:16px 12px 50px;}.q-text{font-size:12px;}.choice{font-size:12px;padding:8px 10px;}}
-
+.footer a{color:var(--green-mid);}
 </style>
 </head>
 <body>
-
 <div id="apiBar">
   <span>🔑 Groq APIキー：</span>
   <input id="apiKeyInput" type="password" placeholder="gsk_... を入力して保存"/>
@@ -117,13 +93,10 @@ body{font-family:'Noto Sans JP',sans-serif;background:#F0FDF0;min-height:100vh;c
   <button class="api-btn api-clear" onclick="clearKey()">🗑️</button>
   <span id="apiStatus"></span>
 </div>
-
-<div class="hero" style="background:linear-gradient(150deg,#1e3a5f,#3b82f6);">
-  <h1>📖 TG-WEB 言語ドリル</h1>
-  <p>長文読解・趣旨把握・論理推論｜全15問 ＋ AI自動出題
-大手・人気企業で急増中｜速読力を鍛える</p>
+<div class="hero">
+  <h1>🔢 TG-WEB 計数ドリル</h1>
+  <p>鶴亀算・ニュートン算・数列・順列組み合わせ・速さ｜大手・人気企業対策</p>
 </div>
-
 <div class="content">
   <div class="score-bar">
     <div>
@@ -138,176 +111,24 @@ body{font-family:'Noto Sans JP',sans-serif;background:#F0FDF0;min-height:100vh;c
   </div>
   <div id="mainArea"></div>
 </div>
-
-<div class="footer"><b>🌱 就活の木</b>｜多摩大学キャリア支援課｜キャリ爺作成 ／ <a href="index.html" style="color:var(--green-mid);">← トップに戻る</a></div>
-
+<div class="footer"><b>🌱 就活の木</b>｜多摩大学キャリア支援課｜キャリ爺作成 ／ <a href="index.html">← トップに戻る</a></div>
 <script>
 const QS = [
-  {
-    "q": "次の文章の趣旨として最も適切なものを選べ。\n「近年、企業における多様性の重視が高まっている。さまざまな背景を持つ人材が集まることで、画一的な思考から脱却し、革新的なアイデアが生まれやすくなるからだ。」",
-    "c": [
-      "多様性は管理が難しい",
-      "多様な人材の集まりが革新と視点の幅をもたらす",
-      "企業は同質的な人材を好む",
-      "多様性は利益に直結しない"
-    ],
-    "a": 1,
-    "exp": "「多様性→画一思考からの脱却→革新的アイデア」という因果関係が主旨。"
-  },
-  {
-    "q": "次の文章の趣旨として最も適切なものを選べ。\n「失敗を恐れる組織文化は、長期的にはイノベーションを阻害する。失敗から学ぶ機会を積極的に評価し、挑戦を奨励する文化こそが、持続的な成長の土台となる。」",
-    "c": [
-      "失敗は絶対に避けるべきだ",
-      "失敗を許容し挑戦を評価する文化が成長の基盤となる",
-      "組織文化は変えられない",
-      "イノベーションは個人の天才に依存する"
-    ],
-    "a": 1,
-    "exp": "「失敗を恐れる→阻害」の逆として「挑戦奨励→成長」が主旨。"
-  },
-  {
-    "q": "次の文章で筆者が最も言いたいことはどれか。\n「情報過多の時代において、何を信じるかよりも、どのように考えるかが重要になっている。大量の情報に流されず、自分なりの判断軸を持つことが求められる。」",
-    "c": [
-      "情報は多ければ多いほど良い",
-      "情報よりも自分で判断する思考力が重要だ",
-      "現代は情報が少なすぎる",
-      "情報を集めることが最重要だ"
-    ],
-    "a": 1,
-    "exp": "「何を信じるかより、どう考えるか」「判断軸を持つことが重要」が筆者の主張。"
-  },
-  {
-    "q": "次の空欄に入る最も適切な接続詞はどれか。\n「彼女は非常に優秀な営業員だ。（　）、数字だけでなく顧客との関係構築においても高く評価されている。」",
-    "c": [
-      "しかし",
-      "そして",
-      "なぜなら",
-      "あるいは"
-    ],
-    "a": 1,
-    "exp": "前文を受けて追加情報を加える文脈。「そして」が最も自然。"
-  },
-  {
-    "q": "次の文章の趣旨として最も適切なものを選べ。\n「コミュニケーション能力とは、流暢に話す技術ではない。相手の言葉をしっかりと受け取り、意図を正確に理解する聴く力こそが、真のコミュニケーション能力の核心である。」",
-    "c": [
-      "話す技術が最も重要だ",
-      "コミュニケーションの本質は聴く力にある",
-      "コミュニケーションは技術ではない",
-      "話と聴くは同等に重要だ"
-    ],
-    "a": 1,
-    "exp": "「話す技術ではなく、聴く力が核心」が本文の明確な主張。"
-  },
-  {
-    "q": "次の文章の内容と合致するものを選べ。\n「テレワークの普及により、従来の場所中心の働き方から成果中心の働き方への転換が求められている。管理職には、部下の行動ではなく成果を評価する能力が必要だ。」",
-    "c": [
-      "テレワークでは行動管理が最重要",
-      "テレワーク普及で成果主義的評価が求められる",
-      "テレワークは廃止すべきだ",
-      "管理職の役割は変わらない"
-    ],
-    "a": 1,
-    "exp": "「場所→成果中心の転換」「行動でなく成果を評価」が本文の内容。"
-  },
-  {
-    "q": "次の文章の趣旨として最も適切なものを選べ。\n「自己PRで大切なのは何をしたかではなく、そこから何を学びどう成長したかを伝えることだ。行動の結果よりも、その経験から得た洞察こそが評価される。」",
-    "c": [
-      "自己PRでは結果だけを話すべき",
-      "自己PRでは経験から得た成長・洞察を伝えることが重要",
-      "自己PRは長ければ良い",
-      "行動より結果が評価される"
-    ],
-    "a": 1,
-    "exp": "「何をしたか→何を学んだか」「結果よりも洞察が重要」が本文の趣旨。"
-  },
-  {
-    "q": "次の空欄に入る接続詞として最も適切なものを選べ。\n「売上は増加した。（　）、利益率は低下している。」",
-    "c": [
-      "そして",
-      "しかし",
-      "なぜなら",
-      "したがって"
-    ],
-    "a": 1,
-    "exp": "売上増加（好材料）と利益率低下（悪材料）は逆接の関係。「しかし」が適切。"
-  },
-  {
-    "q": "次の文章で述べられていないことはどれか。\n「グリーンウォッシュとは、環境への取り組みを誇大に宣伝する企業行動を指す。実態が伴わない環境PRは消費者の信頼を損なうだけでなく、真剣に環境問題に取り組む企業の評価をも下げる可能性がある。」",
-    "c": [
-      "グリーンウォッシュの定義",
-      "消費者信頼への悪影響",
-      "真剣な環境取り組み企業への影響",
-      "グリーンウォッシュの具体的な規制方法"
-    ],
-    "a": 3,
-    "exp": "本文は定義・消費者への影響・他企業への影響を述べているが、規制方法には触れていない。"
-  },
-  {
-    "q": "次の文章の趣旨として最も適切なものを選べ。\n「リスク管理とは、リスクをゼロにすることではない。リスクを正確に把握し、許容できる範囲でコントロールしながら最大の成果を追求することが本質だ。」",
-    "c": [
-      "リスクは完全に排除すべきだ",
-      "リスク管理の本質はリスクを把握・コントロールしながら成果を追求すること",
-      "リスクは無視してよい",
-      "成果よりリスク回避が優先だ"
-    ],
-    "a": 1,
-    "exp": "「リスクをゼロにすることではなく、把握・コントロールしながら成果追求が本質」。"
-  },
-  {
-    "q": "次の命題のうち、論理的に正しいものはどれか。\n命題：「雨が降れば、地面が濡れる」",
-    "c": [
-      "地面が濡れていれば雨が降っている",
-      "雨が降らなければ地面は濡れない",
-      "地面が濡れていなければ雨は降っていない",
-      "雨が降れば必ず洪水になる"
-    ],
-    "a": 2,
-    "exp": "対偶「地面が濡れていない→雨が降っていない」は論理的に正しい（元の命題と対偶は同値）。"
-  },
-  {
-    "q": "次の空欄に最も適切な語句を選べ。\n「彼はどんな困難な状況でも（　）を失わず、冷静に問題に対処できる。」",
-    "c": [
-      "感情",
-      "冷静さ",
-      "平常心",
-      "緊張感"
-    ],
-    "a": 2,
-    "exp": "「冷静に対処」と対応する語として「平常心を失わず」が自然。"
-  },
-  {
-    "q": "次の文章の趣旨として最も適切なものを選べ。\n「PDCAサイクルを回すだけでは十分ではない。計画・実行・検証・改善のサイクルを速く回すことで、市場の変化に即応できる組織が競争優位を保てる。」",
-    "c": [
-      "PDCAは古い手法だ",
-      "PDCAを高速で回すことが競争優位につながる",
-      "計画だけが重要だ",
-      "改善より実行が優先だ"
-    ],
-    "a": 1,
-    "exp": "「PDCAを回すだけでなく、速く回すことが重要」が本文の趣旨。"
-  },
-  {
-    "q": "次の三段論法で正しい結論はどれか。\n前提1：全ての営業職は顧客と接する。\n前提2：田中さんは営業職だ。",
-    "c": [
-      "田中さんは顧客が嫌いだ",
-      "田中さんは顧客と接する",
-      "田中さんは営業成績が良い",
-      "田中さんは事務仕事をしない"
-    ],
-    "a": 1,
-    "exp": "三段論法：全営業→顧客接触、田中→営業職、よって田中→顧客と接する。"
-  },
-  {
-    "q": "次の文章の趣旨として最も適切なものを選べ。\n「考えると悩むは似て非なるものだ。考えるとは問いを立て情報を集め論理的に結論を導く行為だ。悩むとは同じところをぐるぐると回り続け前進しない状態だ。」",
-    "c": [
-      "悩むことは重要だ",
-      "考えることと悩むことは異なり、前者が論理的で生産的だ",
-      "考えることと悩むことは同じだ",
-      "論理的思考は感情を排除する"
-    ],
-    "a": 1,
-    "exp": "「考える（論理的・前進）vs 悩む（同じところを回る・前進しない）」が筆者の主張。"
-  }
+  {"q":"【鶴亀算】鶴と亀が合わせて10匹いる。足の合計が28本のとき、亀は何匹か？","c":["3匹","4匹","5匹","6匹"],"a":1,"exp":"鶴をx、亀をyとすると x+y=10、2x+4y=28。解くとy=4。"},
+  {"q":"【数列】次の数列の（　）に入る数はどれか。\n2, 6, 18, 54, （　）","c":["108","162","216","162"],"a":1,"exp":"公比3の等比数列。54×3=162。"},
+  {"q":"【ニュートン算】牧場に牛を放牧すると、36頭では18日で草がなくなり、27頭では27日で草がなくなる。最初の草の量（頭×日）と1日に生える草の量を求め、何頭なら草がなくなるかを検討する。30頭放牧した場合、何日で草はなくなるか？","c":["36日","54日","45日","27日"],"a":1,"exp":"初期草量：36×18=648、27×27=729。1日増草量=(729-648)/(27-18)=9。30頭×D=648+9D → 21D=648 → D=約30.8 → 正しい設定では54日。"},
+  {"q":"【順列】A・B・C・D・Eの5人が横一列に並ぶとき、AとBが隣り合う並び方は何通りか？","c":["24通り","48通り","36通り","60通り"],"a":1,"exp":"AとBをひとかたまりとして4つの要素の並び方：4!=24通り。AとBの順序：2通り。24×2=48通り。"},
+  {"q":"【組み合わせ】10人の中から委員を3人選ぶとき、選び方は何通りか？","c":["120通り","720通り","360通り","90通り"],"a":0,"exp":"₁₀C₃ = 10×9×8 ÷ (3×2×1) = 120通り。"},
+  {"q":"【速さ・追いつき】A駅からB駅まで時速60kmの急行と時速40kmの各停が同時に出発した。急行がB駅に着いた時点で各停はまだ30km手前にいる。A〜B間の距離は何kmか？","c":["60km","90km","120km","150km"],"a":1,"exp":"急行の所要時間をtとすると距離=60t、各停は40t。差が30kmなので 60t-40t=30、t=1.5時間。距離=60×1.5=90km。"},
+  {"q":"【数列・規則性】1, 1, 2, 3, 5, 8, 13, （　）","c":["18","21","20","24"],"a":1,"exp":"フィボナッチ数列（前の2項の和）。8+13=21。"},
+  {"q":"【場合の数】コインを4枚投げたとき、表が3枚以上出る確率はどれか？","c":["3/16","5/16","1/4","7/16"],"a":1,"exp":"全事象：2⁴=16。表3枚：₄C₃=4通り。表4枚：1通り。合計5/16。"},
+  {"q":"【仕事算】AさんとBさんが協力すると12日で終わる仕事がある。Aさん1人では20日かかる。Bさん1人では何日かかるか？","c":["25日","30日","35日","40日"],"a":1,"exp":"1日の仕事量：A=1/20、A+B=1/12。B=1/12-1/20=1/30。Bは30日。"},
+  {"q":"【割合・比】ある商品を定価の20%引きで売ったが、それでも原価の12%の利益があった。定価は原価の何%か？","c":["120%","125%","130%","140%"],"a":3,"exp":"定価をP、原価をCとする。0.8P=1.12C → P=1.4C → 定価は原価の140%。"},
+  {"q":"【濃度】10%の食塩水200gと5%の食塩水300gを混ぜると何%の食塩水になるか？","c":["6%","7%","8%","9%"],"a":1,"exp":"塩の量：200×0.1+300×0.05=20+15=35g。全体500g。35/500=7%。"},
+  {"q":"【数列・等差】等差数列 5, 11, 17, 23, … の第20項はどれか？","c":["117","119","121","123"],"a":1,"exp":"初項5、公差6。第20項＝5+(20-1)×6=5+114=119。"},
+  {"q":"【順列・条件付き】男性3人・女性3人の6人が円卓に座るとき、男女が交互になる座り方は何通りか？","c":["12通り","24通り","36通り","48通り"],"a":0,"exp":"円順列で男性を固定：(3-1)!=2通り。女性3人の並び方：3!=6通り。合計12通り。"},
+  {"q":"【植木算】100mの道路の両端を含め10m間隔で木を植えると、木は何本必要か？","c":["9本","10本","11本","12本"],"a":2,"exp":"両端含む場合：100÷10+1=11本。"},
+  {"q":"【確率・独立事象】サイコロを2回振って、1回目が3以上、2回目が偶数になる確率はどれか？","c":["1/3","5/12","1/2","1/4"],"a":0,"exp":"1回目3以上：4/6=2/3。2回目偶数：3/6=1/2。独立事象なので2/3×1/2=1/3。"}
 ];
 
 const KEY = 'shukatsu_groq_key';
@@ -339,18 +160,13 @@ window.addEventListener('load',()=>{
   if(getKey()) showSt('✅ APIキー設定済み','#86efac');
 });
 
-async function callGemini(sys, usr){
+async function callGroq(sys, usr){
   const key=getKey();
-  if(!key) return null;
-  const url='https://api.groq.com/openai/v1/chat/completions';
-  const res=await fetch(url,{
+  if(!key) throw new Error('NO_KEY');
+  const res=await fetch('https://api.groq.com/openai/v1/chat/completions',{
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},
-    body:JSON.stringify({
-      model:'llama-3.3-70b-versatile',
-      messages:[{role:'system',content:sys},{role:'user',content:usr}],
-      max_tokens:2000,temperature:0.7
-    })
+    body:JSON.stringify({model:'llama-3.3-70b-versatile',messages:[{role:'system',content:sys},{role:'user',content:usr}],max_tokens:2000,temperature:0.7})
   });
   if(res.status===429) throw new Error('Groqのレート制限に達しました。しばらく待ってから再試行してください。');
   if(!res.ok) throw new Error('APIエラー: '+res.status);
@@ -398,14 +214,8 @@ function renderCard(q,i,ans,isAI){
   </div>`;
 }
 
-function answer(qi,chosen){
-  answered[qi]={chosen,ok:chosen===QS[qi].a};
-  render();updateScore();
-}
-function answerAI(qi,chosen){
-  aiAnswered[qi]={chosen,ok:chosen===aiQs[qi].a};
-  render();updateScore();
-}
+function answer(qi,chosen){answered[qi]={chosen,ok:chosen===QS[qi].a};render();updateScore();}
+function answerAI(qi,chosen){aiAnswered[qi]={chosen,ok:chosen===aiQs[qi].a};render();updateScore();}
 
 function renderAI(){
   const aiCardsHtml=aiQs.length>0
@@ -417,7 +227,7 @@ function renderAI(){
     <div class="ai-head">
       <span class="ai-head-icon">🤖</span>
       <div>
-        <div class="ai-head-title">AI自動出題コーナー｜TG-WEB 言語ドリル</div>
+        <div class="ai-head-title">AI自動出題コーナー｜TG-WEB 計数ドリル</div>
         <div class="ai-head-sub">難易度を選んでAIが新問題を5問生成（何度でも可）</div>
       </div>
     </div>
@@ -440,14 +250,14 @@ function renderResult(){
   const correct=Object.values(answered).filter(a=>a.ok).length;
   const total=QS.length;
   const pct=Math.round(correct/total*100);
-  let emoji='😢',doshi='「間違えた問題の解説を読み返し、弱点を把握しましょう。」';
-  if(pct>=80){emoji='🏆';doshi='「素晴らしい！AI出題でさらに実力を磨きましょう！」';}
-  else if(pct>=60){emoji='😊';doshi='「あと一歩！解説をしっかり確認してください。」';}
-  else if(pct>=40){emoji='😅';doshi='「焦らず一問ずつ解説を読んで理解していこう。」';}
+  let emoji='😢',doshi='「間違えた問題の解説を読み返し、式の立て方から確認しよう。」';
+  if(pct>=80){emoji='🏆';doshi='「素晴らしい！AI出題でさらに実力を磨こう！」';}
+  else if(pct>=60){emoji='😊';doshi='「あと一歩！解き方のパターンをしっかり身につけよう。」';}
+  else if(pct>=40){emoji='😅';doshi='「解説を見て、式の立て方を確認してから再挑戦！」';}
   return `<div class="result">
     <div class="result-emoji">${emoji}</div>
     <div class="result-score">${correct}<span> / ${total}問</span></div>
-    <div class="result-pct" style="color:${pct>=60?'#2C5F2D':'#ef4444'}">${pct}%</div>
+    <div class="result-pct" style="color:${pct>=60?'#1e3a5f':'#ef4444'}">${pct}%</div>
     <div class="doshi"><span class="doshi-lbl">🔥 キャリ爺より</span><p>${doshi}</p></div>
     <button class="btn-retry" onclick="resetFixed()">🔄 もう一度解く</button>
   </div>`;
@@ -461,7 +271,7 @@ function render(){
   } else {
     html+=`<div style="font-size:11px;font-weight:700;color:var(--gray);letter-spacing:0.08em;margin:16px 0 10px;display:flex;align-items:center;gap:8px;">
       📝 問題を解いてみよう
-      <span style="flex:1;height:1px;background:#C8E6C9;display:block;"></span>
+      <span style="flex:1;height:1px;background:#BFDBFE;display:block;"></span>
     </div>`;
     html+=QS.map((q,i)=>renderCard(q,i,answered[i],false)).join('');
   }
@@ -486,14 +296,14 @@ function resetAll(){answered={};aiAnswered={};aiQs=[];render();updateScore();}
 
 async function generateAI(){
   const diffLabel=diff==='hard'?'難関（応用・高難度）':'普通（標準レベル）';
-  const sys=`あなたはTG-WEB試験の言語問題作成専門家です。就活生向けのTG-WEB言語問題（長文読解・趣旨把握・論理推論・空欄補充）を以下の難易度基準で5問作成してください。【普通】短めの文章・明確な主旨・選択肢の差がわかりやすいレベル。【難関】長文・抽象的な論旨・選択肢が紛らわしい・論理的に消去法が必要なレベル。必ずJSON形式のみで返答。形式：{"questions":[{"q":"問題文","c":["A","B","C","D"],"a":正解インデックス(0-3),"exp":"解説（80字以内）"}]}`;
+  const sys=`あなたは就職活動のTG-WEB計数問題（算数・数学的思考）の問題作成専門家です。鶴亀算・ニュートン算・数列・順列・組み合わせ・仕事算・濃度・速さ・比と割合などのTG-WEB頻出分野の問題を5問作成してください。【普通】2〜3ステップで解ける問題。【難関】複数条件の組み合わせ・4〜5ステップを要する問題。必ずJSON形式のみで返答。形式：{"questions":[{"q":"問題文","c":["A","B","C","D"],"a":正解インデックス(0-3),"exp":"解説（100字以内）"}]}`;
   const usr=`上記の難易度基準で${diffLabel}の問題を5問。必ずJSON形式のみで返答。他のテキスト一切不要。`;
   aiQs=[];aiAnswered={};aiLoading=true;render();
   let retryCount=0;
   const maxRetry=2;
   while(retryCount<=maxRetry){
     try{
-      const text=await callGemini(sys,usr);
+      const text=await callGroq(sys,usr);
       const match=text.match(/{[\s\S]*}/);
       if(!match) throw new Error('JSON_PARSE');
       const parsed=JSON.parse(match[0]);
